@@ -59,7 +59,7 @@ class PageData {
 const validateUpdateEntry = require("./validators/validateUpdateEntry");
 
 // This port is unique for this app only
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 const homePath = "./pages";
 let templatePath = "./views/pages/index.ejs";
