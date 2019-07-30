@@ -1,0 +1,3 @@
+function runBest() {
+	shouldRunBest = !shouldRunBest;
+}

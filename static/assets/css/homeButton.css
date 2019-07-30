@@ -1,0 +1,13 @@
+#homeButton {
+  text-align: center;
+  padding-right: 5rem;
+  padding-left: 6.7rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  letter-spacing: 1rem;
+}
+
+#homeButton:hover {
+  padding-top: 0.4rem;
+  padding-bottom: 0.6rem;
+}

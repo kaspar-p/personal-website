@@ -1,0 +1,39 @@
+.header {
+  margin: auto;
+  padding: 0;
+  background-color: white;
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+  margin: auto;
+  padding: 0;
+  letter-spacing: 1.5rem;
+}
+
+.verticalCenter {
+  position: fixed;
+  top: 55%;
+}
+
+li {
+  display: block;
+  padding-right: 5rem;
+  padding-left: 3rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin: 0;
+  letter-spacing: 0.5rem;
+  font-size: 2rem;
+}
+
+li:hover {
+  padding-top: 0.3rem;
+  padding-bottom: 0.7rem;
+}
+
+.customImg {
+  margin-left: 2rem;
+  margin-top: 1.5rem;
+}

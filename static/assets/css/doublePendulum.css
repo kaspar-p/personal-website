@@ -1,0 +1,48 @@
+#title {
+  margin: auto;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.textWrapper {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+img {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+a.colored {
+  color: #0645ad;
+}
+
+a.colored:hover {
+  color: #0645ad;
+  text-decoration: underline;
+}
+
+a.colored:visited {
+  color: #663366;
+}
+
+h3 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+p {
+  text-indent: 3rem;
+}
+
+#slider {
+  position: absolute;
+  width: 100%;
+}
+
+#sliderHolder {
+  top: 50%;
+  position: sticky;
+}

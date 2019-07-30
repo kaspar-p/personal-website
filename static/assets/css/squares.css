@@ -1,0 +1,17 @@
+.square {
+  position: fixed;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0, 0.8, 1, 0);
+  animation-name: squareAnim;
+  animation-direction: alternate;
+}
+
+@keyframes squareAnim {
+  from {
+    top: 110%;
+  }
+  to {
+    top: -10%;
+  }
+}
