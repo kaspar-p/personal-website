@@ -179,7 +179,7 @@ app.post("/api/newUpdate", async (req, res) => {
 // For getting data from github immediately, no waiting
 app.post("/api/fetchGithub", async (req, res) => {
   await pollGithubAndSave();
-  return res.json({ success: "Successfully got new commit data from Github!" });
+  return res.json({ success: "Successfully got data from Github!" });
 });
 
 // If the route does not begind with /api, return the HTML of the homepage
