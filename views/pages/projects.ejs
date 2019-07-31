@@ -2,8 +2,6 @@
 
 <link href="/assets/css/projects.css" rel="stylesheet" type="text/css" />
 
-<% include ../partials/homeButton %>
-
 <% const projects = { 
   doublePendulum: { 
     path: "/doublePendulum.ejs", 
@@ -34,6 +32,8 @@ $(document).ready(() => {
     );
 }); 
 </script>
+
+<%- include("../partials/homeButton", {title: " Projects"}) %>
 
 <div class="carouselWrapper carouselImgWrapper">
  <div id="carouselIndicators" class="carousel slide" data-ride="carousel">

@@ -5,8 +5,10 @@
 
 <link href="/assets/css/squares.css" rel="stylesheet" type="text/css" />
 
-<% for( let i = 0; i < 20; i++) { %>
-  <div class="square" style="left: <%= fromLeftOffset + i %>%; animation-delay: <%= (offset + rate * i) %>s">
-    <img class="customImg" src="/assets/images/blackSq.ico" height="50" width="50" />
-  </div>
-<% } %>
+<div class="squareWrapper">
+  <% for( let i = 0; i < 20; i++) { %>
+    <div class="square" style="left: <%= fromLeftOffset + i %>%; animation-delay: <%= (offset + rate * i) %>s">
+      <img class="customImg" src="/assets/images/blackSq.ico" height="50" width="50" />
+    </div>
+  <% } %>
+</div>

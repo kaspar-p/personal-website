@@ -4,7 +4,7 @@
 
 <% const { updates } = data; %>
 
-<% include ../partials/homeButton %>
+<%- include("../partials/homeButton.ejs", {title: "recent updates"}); %>
 
 <div class="container-fluid">
   <div class="custompadding row justify-content-center">

@@ -13,14 +13,7 @@
 
 <link href="/assets/css/doublePendulum.css" rel="stylesheet" type="text/css" />
 
-<div class="row">
-  <div class="col-3">
-    <% include ../partials/homeButton %>
-  </div>
-  <div class="col-auto">
-    <h1 id="title" class="montserrat-medium"> Double Pendulum Learning Simulation</h1>
-  </div>
-</div>
+<%- include("../partials/homeButton.ejs",{title:"Double Pendulum Learning Simulation"});%>
 
 <div class="row justify-content-center">
   <div id="sliderHolder"></div>

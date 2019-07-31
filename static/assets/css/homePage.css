@@ -37,3 +37,10 @@ li:hover {
   margin-left: 2rem;
   margin-top: 1.5rem;
 }
+
+@media (max-width: 600px) {
+  .verticalCenter {
+    position: relative;
+    overflow: scroll;
+  }
+}
