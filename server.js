@@ -176,6 +176,12 @@ app.post("/api/newUpdate", async (req, res) => {
   );
 });
 
+// For getting data from github immediately, no waiting
+app.post("/api/fetchGithub", async (req, res) => {
+  await pollGithubAndSave();
+  return res.json({ success: "Successfully got new commit data from Github!" });
+});
+
 // If the route does not begind with /api, return the HTML of the homepage
 app.get(/^(?!\/api\/)/, async (req, res) => {
   const lastCalled = await LastCalled.findOne();
@@ -199,7 +205,7 @@ app.get(/^(?!\/api\/)/, async (req, res) => {
   if (pathname[pathname.length - 1] === "/") {
     pathname += "index.ejs";
   }
-  
+
   // Will throw an exception if the page does not exist. If so, show them the 404 page
   try {
     templateString = fs.readFileSync(pathname, "utf-8");
