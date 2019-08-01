@@ -1,26 +1,32 @@
 .buttonsButton {
-  margin-top: 2.5rem;
-  margin-left: 1.5rem;
   text-align: center;
-  padding-right: 4.5rem;
-  padding-left: 6rem;
+  width: 100%;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  letter-spacing: 1rem;
+  letter-spacing: calc(0.8rem + 0.1vw); /*  From 0.8 - 1.0 */
+  font-size: calc(1.4rem + 0.3vw); /* from 1.5rem to 2.0rem */
 }
 
-.homeButton:hover {
-  margin-top: 2.5rem;
+.buttonsButton:hover {
   padding-top: 0.4rem;
   padding-bottom: 0.6rem;
 }
 
 #title {
-  margin: auto;
-  margin-top: 5rem;
+  margin-top: calc(4vw);
   margin-bottom: 2rem;
+  font-size: 230%;
 }
 
 .backButton {
   cursor: pointer;
+  padding-left: 2vw;
+}
+
+.homeButton {
+  padding-left: 2vw;
+}
+
+.headerWrapper {
+  margin-top: 2vw;
 }

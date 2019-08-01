@@ -2,16 +2,16 @@
 
 <link href="/assets/css/homeButton.css" rel="stylesheet" type="text/css" />
 
-<div class="row no-margin">
-  <div class="col-3 text-center">
-    <a href="../"><h1 class="hover-underline montserrat-medium fs-2rem buttonsButton">home</h1></a>
+<div class="row no-margin headerWrapper">
+  <div class="col-auto text-center">
+    <a href="../"><h1 class="montserrat-medium fs-2rem buttonsButton homeButton hover-underline">home</h1></a>
   </div>
     <div class="col text-center">
       <% if(typeof(title) !== 'undefined') { %>
         <h1 id="title" class="montserrat-medium"> <%= title %></h1>
       <% } %>
     </div>
-  <div class="col-3 text-center">
-    <a onclick="history.back(-1)"><h1 class="hover-underline montserrat-medium fs-2rem buttonsButton backButton">back</h1></a>
+  <div class="col-auto text-center">
+    <a onclick="history.back(-1)"><h1 class="montserrat-medium fs-2rem buttonsButton backButton hover-underline">back</h1></a>
   </div>
 </div>
