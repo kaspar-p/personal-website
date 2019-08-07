@@ -4,33 +4,40 @@
 
 <% const projects = { 
   doublePendulum: { 
-    path: "/doublePendulum.ejs", 
+    path: "/double-pendulum.ejs", 
     description: "Double Pendulum Learning Simulation", 
     imagePath: "doublePendulum/headliner.png",
   }, 
+  RSessay: {
+    path: "/reed-solomon.ejs",
+    description: "On the Construction of Reed-Solomon Codes",
+    imagePath: "reed-solomon/headliner.png",
+  },
 }; %>
 
 <script>
-$(document).ready(() => {
-  $(".carouselImgWrapper")
-    .mouseover(
-      function() {
-        const img = $(this).find("img");
-        const oldSrc = $(img).attr("src")
-        const newSrc = oldSrc.slice(0, oldSrc.length - 4) + "_hover.png";
-        console.log(newSrc);
-        $(img).attr("src", newSrc);
-      }
-    ) 
-    .mouseout(
-      function() {
-        const img = $(this).find("img");
-        const oldSrc = $(img).attr("src")
-        const newSrc = oldSrc.split("_")[0] + ".png";
-        $(img).attr("src", newSrc);
-      }
-    );
-}); 
+
+  const getImg = currentScope => $(currentScope).find("a.active").find("img");
+
+  const getOldSrc = img => $(img).attr("src");
+
+  $(document).ready(() => {
+    $(".carouselImgWrapper")
+      .mouseover(
+        function() {
+          const img = getImg(this);
+          const newSrc = getOldSrc(img).slice(0, getOldSrc(img).length - 4) + "_hover.png";
+          $(img).attr("src", newSrc);
+        }
+      ) 
+      .mouseout(
+        function() {
+          const img = getImg(this);
+          const newSrc = getOldSrc(img).split("_")[0] + ".png";
+          $(img).attr("src", newSrc);
+        }
+      );
+  }); 
 </script>
 
 <%- include("../partials/homeButton", {title: "projects"}) %>
@@ -51,14 +58,14 @@ $(document).ready(() => {
       <% const project = projects[Object.keys(projects)[i]]; %>
       <% if (i === 0) { %>
         <a class="carousel-item active" href="<%= project.path %>">
-          <img class="d-block w-100" src="/assets/images/<%=project.imagePath%>" alt="Project #<%= i + 1 %>">
+          <img class="d-block w-100" src="/assets/images/<%= project.imagePath %>" alt="Project #<%= i + 1 %>">
           <div class="carousel-caption d-none d-md-block">
             <h5><%= project.description %></h5>
           </div>
         </a>
       <% } else { %>
         <a class="carousel-item" href="<%= project.path %>">
-          <img class="d-block w-100" src="/assets/images/<%=project.imagePath%>" alt="Project #<%= i + 1 %>">
+          <img class="d-block w-100" src="/assets/images/<%= project.imagePath %>" alt="Project #<%= i + 1 %>">
           <div class="carousel-caption d-none d-md-block">
             <h5><%= project.description %></h5>
           </div>

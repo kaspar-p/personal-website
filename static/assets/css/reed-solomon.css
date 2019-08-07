@@ -1,0 +1,30 @@
+form {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.textWrapper {
+  margin-bottom: 5rem;
+}
+
+a.colored {
+  color: #0645ad;
+}
+
+a.colored:hover {
+  color: #0645ad;
+  text-decoration: underline;
+}
+
+a.colored:visited {
+  color: #663366;
+}
+
+h3 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+p {
+  text-indent: 3rem;
+}
