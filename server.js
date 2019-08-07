@@ -5,6 +5,8 @@ const url = require("url");
 const axios = require("axios");
 const mongoose = require("mongoose");
 const ejs = require("ejs");
+const childProcess = require("child_process");
+const fs = require("fs");
 
 const Update = require("./schemas/updateSchema");
 const Commit = require("./schemas/commitSchema");
@@ -61,11 +63,6 @@ const validateUpdateEntry = require("./validators/validateUpdateEntry");
 // This port is unique for this app only
 const PORT = process.env.PORT || 8080;
 
-const homePath = "./pages";
-let templatePath = "./views/pages/index.ejs";
-const fs = require("fs");
-let templateString = fs.readFileSync(templatePath, "utf-8");
-
 app.set("view engine", "ejs");
 
 app.use(express.static(__dirname + "/static"));
@@ -96,11 +93,51 @@ try {
   console.log("Database connection not established! Error!");
 }
 
-const homeData = new PageData(homePath, ["updates"]);
+const homeData = new PageData("./pages", ["updates"]);
 
 app.listen(PORT, () => console.log(`Server running successfully at port: ${PORT}`));
 
 // ROUTING
+
+// If the route does not begind with /api, return the HTML of the homepage
+app.get(/^(?!\/api\/)/, async (req, res) => {
+  const lastCalled = await LastCalled.findOne();
+
+  if (await shouldPollGithub(lastCalled)) {
+    console.log("Requesting data from Github!");
+    await pollGithubAndSave();
+  } else {
+    console.log(`Not polling github - too soon! Will request data again tomorrow!`);
+  }
+
+  const updates = await Update.find()
+    .sort({ date: -1 })
+    .then(updates => updates);
+
+  homeData.fillData("updates", updates);
+
+  let pageURL = url.parse(req.url, true);
+  let pathname = "views/pages" + pageURL.pathname;
+  if (pathname[pathname.length - 1] === "/") {
+    pathname += "index.ejs";
+  }
+
+  // Will throw an exception if the page does not exist. If so, show them the 404 page
+  try {
+    templateString = fs.readFileSync(pathname, "utf-8");
+  } catch (e) {
+    pathname = "views/pages/notfound.ejs";
+    templateString = fs.readFileSync(pathname, "utf-8");
+  }
+
+  return res.end(
+    ejs.render(templateString, {
+      ...homeData,
+      filename: pathname,
+      newData: "This is a enw data",
+    })
+  );
+});
 
 // For updating the list continuously and programmatically
 app.get("/api/updates", async (req, res) => {
@@ -109,7 +146,6 @@ app.get("/api/updates", async (req, res) => {
   return res.end(
     ejs.render(templateString, {
       ...homeData,
-      filename: templatePath,
     })
   );
 });
@@ -121,6 +157,21 @@ app.post("/api/newLastCalled", async (req, res) => {
   });
   await lastCalled.save();
   return res.json({ success: "This post request was a success!" });
+});
+
+// For the Reed-Solomon encoder/decoder in projects
+app.post("/api/getRSData", async (req, res) => {
+  const { message } = req.body;
+  console.log("Message: " + message);
+
+  // Begin the child process
+  const java = childProcess.exec('cd static/assets/code && java qrcode/Main ' + message, (err, stdout, stderr) => {
+    if (err) console.log(err);
+    if (stderr) console.log(stderr.toString());
+
+    // Return the data back to the page that wanted it
+    return res.send({ data: stdout.split("\n").slice(0, -1) });
+  });
 });
 
 // Test GET method
@@ -142,7 +193,6 @@ app.post("/api/testNewUpdate", async (req, res) => {
   return res.end(
     ejs.render(templateString, {
       ...homeData,
-      filename: templatePath,
     })
   );
 });
@@ -168,10 +218,10 @@ app.post("/api/newUpdate", async (req, res) => {
   };
 
   await newUpdate.save().then(savedUpdate => savedUpdate);
+
   return res.end(
     ejs.render(templateString, {
       ...homeData,
-      filename: templatePath,
     })
   );
 });
@@ -179,47 +229,7 @@ app.post("/api/newUpdate", async (req, res) => {
 // For getting data from github immediately, no waiting
 app.post("/api/fetchGithub", async (req, res) => {
   await pollGithubAndSave();
-  return res.json({ success: "Successfully got data from Github!" });
-});
-
-// If the route does not begind with /api, return the HTML of the homepage
-app.get(/^(?!\/api\/)/, async (req, res) => {
-  const lastCalled = await LastCalled.findOne();
-
-  if (await shouldPollGithub(lastCalled)) {
-    console.log("Requesting data from Github!");
-    await pollGithubAndSave();
-  } else {
-    console.log(`Not polling github - too soon! Will request data again tomorrow!`);
-  }
-
-  const updates = await Update.find()
-    .sort({ date: -1 })
-    .then(updates => updates);
-
-  homeData.fillData("updates", updates);
-
-  let pageURL = url.parse(req.url, true);
-  let pathname = "views/pages" + pageURL.pathname;
-
-  if (pathname[pathname.length - 1] === "/") {
-    pathname += "index.ejs";
-  }
-
-  // Will throw an exception if the page does not exist. If so, show them the 404 page
-  try {
-    templateString = fs.readFileSync(pathname, "utf-8");
-  } catch (e) {
-    pathname = "views/pages/notfound.ejs";
-    templateString = fs.readFileSync(pathname, "utf-8");
-  }
-
-  res.end(
-    ejs.render(templateString, {
-      ...homeData,
-      filename: templatePath,
-    })
-  );
+  return res.send({ success: "Successfully got data from Github!" });
 });
 
 // For checking whether a certain commit has already been in the DB
