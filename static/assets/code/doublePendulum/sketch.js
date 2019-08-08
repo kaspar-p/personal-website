@@ -99,25 +99,25 @@ function draw() {
     timeStep++;
   }
 
-  //the entire GUI function, deals with all of the drawing
-  //not in the for loop because the display doesn't need to be sped up
-  //just the computation
+  // The entire GUI function, deals with all of the drawing
+  // Not in the for loop because the display doesn't need to be sped up
+  // Just the computation
   displayAll();
 }
 
 function displayAll() {
-  //the display functions
+  // The display functions
   stroke(255);
   strokeWeight(3);
   line(-width / 2, 0, width / 2, 0);
 
-  //display the controllers
+  // Display the controllers
   for (c of controllers) {
     strokeWeight(1);
     c.display();
   }
 
-  //the generation counter above the controllers
+  // The generation counter above the controllers
   fill(255);
   noStroke();
   textAlign(RIGHT, BOTTOM);
