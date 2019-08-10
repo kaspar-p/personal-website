@@ -2,13 +2,54 @@
 
 <link href="/assets/css/updates.css" rel="stylesheet" type="text/css" />
 
-<% const { updates } = data; %>
+<script>
+  $(document).ready(() => {
+    
+    function fillTable(tableData) {
+        const rowLength = 4;
+        // Looping over the rows
+        for (rowData of tableData) {
+          const row = document.createElement('tr');
+          
+          // To create the number down the side
+          const rowNumber = document.createElement("th");
+          rowNumber.appendChild(document.createTextNode(tableData.indexOf(rowData) + 1));
+          row.appendChild(rowNumber);
+
+          // Fill each cell in this table with the respective data
+          const keys = ["title", "date", "desc"]
+          for (let i = 0; i < rowLength - 1; i++) {
+            const currentKey = keys[i];
+            const cell = document.createElement('td');
+
+            cell.appendChild(document.createTextNode(rowData[currentKey]));
+            row.appendChild(cell);
+          }
+
+          document.getElementById("tableBody").appendChild(row);
+        }
+
+        table.appendChild(tableBody);
+        const holder = document.getElementById("tableHolder");
+        holder.appendChild(table);
+    }
+
+    $
+      .ajax({ 
+        method: "GET", 
+        url: "/api/updates",
+      })
+      .always(({ data }) => fillTable(data));
+  });
+</script>
 
 <%- include("../partials/homeButton.ejs", {title: "recent updates"}); %>
 
+<p id="yy" style="display:none"></p>
+<% const updates = 2; %>
 <div class="container-fluid">
   <div class="custompadding row justify-content-center">
-    <div class="col-7 text-center">
+    <div id="tableHolder" class="col-7 text-center">
       <table class="table table-hover updateList text-center">
         <thead>
           <tr align="center">
@@ -18,18 +59,7 @@
             <th scope="col">Some details</th>
           </tr>
         </thead>
-        <tbody>
-          <% if (updates != null) { %>
-            <% for(let i = 0; i < updates.length; i++) { %>
-              <% const item = updates[i]; %>
-              <tr> 
-                <th class="text-center"><%= i + 1%></th>
-                <td class="text-left"><%= item.title %></td>
-                <td class="text-center"><%= item.date.toLocaleDateString() %></td>
-                <td class="text-left"><%= item.desc%></td>
-              </tr>
-            <% } %>
-          <% } %>
+        <tbody id="tableBody">
         </tbody>
       </table>
     </div>
