@@ -7,64 +7,21 @@ const mongoose = require("mongoose");
 const ejs = require("ejs");
 const childProcess = require("child_process");
 const fs = require("fs");
+require('dotenv').config();
 
 const Update = require("./schemas/updateSchema");
 const Commit = require("./schemas/commitSchema");
-const LastCalledSchema = mongoose.Schema(
-  {
-    lastCalled: {
-      required: true,
-      type: Date,
-      default: null,
-    },
-  },
-  { strict: false }
-);
-const LastCalled = mongoose.model("LastCalled", LastCalledSchema);
-
-const p = "326e644b696421216973636f6f6c477579";
-
-// TODO move to file and make cleaner
-class PageData {
-  // Quality of life variables
-
-  constructor(pagePath, keyList) {
-    this.path = pagePath;
-    this.data = {};
-    this.options = {
-      writable: true,
-      configurable: true,
-      enumerable: true,
-    };
-
-    // init all of the data to null - for page loading
-    for (let key of keyList) {
-      Object.defineProperty(this.data, key, {
-        value: null,
-        ...this.options,
-      });
-    }
-  }
-
-  addData(newObj) {
-    this.objects.push(newObj);
-  }
-
-  fillData(key, value) {
-    Object.defineProperty(this.data, key, {
-      value,
-      ...this.options,
-    });
-  }
-}
+const LastCalled = require("./schemas/lastCalledSchema")
 
 const validateUpdateEntry = require("./validators/validateUpdateEntry");
 
-// This port is unique for this app only
+// Using the || because deployment apps will inject a port, and 8080 is for development
 const PORT = process.env.PORT || 8080;
 
+// For easy rendering for server file serving
 app.set("view engine", "ejs");
 
+// For nice URL referencing within the .ejs files
 app.use(express.static(__dirname + "/static"));
 app.use(
   bodyparser.urlencoded({
@@ -72,28 +29,16 @@ app.use(
   })
 );
 
-const fn = p => {
-  var hex = p.toString();
-  var str = "";
-  for (var n = 0; n < hex.length; n += 2) {
-    str += String.fromCharCode(parseInt(hex.substr(n, 2), 16));
-  }
-  return str;
-};
-
-// DATABASE
-const MONGODB_URL = `mongodb+srv://kaspar78:${fn(p)}@cluster0-rkk73.gcp.mongodb.net/test?retryWrites=true&w=majority`;
+// DATABASE INITIALIZATION
 try {
-  mongoose.connect(MONGODB_URL, {
+  mongoose.connect(process.env.DB_URL, {
     useNewUrlParser: true,
   });
 
   console.log("Database securely connected");
 } catch {
-  console.log("Database connection not established! Error!");
+  console.log("Database connection not established! Error occurred!");
 }
-
-const homeData = new PageData("./pages", ["updates"]);
 
 app.listen(PORT, () => console.log(`Server running successfully at port: ${PORT}`));
 
@@ -103,6 +48,7 @@ app.listen(PORT, () => console.log(`Server running successfully at port: ${PORT}
 app.get(/^(?!\/api\/)/, async (req, res) => {
   const lastCalled = await LastCalled.findOne();
 
+  // Decides whether the daily Github request should be performed
   if (await shouldPollGithub(lastCalled)) {
     console.log("Requesting data from Github!");
     await pollGithubAndSave();
@@ -110,19 +56,14 @@ app.get(/^(?!\/api\/)/, async (req, res) => {
     console.log(`Not polling github - too soon! Will request data again tomorrow!`);
   }
 
-  const updates = await Update.find()
-    .sort({ date: -1 })
-    .then(updates => updates);
-
-  homeData.fillData("updates", updates);
-
+  // Change things from /path-url.ejs to the real path i.e. views/pages/path-url.ejs
   let pageURL = url.parse(req.url, true);
   let pathname = "views/pages" + pageURL.pathname;
   if (pathname[pathname.length - 1] === "/") {
     pathname += "index.ejs";
   }
 
-  // Will throw an exception if the page does not exist. If so, show them the 404 page
+  // Will show the the 404 page if the page does not exist
   try {
     templateString = fs.readFileSync(pathname, "utf-8");
   } catch (e) {
@@ -132,22 +73,19 @@ app.get(/^(?!\/api\/)/, async (req, res) => {
 
   return res.end(
     ejs.render(templateString, {
-      ...homeData,
       filename: pathname,
       newData: "This is a enw data",
     })
   );
 });
 
-// For updating the list continuously and programmatically
+// Gets updates when the 'recent updates' page is visited
 app.get("/api/updates", async (req, res) => {
-  const updates = await Update.find().then(updates => updates);
-  homeData.fillData("updates", updates);
-  return res.end(
-    ejs.render(templateString, {
-      ...homeData,
-    })
-  );
+  const updates = await Update.find()
+    .sort({ date: -1 })
+    .then(updates => updates);
+
+  return res.send({ data: updates });
 });
 
 // One time post request for saving a new last called into the DB
@@ -161,42 +99,32 @@ app.post("/api/newLastCalled", async (req, res) => {
 
 // For the Reed-Solomon encoder/decoder in projects
 app.post("/api/getRSData", async (req, res) => {
-  const { message } = req.body;
-  console.log("Message: " + message);
 
-  // Begin the child process
-  const java = childProcess.exec('cd static/assets/code && java qrcode/Main ' + message, (err, stdout, stderr) => {
+  // Run the java program
+  childProcess.exec('cd static/assets/code && java qrcode/Main ' + req.body.message, (err, stdout, stderr) => {
     if (err) console.log(err);
     if (stderr) console.log(stderr.toString());
-
+    const dataArray = stdout.split("\n").slice(0, -1);
     // Return the data back to the page that wanted it
-    return res.send({ data: stdout.split("\n").slice(0, -1) });
+    return res.send({ data: dataArray });
   });
 });
 
 // Test GET method
 app.get("/api/test", (req, res) => {
   return res.json({
-    success: "This test returned successfully!!",
+    success: "This GET test returned successfully!!",
   });
 });
 
-app.post("/api/testNewUpdate", async (req, res) => {
-  const allUpdates = await Update.find().then(updates => updates);
-  const newBody = {
-    ...req.body,
-    updateNumber: allUpdates.length + 1,
-  };
-
-  const data = new Update(newBody);
-  await data.save();
-  return res.end(
-    ejs.render(templateString, {
-      ...homeData,
-    })
-  );
+// Test POST method
+app.post("/api/test", (req, res) => {
+  return res.json({
+    success: "This POST test returned successfully!!",
+  });
 });
 
+// Create a new update through Postman - validation included
 app.post("/api/newUpdate", async (req, res) => {
   const data = JSON.parse(req.body);
 
@@ -208,28 +136,20 @@ app.post("/api/newUpdate", async (req, res) => {
     });
   }
 
-  const { title, desc } = data;
-
   const newUpdate = {
-    title,
-    desc,
+    ...data,
     date: new Date().toLocaleDateString(),
-    udpateNumber: 2,
   };
 
-  await newUpdate.save().then(savedUpdate => savedUpdate);
+  await newUpdate.save();
 
-  return res.end(
-    ejs.render(templateString, {
-      ...homeData,
-    })
-  );
+  return res.json({ success: "New update created!" });
 });
 
-// For getting data from github immediately, no waiting
+// To fetch commit data from Github immediately. Does not wait for day-reset.
 app.post("/api/fetchGithub", async (req, res) => {
   await pollGithubAndSave();
-  return res.send({ success: "Successfully got data from Github!" });
+  return res.send({ success: "Successfully fetched data from Github!" });
 });
 
 // For checking whether a certain commit has already been in the DB
@@ -246,6 +166,7 @@ const checkChanges = (url, commits) => {
   return false;
 };
 
+// Boolean to decide whether it is a new day
 const shouldPollGithub = async lastCalled => {
   if (!lastCalled || lastCalled.lastCalled.toLocaleDateString() !== new Date().toLocaleDateString()) {
     // For Github only to be requested once per day. This should stop the massive amount of requesting, and keeps us under the rate_limit.
@@ -257,6 +178,7 @@ const shouldPollGithub = async lastCalled => {
   }
 };
 
+// Big function to fetch the Github commit data, and save it using the commit schema
 const pollGithubAndSave = async () => {
   let numUpdates = await Update.countDocuments().then(count => count);
 
