@@ -18,10 +18,6 @@ a.colored:hover {
   text-decoration: underline;
 }
 
-a.colored:visited {
-  color: #663366;
-}
-
 h3 {
   padding-top: 1rem;
   padding-bottom: 1rem;

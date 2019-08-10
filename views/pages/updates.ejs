@@ -5,8 +5,9 @@
 <script>
   $(document).ready(() => {
     
+    // Using the AJAX data, fill the table skeleton HTML
     function fillTable(tableData) {
-        const rowLength = 4;
+
         // Looping over the rows
         for (rowData of tableData) {
           const row = document.createElement('tr');
@@ -18,20 +19,21 @@
 
           // Fill each cell in this table with the respective data
           const keys = ["title", "date", "desc"]
-          for (let i = 0; i < rowLength - 1; i++) {
+          for (let i = 0; i < keys.length; i++) {
             const currentKey = keys[i];
             const cell = document.createElement('td');
 
-            cell.appendChild(document.createTextNode(rowData[currentKey]));
+            // To change from weird dates to a simple format - date only
+            let cellData = rowData[currentKey];
+            if(currentKey === "date") cellData = (new Date(cellData)).toLocaleDateString();
+            
+            // Apply the cells to the entire row
+            cell.appendChild(document.createTextNode(cellData));
             row.appendChild(cell);
           }
 
           document.getElementById("tableBody").appendChild(row);
         }
-
-        table.appendChild(tableBody);
-        const holder = document.getElementById("tableHolder");
-        holder.appendChild(table);
     }
 
     $
@@ -45,11 +47,9 @@
 
 <%- include("../partials/homeButton.ejs", {title: "recent updates"}); %>
 
-<p id="yy" style="display:none"></p>
-<% const updates = 2; %>
 <div class="container-fluid">
   <div class="custompadding row justify-content-center">
-    <div id="tableHolder" class="col-7 text-center">
+    <div class="col-lg-7 col-md-10 col-sm-12 text-center">
       <table class="table table-hover updateList text-center">
         <thead>
           <tr align="center">

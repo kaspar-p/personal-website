@@ -44,12 +44,11 @@ app.listen(PORT, () => console.log(`Server running successfully at port: ${PORT}
 
 // ROUTING
 
-// If the route does not begind with /api, return the HTML of the homepage
+// If the route does not begind with /api, return the HTML of the page requested
 app.get(/^(?!\/api\/)/, async (req, res) => {
-  const lastCalled = await LastCalled.findOne();
 
   // Decides whether the daily Github request should be performed
-  if (await shouldPollGithub(lastCalled)) {
+  if (await shouldPollGithub()) {
     console.log("Requesting data from Github!");
     await pollGithubAndSave();
   } else {
@@ -74,7 +73,6 @@ app.get(/^(?!\/api\/)/, async (req, res) => {
   return res.end(
     ejs.render(templateString, {
       filename: pathname,
-      newData: "This is a enw data",
     })
   );
 });
@@ -167,7 +165,9 @@ const checkChanges = (url, commits) => {
 };
 
 // Boolean to decide whether it is a new day
-const shouldPollGithub = async lastCalled => {
+const shouldPollGithub = async () => {
+  const lastCalled = await LastCalled.findOne();
+
   if (!lastCalled || lastCalled.lastCalled.toLocaleDateString() !== new Date().toLocaleDateString()) {
     // For Github only to be requested once per day. This should stop the massive amount of requesting, and keeps us under the rate_limit.
     lastCalled.lastCalled = new Date();
