@@ -6,12 +6,6 @@
 <script>
   let callBackend;
 
-  const successCallback = data => {
-    successData = data;
-    console.log("success callback");
-    console.log(data);
-  }
-
   $(document).ready(() => {
     callBackend = () => {
       const message = $("#messageInput").val();
