@@ -40,45 +40,46 @@
 </script>
 
 <div class="row justify-content-center">
-  <div class="col-7 col-lg-7 col-md-10 col-sm-10 textWrapper">
+  <div class="col-11 col-lg-7 col-md-10 col-sm-10 textWrapper">
     <form class="text-right">
 
       <div class="form-group row">
-        <label id="messageField" for="messageInput" class="col-sm-4 col-form-label">Message</label>
-        <div class="col-sm-5">
+        <label id="messageField" for="messageInput" class="col-4 col-form-label">Message</label>
+        <div class="col-5">
           <input type="text" class="form-control-plaintext" id="messageInput" value="Change this text!">
         </div>
-        <input type="button" id="RSButton" onclick="callBackend()" class="btn btn-primary mb-2 col-sm-2 montserrat-medium" value="Encode" />
+        <input type="button" id="RSButton" onclick="callBackend()" class="btn btn-primary mb-2 col-2 montserrat-medium" value="Encode" />
       </div>
 
       <div class="form-group row">
-        <label for="staticEncoded" class="col-sm-4 col-form-label">Encoded Message</label>
-        <div class="col-sm-8">
+        <label for="staticEncoded" class="col-4 col-form-label">Encoded Message</label>
+        <div class="col-8">
           <input type="text" disabled class="form-control" id="staticEncoded" placeholder="">
         </div>
       </div>
 
       <div class="form-group row">
-        <label for="staticErrors" class="col-sm-4 col-form-label"># of correctable errors</label>
-        <div class="col-sm-8">
+        <label for="staticErrors" class="col-4 col-form-label"># of correctable errors</label>
+        <div class="col-8">
           <input type="text" disabled class="form-control" id="staticErrors" placeholder="">
         </div>
       </div>
 
       <div class="form-group row">
-        <label for="staticEncoded" class="col-sm-4 col-form-label">Corrupted Message</label>
-        <div class="col-sm-8">
+        <label for="staticEncoded" class="col-4 col-form-label">Corrupted Message</label>
+        <div class="col-8">
           <input type="text" disabled class="form-control" id="staticCorrupted" placeholder="">
         </div>
       </div>
 
       <div class="form-group row">
-        <label for="staticDecoded" class="col-sm-4 col-form-label">Decoded Message</label>
-        <div class="col-sm-8">
+        <label for="staticDecoded" class="col-4 col-form-label">Decoded Message</label>
+        <div class="col-8">
           <input type="text" disabled class="form-control" id="staticDecoded" placeholder="">
         </div>
       </div>
     </form>
+
     <h3 class="montserrat-light">What is this page?</h3>
     <p> Above is an example of a Reed-Solomon Encoder and Decoder. It uses the Berlekamp-Massey Algorithm to decode Reed-Solomon codes. An RS encoder/decoder is a way to protect data from any type of corruption. That may be the static through the phone, or the natural imperfections of the wires we use to transmit digital data. I conceptualized/planned this for my AP Computer Science Principles Class in April of 2018, and finally built it in December 2019 and January 2019.</p>
 
