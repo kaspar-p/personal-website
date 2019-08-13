@@ -42,7 +42,8 @@
 <div class="row justify-content-center">
   <div class="col-11 col-lg-7 col-md-10 col-sm-10 textWrapper">
     <form class="text-right">
-
+      
+      <hr />
       <div class="form-group row">
         <label id="messageField" for="messageInput" class="col-4 col-form-label">Message</label>
         <div class="col-5">
@@ -51,6 +52,7 @@
         <input type="button" id="RSButton" onclick="callBackend()" class="btn btn-primary mb-2 col-2 montserrat-medium" value="Encode" />
       </div>
 
+      <hr />
       <div class="form-group row">
         <label for="staticEncoded" class="col-4 col-form-label">Encoded Message</label>
         <div class="col-8">
@@ -58,6 +60,7 @@
         </div>
       </div>
 
+      <hr />
       <div class="form-group row">
         <label for="staticErrors" class="col-4 col-form-label"># of correctable errors</label>
         <div class="col-8">
@@ -65,6 +68,7 @@
         </div>
       </div>
 
+      <hr />
       <div class="form-group row">
         <label for="staticEncoded" class="col-4 col-form-label">Corrupted Message</label>
         <div class="col-8">
@@ -72,12 +76,14 @@
         </div>
       </div>
 
+      <hr />
       <div class="form-group row">
         <label for="staticDecoded" class="col-4 col-form-label">Decoded Message</label>
         <div class="col-8">
           <input type="text" disabled class="form-control" id="staticDecoded" placeholder="">
         </div>
       </div>
+      <hr />
     </form>
 
     <h3 class="montserrat-light">What is this page?</h3>
@@ -93,7 +99,11 @@
     <p> This program is one of the least exciting I've ever written. Simply type some characters into the message field, press the button, and witness the algorithm work. You could learn more about it, though. I've written a very long paper explaining how someone can construct a Reed-Solomon code, and use this technique themselves.</p>
     
     <br />
-    <a href="/reed-solomon-paper.ejs"><h1 class="montserrat-medium hover-underline">read the paper</h1></a>
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <a href="/reed-solomon-paper.ejs"><h1 class="montserrat-medium hover-underline reed-solomon-paper-link">read the paper</h1></a>
+      </div>
+    </div>
   </div>
 
 </div>
