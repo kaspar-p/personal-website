@@ -28,3 +28,15 @@ h3 {
 p {
   text-indent: 3rem;
 }
+
+.reed-solomon-paper-link {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+
+.reed-solomon-paper-link:hover {
+  padding-top: 0rem;
+  padding-bottom: 1rem;
+}
