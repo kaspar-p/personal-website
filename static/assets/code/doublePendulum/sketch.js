@@ -120,7 +120,7 @@ function draw() {
 function displayAll() {
   // The display functions
   stroke(255);
-  strokeWeight(3);
+  strokeWeight(map(size, 200, 600, 0.5, 3));
   line(0, size / 2, width, size / 2);
 
   // Display the controllers
