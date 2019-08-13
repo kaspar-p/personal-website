@@ -5,11 +5,13 @@
   text-align: center;
 }
 
-h1 {
+.homePageTitle {
   text-align: center;
-  margin: auto;
+  margin: 0;
   padding: 0;
   letter-spacing: 1.5rem;
+  font-size: 5rem;
+  text-align: left;
 }
 
 .verticalCenter {
@@ -28,6 +30,15 @@ li {
   font-size: 2rem;
 }
 
+.pageDivider {
+  padding: 0;
+  margin: 0;
+}
+
+.showForSmallScreen {
+  display: none;
+}
+
 li:hover {
   padding-top: 0.0rem;
   padding-bottom: 1rem;
@@ -42,5 +53,22 @@ li:hover {
   .verticalCenter {
     position: relative;
     overflow: scroll;
+  }
+
+  .showForSmallScreen {
+    display: block;
+  }
+
+  .pageLink {
+    font-size: 1.5rem;
+  }
+
+  ul {
+    padding: 0;
+  }
+
+  .homePageTitle {
+    font-size: 3rem;
+    letter-spacing: 1rem;
   }
 }
