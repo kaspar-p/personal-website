@@ -11,6 +11,8 @@ function Controller(passedBrain = null) {
 	let l1 = 0.5; //length of pole, but only half
 	let l2 = 0.5; //length of pole, but only half
 
+	let radius = size / 6;
+
 	//the time between every timestep
 	let dt = 0.02;
 
@@ -42,12 +44,12 @@ function Controller(passedBrain = null) {
 	//cannot simply be "born rich"
 	this.state = [random(-2, 2), random(-1, 1), random(-1.9, 1.9), random(-1, 1), random(-1.9, 1.9), random(-1, 1)];
 
-	this.copy = function() {
+	this.copy = function () {
 		return new Controller(this.brain);
 	}
 
 	//a function that actually makes the prediction from the NN
-	this.chooseAction = function() {
+	this.chooseAction = function () {
 		//make an empty array
 		let inputs = [];
 
@@ -78,7 +80,7 @@ function Controller(passedBrain = null) {
 	}
 
 	//the big called function, connects everything
-	this.update = function() {
+	this.update = function () {
 		//a number that ranges from -10 to 10 representing force
 		let action = this.chooseAction();
 
@@ -86,11 +88,11 @@ function Controller(passedBrain = null) {
 		this.score++;
 	}
 
-	this.display = function() {
+	this.display = function () {
 		state = this.state;
 
-		let cart_x = state[0] * 5;
-		let cart_y = 0;
+		let cart_x = size / 2 + state[0] * 5;
+		let cart_y = size / 2;
 
 		let theta1 = state[2];
 		let theta2 = state[4];
@@ -98,16 +100,16 @@ function Controller(passedBrain = null) {
 		let offset = 3 * PI / 2;
 
 		//polar to cartesian conversion
-		let pole1_x = cart_x + 100 * l1 * cos(theta1 + offset);
-		let pole1_y = cart_y + 100 * l1 * sin(theta1 + offset);
+		let pole1_x = cart_x + radius * l1 * cos(theta1 + offset);
+		let pole1_y = cart_y + radius * l1 * sin(theta1 + offset);
 
-		let pole2_x = pole1_x + 100 * l2 * cos(theta2 + offset);
-		let pole2_y = pole1_y + 100 * l2 * sin(theta2 + offset);
+		let pole2_x = pole1_x + radius * l2 * cos(theta2 + offset);
+		let pole2_y = pole1_y + radius * l2 * sin(theta2 + offset);
 
 		//cart
 		rectMode(CENTER);
 		fill(47, 73, 114);
-		rect(cart_x, 0, 60, 15);
+		rect(cart_x, size / 2, size / 10, size / 40);
 
 		//first pole, cart to joint
 		line(cart_x, cart_y, pole1_x, pole1_y);
@@ -115,17 +117,17 @@ function Controller(passedBrain = null) {
 		//joint
 		fill(0);
 		fill(209, 132, 16);
-		ellipse(pole1_x, pole1_y, 10);
+		ellipse(pole1_x, pole1_y, size / 60);
 
 		//second pole, joint to bob
 		line(pole1_x, pole1_y, pole2_x, pole2_y);
 
 		//bob
 		fill(209, 132, 16);
-		ellipse(pole2_x, pole2_y, 10);
+		ellipse(pole2_x, pole2_y, size / 60);
 	}
 
-	this.runDoublePhysics = function(action) {
+	this.runDoublePhysics = function (action) {
 		//these are used in the big equations, so they start as 0
 		let x_double_dot = 0;
 		let theta1_double_dot = 0;
@@ -167,25 +169,25 @@ function Controller(passedBrain = null) {
 
 		//the three equations of motion, each solved for their respective parts
 		x_double_dot = (
-				(h2 * theta1_dot * theta1_dot * sin(theta1)) +
-				(h3 * theta2_dot * theta2_dot * sin(theta2)) +
-				(force) -
-				(h2 * theta1_double_dot * cos(theta1)) -
-				(h3 * theta2_double_dot * cos(theta2))) /
+			(h2 * theta1_dot * theta1_dot * sin(theta1)) +
+			(h3 * theta2_dot * theta2_dot * sin(theta2)) +
+			(force) -
+			(h2 * theta1_double_dot * cos(theta1)) -
+			(h3 * theta2_double_dot * cos(theta2))) /
 			(h1);
 
 		theta1_double_dot = (
-				(h7 * sin(theta1)) -
-				(h5 * theta2_dot * theta2_dot * sin(theta1 - theta2)) -
-				(h2 * cos(theta1) * x_double_dot) -
-				(h5 * cos(theta1 - theta2) * theta2_double_dot)) /
+			(h7 * sin(theta1)) -
+			(h5 * theta2_dot * theta2_dot * sin(theta1 - theta2)) -
+			(h2 * cos(theta1) * x_double_dot) -
+			(h5 * cos(theta1 - theta2) * theta2_double_dot)) /
 			(h4);
 
 		theta2_double_dot = (
-				(h5 * theta1_dot * theta1_dot * sin(theta1 - theta2)) +
-				(h8 * sin(theta2)) -
-				(h3 * cos(theta2) * x_double_dot) -
-				(h5 * cos(theta1 - theta2) * theta1_double_dot)) /
+			(h5 * theta1_dot * theta1_dot * sin(theta1 - theta2)) +
+			(h8 * sin(theta2)) -
+			(h3 * cos(theta2) * x_double_dot) -
+			(h5 * cos(theta1 - theta2) * theta1_double_dot)) /
 			(h6);
 
 

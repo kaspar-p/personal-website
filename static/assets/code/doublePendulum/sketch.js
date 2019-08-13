@@ -4,7 +4,7 @@
 
 let controllers = [];
 let savedControllers = [];
-const TOTAL = 500;
+const TOTAL = 1000;
 
 //running counter of the generations... a GUI thing
 let genCount = 0;
@@ -23,8 +23,22 @@ const x_bound = 25;
 let bestController;
 let thisGenBest;
 
+// Variables to do with the canvas and its position in the greater website
+let canvas;
+let size;
+let newFontSize;
+
+function windowResized() {
+  size = 0.4 * windowWidth;
+  newFontSize = map(size, 200, 600, 15, 50);
+  canvas = resizeCanvas(size, size);
+  cycleSlider.position(-0.35 * windowWidth / 2, size - size / 12);
+}
+
 function setup() {
-  var canvas = createCanvas(600, 600);
+  size = 0.4 * windowWidth;
+  newFontSize = map(size, 200, 600, 15, 50);
+  canvas = createCanvas(size, size);
   canvas.parent("sketchHolder");
   background(51);
 
@@ -45,11 +59,10 @@ function setup() {
   //where and how I want the slider
   push();
 
-  //translate(width / 2, height / 2);
   cycleSlider = createSlider(1, 1000, 2);
-  cycleSlider.style("width", "590px");
+  cycleSlider.style("width", "35vw");
   // Width / 2, and the height minus a little to keep it in the border
-  cycleSlider.position(-590 / 2, 550);
+  cycleSlider.position(-0.35 * windowWidth / 2, size - size / 12);
   cycleSlider.id("slider");
   cycleSlider.parent("sliderHolder");
 
@@ -59,7 +72,6 @@ function setup() {
 function draw() {
   //what the slider is at
   cycles = cycleSlider.value();
-  translate(width / 2, height / 3);
 
   //I can do multiple runs of this program per tick, and if this was a difficult problem, I might
   for (let n = 0; n < cycles; n++) {
@@ -109,10 +121,11 @@ function displayAll() {
   // The display functions
   stroke(255);
   strokeWeight(3);
-  line(-width / 2, 0, width / 2, 0);
+  line(0, size / 2, width, size / 2);
 
   // Display the controllers
-  for (c of controllers) {
+  for (let i = 0; i < controllers.length; i += 1) {
+    const c = controllers[i];
     strokeWeight(1);
     c.display();
   }
@@ -120,12 +133,14 @@ function displayAll() {
   // The generation counter above the controllers
   fill(255);
   noStroke();
-  textAlign(RIGHT, BOTTOM);
-  textSize(50);
-  text("Generation: ", -20, 300);
-  text("Current Score: ", 45, 250);
-  text(genCount, 300, 300);
-  text(timeStep, 300, 250);
+  textAlign(LEFT, BOTTOM);
+  textSize(newFontSize);
+
+  text("Current Score: ", size / 30, size - size / 6);
+  text(timeStep, size - size / 6, size - size / 6);
+
+  text("Generation: ", size / 30, 3 * size / 4);
+  text(genCount, size - size / 6, 3 * size / 4);
 }
 
 //returns array of object with the highest score
