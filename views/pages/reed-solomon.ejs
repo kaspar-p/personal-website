@@ -5,8 +5,16 @@
 
 <script>
   let callBackend;
+  let changeBtnText;
 
   $(document).ready(() => {
+    changeBtnText = () => {
+      console.log("called");
+      const button = $("#RSButton");
+
+      button.attr("val", "Go!");
+    }
+
     callBackend = () => {
       const message = $("#messageInput").val();
 
@@ -41,15 +49,15 @@
 
 <div class="row justify-content-center">
   <div class="col-11 col-lg-7 col-md-10 col-sm-10 textWrapper">
-    <form class="text-right">
+    <form class="text-center">
       
       <hr />
       <div class="form-group row">
         <label id="messageField" for="messageInput" class="col-4 col-form-label">Message</label>
         <div class="col-5">
-          <input type="text" class="form-control-plaintext" id="messageInput" value="Change this text!">
+          <input type="text" class="form-control-plaintext" id="messageInput" onchange="changeBtnText()" value="Change this text!">
         </div>
-        <input type="button" id="RSButton" onclick="callBackend()" class="btn btn-primary mb-2 col-2 montserrat-medium" value="Encode" />
+        <input type="button" id="RSButton" onclick="callBackend()" class="btn btn-primary mb-2 col-2 montserrat-medium" value="Wait..." />
       </div>
 
       <hr />
