@@ -54,3 +54,9 @@ a:hover {
 .spaced-letters {
   letter-spacing: 1.5rem;
 }
+
+@media (max-width: 600px) {
+  body {
+    margin-top: 10rem;
+  }
+}
