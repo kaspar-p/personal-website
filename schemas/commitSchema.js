@@ -4,28 +4,28 @@ const Schema = mongoose.Schema;
 const CommitSchema = new Schema({
   message: {
     required: true,
-    type: String,
+    type: String
   },
   url: {
     type: String,
-    required: true,
+    required: true
   },
   author: {
     type: Object,
     required: true,
     name: {
       type: String,
-      required: true,
+      required: true
     },
     email: {
       type: String,
-      required: true,
+      required: true
     },
     date: {
       type: Date,
-      required: true,
-    },
-  },
+      required: true
+    }
+  }
 });
 
 module.exports = mongoose.model("Commit", CommitSchema);
