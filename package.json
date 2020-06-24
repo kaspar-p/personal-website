@@ -1,17 +1,36 @@
 {
   "name": "personal-react-website",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.10.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.5.0",
+    "child_process": "^1.0.2",
+    "concurrently": "^5.2.0",
+    "express": "^4.17.1",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.9.18",
+    "nodemon": "^2.0.4",
+    "p5": "^1.0.0",
     "react": "^16.13.1",
+    "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-pdf": "^4.1.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "socketio": "^1.0.0",
+    "url": "^0.11.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "full": "concurrently \"npm run client\" \"npm run server\"",
+    "client": "PORT=7000 react-scripts start",
+    "server": "nodemon --experimental-modules src/server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -30,5 +49,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "devDependencies": {},
+  "author": "Kaspar Poland",
+  "license": "ISC",
+  "proxy": "http://localhost:1111"
 }
