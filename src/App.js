@@ -1,26 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import HomePage from "./pages/Home";
+import Updates from "./pages/Updates";
+import Projects from "./pages/Projects";
+import ContactMe from "./pages/ContactMe";
+import NotFound from "./pages/NotFound";
+import ReedSolomon from "./pages/ReedSolomon";
+import DoublePendulum from "./pages/DoublePendulum";
+
+import "./assets/css/global.css";
+import "./assets/css/global-font.css";
+
+class App extends React.Component {
+  componentDidMount() {
+    axios.get("/api/begin-interval");
+  }
+
+  componentWillUnmount() {
+    axios.get("/api/end-interval");
+  }
+
+  render() {
+    return (
+      <Router>
+        <Switch>
+          <Route exact path="/projects">
+            <Projects />
+          </Route>
+          <Route exact path="/updates">
+            <Updates />
+          </Route>
+          <Route exact path="/contactme">
+            <ContactMe />
+          </Route>
+          <Route exact path="/double-pendulum">
+            <DoublePendulum />
+          </Route>
+          <Route exact path="/reed-solomon">
+            <ReedSolomon />
+          </Route>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
+          <Route exact path="*">
+            <NotFound />
+          </Route>
+        </Switch>
+      </Router>
+    );
+  }
 }
 
 export default App;

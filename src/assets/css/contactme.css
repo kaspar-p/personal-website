@@ -1,0 +1,94 @@
+.socialBox {
+  width: 100%;
+  border-bottom: 4px solid black;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  cursor: pointer;
+  height: 30vh;
+}
+
+.socialBox:hover {
+  margin-top: 0rem;
+  margin-bottom: 1rem;
+}
+
+.socialTitle {
+  padding-top: 4rem;
+}
+
+.logoImg {
+  width: 100%;
+}
+
+.socialRow {
+  margin: 0;
+}
+
+.socialWrapper {
+  margin-right: 3rem;
+  margin-left: 3rem;
+}
+
+.socialHandle {
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 1400px) {
+  .imgDiv {
+    display: block;
+    width: 50%;
+  }
+
+  .socialBox {
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
+    display: block;
+    width: 40%;
+    height: auto;
+  }
+
+  .socialRow {
+    text-align: center;
+    display: block;
+    justify-content: center;
+    justify-items: center;
+    margin: 1rem;
+  }
+
+  .socialHandle {
+    padding: 1rem;
+  }
+}
+/*
+@media (max-width: 1000px) {
+  .socialTitle {
+    padding-top: 0rem;
+  }
+
+  .imgDiv {
+    display: block;
+  }
+
+  .logoImg {
+    width: 50%;
+  }
+
+  .socialBox {
+    border: 0px;
+    border-bottom: 4px solid black;
+    width: 0%;
+    margin: 1rem 0;
+    padding: 0.5rem 0;
+  }
+
+  .socialBox:hover {
+    padding-top: 0.1rem;
+    padding-bottom: 0.9rem;
+  }
+}
+*/

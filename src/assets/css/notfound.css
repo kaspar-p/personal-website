@@ -1,0 +1,14 @@
+.return-to-safety {
+  padding: 0.5rem 3rem 0.5rem 3rem;
+}
+
+.return-to-safety:hover {
+  padding-bottom: 1rem;
+  padding-top: 0;
+}
+
+@media (max-width: 600px) {
+  .return-to-safety {
+    font-size: 1.5rem;
+  }
+}

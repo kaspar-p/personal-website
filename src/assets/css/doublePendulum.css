@@ -1,0 +1,57 @@
+.textWrapper {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  font-size: 1rem;
+}
+
+img {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+a.colored {
+  color: #0645ad;
+}
+
+a.colored:hover {
+  color: #0645ad;
+  text-decoration: underline;
+}
+
+h3 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+p {
+  text-indent: 3rem;
+}
+
+#slider {
+  position: absolute;
+  width: 100%;
+}
+
+#sliderHolder {
+  top: 50%;
+  position: sticky;
+}
+
+@media (max-width: 500px) {
+  .textWrapper {
+    font-size: 0.8rem;
+  }
+  h3 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .textWrapper {
+    font-size: 0.7rem;
+  }
+  h3 {
+    font-size: 1.2rem;
+  }
+}
