@@ -37,6 +37,8 @@ io.on("connection", async socket => {
   if (numUsers === 1) {
     // The first user connected, begin the loop
     await beginInterval(itvl);
+    const used = process.memoryUsage().heapUsed / 1024 / 1024;
+    console.log(`The script uses approximately ${used} MB`);
   }
 
   socket.on("disconnect", () => {
@@ -63,3 +65,6 @@ try {
   console.log("Database connection not established! Error occurred!");
   console.log(error);
 }
+
+const used = process.memoryUsage().heapUsed / 1024 / 1024;
+console.log(`The script uses approximately ${used} MB`);
