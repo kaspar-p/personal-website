@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/static/css/main.10322e54.chunk.css",
+    "main.js": "/static/js/main.27113597.chunk.js",
+    "main.js.map": "/static/js/main.27113597.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.1efa9738.js",
+    "runtime-main.js.map": "/static/js/runtime-main.1efa9738.js.map",
+    "static/css/2.af3c1da9.chunk.css": "/static/css/2.af3c1da9.chunk.css",
+    "static/js/2.3a3da3de.chunk.js": "/static/js/2.3a3da3de.chunk.js",
+    "static/js/2.3a3da3de.chunk.js.map": "/static/js/2.3a3da3de.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.e85431ded273f5f5ab60d41cafd6230c.js": "/precache-manifest.e85431ded273f5f5ab60d41cafd6230c.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.af3c1da9.chunk.css.map": "/static/css/2.af3c1da9.chunk.css.map",
+    "static/css/main.10322e54.chunk.css.map": "/static/css/main.10322e54.chunk.css.map",
+    "static/js/2.3a3da3de.chunk.js.LICENSE.txt": "/static/js/2.3a3da3de.chunk.js.LICENSE.txt",
+    "static/media/global-font.css": "/static/media/Montserrat-Medium.d815b0a2.otf",
+    "static/media/blackCircle.png": "/static/media/blackCircle.cf4ccf2e.png",
+    "static/media/headliner.png": "/static/media/headliner.fe96c322.png",
+    "static/media/headliner_hover.png": "/static/media/headliner_hover.b255704d.png",
+    "static/media/instagramLogo.jpg": "/static/media/instagramLogo.11ee7e0b.jpg",
+    "static/media/nn.png": "/static/media/nn.313db627.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1efa9738.js",
+    "static/css/2.af3c1da9.chunk.css",
+    "static/js/2.3a3da3de.chunk.js",
+    "static/css/main.10322e54.chunk.css",
+    "static/js/main.27113597.chunk.js"
+  ]
+}
