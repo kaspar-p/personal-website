@@ -18,6 +18,7 @@
     "mongoose": "^5.9.20",
     "nodemon": "^2.0.4",
     "p5": "^1.0.0",
+    "path": "^0.12.7",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
@@ -31,7 +32,7 @@
   "scripts": {
     "full": "concurrently \"npm run client\" \"npm run server\"",
     "client": "PORT=7000 node --max-old-space-size=4096 node_modules/.bin/react-scripts start",
-    "server": "node --max-old-space-size=4096 --experimental-modules src/server/server.js",
+    "server": "node --max-old-space-size=4096 src/server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
