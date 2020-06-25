@@ -15,7 +15,7 @@
     "concurrently": "^5.2.0",
     "express": "^4.17.1",
     "lodash": "^4.17.15",
-    "mongoose": "^5.9.18",
+    "mongoose": "^5.9.20",
     "nodemon": "^2.0.4",
     "p5": "^1.0.0",
     "react": "^16.13.1",
@@ -24,10 +24,12 @@
     "react-pdf": "^4.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
-    "socketio": "^1.0.0",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0",
     "url": "^0.11.0"
   },
   "scripts": {
+    "start": "npm run full",
     "full": "concurrently \"npm run client\" \"npm run server\"",
     "client": "PORT=7000 react-scripts start",
     "server": "nodemon --experimental-modules src/server/server.js",
