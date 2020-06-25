@@ -10,17 +10,18 @@ import ContactMe from "./pages/ContactMe";
 import NotFound from "./pages/NotFound";
 import ReedSolomon from "./pages/ReedSolomon";
 import DoublePendulum from "./pages/DoublePendulum";
+import socketClientInitializer from "socket.io-client";
 
 import "./assets/css/global.css";
 import "./assets/css/global-font.css";
 
 class App extends React.Component {
   componentDidMount() {
-    axios.get("/api/begin-interval");
+    this.socket = socketClientInitializer();
   }
 
   componentWillUnmount() {
-    axios.get("/api/end-interval");
+    this.socket.emit("disconnect");
   }
 
   render() {
@@ -45,6 +46,7 @@ class App extends React.Component {
           <Route exact path="/">
             <HomePage />
           </Route>
+          {/* This route has to be last, as last resort to all others */}
           <Route exact path="*">
             <NotFound />
           </Route>
