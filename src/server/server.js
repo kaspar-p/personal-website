@@ -15,8 +15,8 @@ const app = express();
 // Config
 app.use("/api", routes);
 app.use(bodyparser.json());
-app.use((req, res) => res.sendFile("build/index.html"));
-app.use(express.static("build"));
+app.use((req, res) => res.sendFile("/build/index.html"));
+app.use(express.static("/build"));
 dotenv.config();
 let itvl;
 
