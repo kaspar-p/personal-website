@@ -30,8 +30,8 @@
   },
   "scripts": {
     "full": "concurrently \"npm run client\" \"npm run server\"",
-    "client": "PORT=7000 react-scripts start",
-    "server": "nodemon --experimental-modules src/server/server.js",
+    "client": "PORT=7000 node --max-old-space-size=4096 node_modules/.bin/react-scripts start",
+    "server": "node --max-old-space-size=4096 --experimental-modules src/server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
