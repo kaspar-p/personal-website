@@ -25,13 +25,13 @@ app.use("/api", routes);
 if (process.env.NODE_ENV === "production") {
   // Before, for CSS and other styles
   app.use(express.static(buildPath));
-  // app.get("*", (req, res) => {
-  //   let url = path.join(publicPath, "index.html");
-  //   if (!url.startsWith("/app/"))
-  //     // we're on local windows
-  //     url = url.substring(1);
-  //   res.sendFile(url);
-  // });
+  app.get("*", (req, res) => {
+    let url = path.join(buildPath, "index.html");
+    if (!url.startsWith("/app/"))
+      // we're on local windows
+      url = url.substring(1);
+    res.sendFile("/index.html", { root: buildPath });
+  });
 }
 dotenv.config();
 let itvl;
