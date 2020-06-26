@@ -13,6 +13,8 @@ import { beginInterval, endInterval } from "./lib.js";
 const PORT = process.env.PORT || 1111;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+console.log("SERVER RUNNING IN: ", process.env.NODE_ENV);
+
 const buildPath = path.join(__dirname, "../", "client", "build");
 
 const app = express();
