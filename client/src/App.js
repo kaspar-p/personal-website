@@ -1,12 +1,12 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import HomePage from "./pages/Home";
 import Updates from "./pages/Updates";
 import Projects from "./pages/Projects";
-import ContactMe from "./pages/ContactMe";
+import ContactMe from ".//pages/ContactMe";
 import NotFound from "./pages/NotFound";
 import ReedSolomon from "./pages/ReedSolomon";
 import DoublePendulum from "./pages/DoublePendulum";
