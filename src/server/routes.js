@@ -21,7 +21,6 @@ router.get("/updates", async (req, res) => {
 
 // For the Reed-Solomon encoder/decoder in projects
 router.post("/RS", async (req, res) => {
-  console.log(req.params, req.query);
   // Run the java program
   try {
     childProcess.exec(
@@ -35,10 +34,8 @@ router.post("/RS", async (req, res) => {
       }
     );
   } catch (error) {
-    console.log(error);
     return res.json({
-      ERROR: error,
-      ERROR_MSG: "" // error.response.status + ": " + error.response.statusText
+      ERROR: error
     });
   }
 });
