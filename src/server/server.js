@@ -2,6 +2,8 @@ import express from "express";
 import bodyparser from "body-parser";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import path, { fileURLToPath } from "path";
+import url from "url";
 import socketInitializer from "socket.io";
 
 import routes from "./routes.js";
@@ -9,14 +11,21 @@ import { beginInterval, endInterval } from "./lib.js";
 
 // Production will inject a port, undefined if in development mode
 const PORT = process.env.PORT || 1111;
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 
 // Config
 app.use("/api", routes);
 app.use(bodyparser.json());
-app.use((req, res) => res.sendFile("/build/index.html"));
-app.use(express.static("/build"));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "build", "index.html"));
+  });
+
+  app.use(express.static("/build"));
+}
 dotenv.config();
 let itvl;
 
