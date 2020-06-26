@@ -2,8 +2,8 @@ import express from "express";
 import bodyparser from "body-parser";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import path, { fileURLToPath } from "path";
-import url from "url";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
 import socketInitializer from "socket.io";
 
 import routes from "./routes.js";
