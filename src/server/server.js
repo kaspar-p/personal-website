@@ -23,19 +23,21 @@ app.use("/api", routes);
 if (process.env.NODE_ENV === "production") {
   // Before, for CSS and other styles
   app.use(express.static(publicPath));
-  app.get("*", (req, res) => {
-    let url = path.join(publicPath, "index.html");
-    if (!url.startsWith("/app/"))
-      // we're on local windows
-      url = url.substring(1);
-    res.sendFile(url);
-  });
+  // app.get("*", (req, res) => {
+  //   let url = path.join(publicPath, "index.html");
+  //   if (!url.startsWith("/app/"))
+  //     // we're on local windows
+  //     url = url.substring(1);
+  //   res.sendFile(url);
+  // });
 }
 dotenv.config();
 let itvl;
 
 const server = app.listen(PORT, () =>
-  console.log(`Server running successfully at port: ${PORT}`)
+  console.log(
+    `Server running successfully at port: ${PORT} from ${__dirname} and public: ${publicPath}`
+  )
 );
 
 // Bind socket.io to the server
