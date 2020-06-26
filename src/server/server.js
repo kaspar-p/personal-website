@@ -16,9 +16,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 
 // Config
+app.use(bodyparser.json()); // Before routes
 app.use("/api", routes);
-app.use(bodyparser.json());
 if (process.env.NODE_ENV === "production") {
+  // Before, for CSS and other styles
+  app.use("/static", express.static(path.join(__dirname, "client/build")));
   app.get("/*", (req, res) => {
     let url = path.join(__dirname, "../../build", "index.html");
     if (!url.startsWith("/app/"))
@@ -26,8 +28,6 @@ if (process.env.NODE_ENV === "production") {
       url = url.substring(1);
     res.sendFile(url);
   });
-
-  app.use(express.static("/build"));
 }
 dotenv.config();
 let itvl;
