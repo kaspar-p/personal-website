@@ -19,9 +19,12 @@ const app = express();
 app.use("/api", routes);
 app.use(bodyparser.json());
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("build"));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "build", "index.html"));
+  app.get("/*", (req, res) => {
+    let url = path.join(__dirname, "../../build", "index.html");
+    if (!url.startsWith("/app/"))
+      // we're on local windows
+      url = url.substring(1);
+    res.sendFile(url);
   });
 
   app.use(express.static("/build"));
