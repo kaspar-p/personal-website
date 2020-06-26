@@ -21,17 +21,26 @@ router.get("/updates", async (req, res) => {
 
 // For the Reed-Solomon encoder/decoder in projects
 router.post("/RS", async (req, res) => {
+  console.log(req.params, req.query);
   // Run the java program
-  childProcess.exec(
-    "cd src/assets/code && java qrcode/Main " + req.body.message,
-    (err, stdout, stderr) => {
-      if (err) console.log(err);
-      if (stderr) console.log(stderr.toString());
-      const dataArray = stdout.split("\n").slice(0, -1);
-      // Return the data back to the page that wanted it
-      return res.send(dataArray);
-    }
-  );
+  try {
+    childProcess.exec(
+      "cd src/assets/code && java qrcode/Main " + req.body.message,
+      (err, stdout, stderr) => {
+        if (err) console.log(err);
+        if (stderr) console.log(stderr.toString());
+        const dataArray = stdout.split("\n").slice(0, -1);
+        // Return the data back to the page that wanted it
+        return res.send(dataArray);
+      }
+    );
+  } catch (error) {
+    console.log(error);
+    return res.json({
+      ERROR: error,
+      ERROR_MSG: "" // error.response.status + ": " + error.response.statusText
+    });
+  }
 });
 
 // -----------------
