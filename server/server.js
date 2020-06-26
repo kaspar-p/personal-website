@@ -13,7 +13,7 @@ import { beginInterval, endInterval } from "./lib.js";
 const PORT = process.env.PORT || 1111;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const publicPath = path.join(__dirname, "../..", "public");
+const publicPath = path.join(__dirname, "../", "client", "public");
 
 const app = express();
 
