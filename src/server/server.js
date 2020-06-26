@@ -13,6 +13,8 @@ import { beginInterval, endInterval } from "./lib.js";
 const PORT = process.env.PORT || 1111;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+const buildPath = path.join(__dirname, "../..", "build");
+
 const app = express();
 
 // Config
@@ -20,9 +22,9 @@ app.use(bodyparser.json()); // Before routes
 app.use("/api", routes);
 if (process.env.NODE_ENV === "production") {
   // Before, for CSS and other styles
-  app.use("/static", express.static(path.join(__dirname, "client/build")));
-  app.get("/*", (req, res) => {
-    let url = path.join(__dirname, "../../build", "index.html");
+  app.use(express.static(buildPath));
+  app.get("*", (req, res) => {
+    let url = path.join(buildPath, "index.html");
     if (!url.startsWith("/app/"))
       // we're on local windows
       url = url.substring(1);

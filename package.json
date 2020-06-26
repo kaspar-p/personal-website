@@ -32,7 +32,8 @@
   "scripts": {
     "full": "concurrently \"npm run client\" \"npm run server\"",
     "client": "PORT=7000 node --max-old-space-size=4096 node_modules/.bin/react-scripts start",
-    "server": "nodemon --max-old-space-size=4096 src/server/server.js",
+    "server-dev": "nodemon src/server/server.js",
+    "server": "node --max-old-space-size=4096 src/server/server.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run build",
     "build": "react-scripts build",
     "test": "react-scripts test",
