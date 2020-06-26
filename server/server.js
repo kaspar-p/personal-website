@@ -36,7 +36,7 @@ let itvl;
 
 const server = app.listen(PORT, () =>
   console.log(
-    `Server running successfully at port: ${PORT} from ${__dirname} and public: ${publicPath}`
+    `Server running successfully at port: ${PORT} from ${__dirname} and build: ${buildPath}`
   )
 );
 
