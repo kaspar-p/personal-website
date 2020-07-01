@@ -27,9 +27,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(buildPath));
   app.get("*", (req, res) => {
     let url = path.join(buildPath, "index.html");
-    if (!url.startsWith("/app/"))
-      // we're on local windows
-      url = url.substring(1);
+    if (!url.startsWith("/app/")) url = url.substring(1);
     res.sendFile("/index.html", { root: buildPath });
   });
 }
