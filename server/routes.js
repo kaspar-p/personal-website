@@ -40,6 +40,13 @@ router.post("/RS", async (req, res) => {
   }
 });
 
+// Sends back the PDF file of the paper
+router.get("/rs-paper", async (req, res) => {
+  return res.sendFile("assets/OnTheConstructionOfReedSolomonCodes.pdf", {
+    root: "client/src"
+  });
+});
+
 // -----------------
 //    TEST ROUTES
 // -----------------

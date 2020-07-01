@@ -29,11 +29,16 @@ p {
   text-indent: 3rem;
 }
 
+.rs-form {
+  width: 50%;
+}
+
 .reed-solomon-paper-link {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding-left: 5rem;
   padding-right: 5rem;
+  margin-top: 1rem;
 }
 
 .reed-solomon-paper-link:hover {
@@ -44,4 +49,28 @@ p {
 .link-wrapper {
   padding: 20px;
   padding-bottom: 50px;
+  font-size: 3rem;
+}
+
+@media (max-width: 1000px) {
+  .rs-form {
+    width: 80%;
+  }
+
+  .reed-solomon-paper-link {
+    font-size: 2rem;
+    padding-left: 0;
+    padding-right: 0;
+    line-height: 0.5;
+  }
+
+  .link-wrapper {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .reed-solomon-paper-link {
+    font-size: 1.5rem;
+  }
 }

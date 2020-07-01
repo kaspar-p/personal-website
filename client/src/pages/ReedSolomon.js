@@ -1,6 +1,9 @@
 import React from "react";
-import TitleBar from "../components/TitleBar";
+import { Grid } from "@material-ui/core";
 import axios from "axios";
+
+import TitleBar from "../components/TitleBar";
+import RSForm from "../components/RSForm";
 
 import "../assets/css/reed-solomon.css";
 
@@ -13,10 +16,26 @@ class ReedSolomon extends React.Component {
     this.state = {
       pageNumber: 1,
       numPages: null,
-      messageVal: "Change this text!",
+      messageVal: "  Change this text!",
       citePaperText: "cite the paper",
       buttonText: "Wait..."
     };
+  }
+
+  async downloadFile() {
+    const response = await axios({
+      method: "get",
+      url: "/api/rs-paper",
+      responseType: "blob"
+    });
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "OnTheConstructionOfReedSolomonCodes.pdf");
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   }
 
   callBackend = async () => {
@@ -52,7 +71,7 @@ class ReedSolomon extends React.Component {
   }
 
   copyText() {
-    const citationText = `CITATION`;
+    const citationText = `Poland, K. (2018). On the Construction of Reed-Solomon Codes. Unpublished manuscript.`;
 
     navigator.permissions.query({ name: "clipboard-write" }).then(result => {
       if (result.state === "granted" || result.state === "prompt") {
@@ -79,108 +98,24 @@ class ReedSolomon extends React.Component {
     return (
       <div>
         <TitleBar title="reed solomon encoding/decoding" />
-        <div className="row justify-content-center">
-          <div className="col-11 col-lg-7 col-md-10 col-sm-10 textWrapper">
-            <form className="text-center">
-              <hr />
-              <div className="form-group row">
-                <label
-                  id="messageField"
-                  htmlFor="messageInput"
-                  className="col-4 col-form-label"
-                >
-                  Message
-                </label>
-                <div className="col-5">
-                  <input
-                    type="text"
-                    className="form-control-plaintext"
-                    id="messageInput"
-                    name="messageVal"
-                    onChange={e => {
-                      this.setState({
-                        [e.target.name]: e.target.value,
-                        buttonText: "Go!"
-                      });
-                    }}
-                    value={this.state.messageVal}
-                  />
-                </div>
-                <input
-                  type="button"
-                  id="RSButton"
-                  onClick={this.callBackend}
-                  className="btn btn-primary mb-2 col-2 montserrat-medium"
-                  value={this.state.buttonText}
-                />
-              </div>
-
-              <hr />
-              <div className="form-group row">
-                <label htmlFor="staticEncoded" className="col-4 col-form-label">
-                  Encoded Message
-                </label>
-                <div className="col-8">
-                  <input
-                    type="text"
-                    disabled
-                    className="form-control"
-                    id="staticEncoded"
-                    placeholder=""
-                  />
-                </div>
-              </div>
-
-              <hr />
-              <div className="form-group row">
-                <label htmlFor="staticErrors" className="col-4 col-form-label">
-                  # of correctable errors
-                </label>
-                <div className="col-8">
-                  <input
-                    type="text"
-                    disabled
-                    className="form-control"
-                    id="staticErrors"
-                    placeholder=""
-                  />
-                </div>
-              </div>
-
-              <hr />
-              <div className="form-group row">
-                <label htmlFor="staticEncoded" className="col-4 col-form-label">
-                  Corrupted Message
-                </label>
-                <div className="col-8">
-                  <input
-                    type="text"
-                    disabled
-                    className="form-control"
-                    id="staticCorrupted"
-                    placeholder=""
-                  />
-                </div>
-              </div>
-
-              <hr />
-              <div className="form-group row">
-                <label htmlFor="staticDecoded" className="col-4 col-form-label">
-                  Decoded Message
-                </label>
-                <div className="col-8">
-                  <input
-                    type="text"
-                    disabled
-                    className="form-control"
-                    id="staticDecoded"
-                    placeholder=""
-                  />
-                </div>
-              </div>
-              <hr />
-            </form>
-
+        <Grid container direction="column" justify="center" alignItems="center">
+          <RSForm
+            item="true"
+            callBackend={this.callBackend}
+            messageVal={this.state.messageVal}
+            buttonText={this.state.buttonText}
+            setState={this.setState}
+          />
+          <Grid
+            item
+            container
+            direction="column"
+            justify="center"
+            alignItems="flex-start"
+            xs={10}
+            lg={7}
+            className="textWrapper"
+          >
             <h3 className="montserrat-light">What is this page?</h3>
             <p>
               Above is an example of a Reed-Solomon Encoder and Decoder. It uses
@@ -234,29 +169,25 @@ class ReedSolomon extends React.Component {
             </p>
 
             <br />
-          </div>
-        </div>
+          </Grid>
+        </Grid>
         <div className="link-wrapper">
-          <div className="row justify-content-center">
-            <div className="col-auto text-right">
-              <a
-                href="/assets/OnTheConstructionOfReedSolomonCodes.pdf"
-                download=""
-                className="like-link"
-              >
+          <Grid container direction="row" justify="center">
+            <div item="true" className="col-auto">
+              <button onClick={this.downloadFile} className="like-link">
                 <h1 className="montserrat-medium hover-underline reed-solomon-paper-link">
                   read the paper
                 </h1>
-              </a>
+              </button>
             </div>
-            <div className="col-auto text-left">
+            <div item="true" className="col-auto">
               <button onClick={this.copyText} className="like-link">
                 <h1 className="montserrat-medium hover-underline reed-solomon-paper-link">
                   {this.state.citePaperText}
                 </h1>
               </button>
             </div>
-          </div>
+          </Grid>
         </div>
       </div>
     );

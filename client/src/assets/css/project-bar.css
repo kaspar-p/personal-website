@@ -1,0 +1,22 @@
+.project-bar {
+  border-top: solid black 2px;
+  border-bottom: solid black 2px;
+  width: 100%;
+  height: 30vh;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+.project-bar:hover {
+  cursor: pointer;
+  padding-bottom: 1rem;
+  padding-top: 0rem;
+}
+
+.project-text-section {
+  margin: 1rem;
+}
+
+.project-link-wrapper {
+  height: 20vh;
+}
