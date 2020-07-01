@@ -1,0 +1,73 @@
+.buttonsButton {
+  text-align: center;
+  width: 100%;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  letter-spacing: calc(0.8rem + 0.1vw); /*  From 0.8 - 1.0 */
+  font-size: 2rem; /*alc(1.4rem + 0.3vw); /* from 1.5rem to 2.0rem */
+}
+
+.buttonsButton:hover {
+  padding-top: 0.2rem;
+  padding-bottom: 0.8rem;
+}
+
+#title {
+  margin-top: calc(0);
+  margin-bottom: 2rem;
+  font-size: 230%;
+  width: 100%;
+}
+
+.buttonItemWrapper {
+  width: 250px;
+}
+
+.buttonFS {
+  font-size: 2rem;
+}
+
+.backButton {
+  padding-left: 1vw;
+}
+
+.homeButton {
+  padding-left: 1.5vw;
+}
+
+.headerWrapper {
+  margin-top: 5vw;
+  padding-top: 5vw;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+@media (max-width: 700px) {
+  .buttonsButton {
+    font-size: 1.6rem;
+  }
+
+  .buttonFS {
+    font-size: 1.7rem;
+  }
+
+  .buttonItemWrapper {
+    width: 130px;
+  }
+
+  .homeWrapper {
+    border-right: solid 1px black;
+  }
+
+  .backWrapper {
+    border-left: solid 1px black;
+  }
+
+  .headerWrapper {
+    padding: 0;
+  }
+
+  #title {
+    font-size: 170%;
+  }
+}

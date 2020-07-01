@@ -60,6 +60,11 @@ li:hover {
     top: 30%;
   }
 
+  li {
+    padding-right: 1rem;
+    padding-left: 0.5rem;
+  }
+
   .showForSmallScreen {
     display: block;
   }
@@ -81,5 +86,9 @@ li:hover {
 @media (max-width: 478px) {
   .verticalCenter {
     top: 20%;
+  }
+
+  .pageLink {
+    font-size: 1.5rem;
   }
 }

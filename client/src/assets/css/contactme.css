@@ -14,6 +14,10 @@
   margin-bottom: 1rem;
 }
 
+.email {
+  font-size: 3rem;
+}
+
 .socialTitle {
   padding-top: 4rem;
 }
@@ -62,6 +66,19 @@
 
   .socialHandle {
     padding: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .email {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 500px) {
+  .socialHandle {
+    font-size: 1rem;
+  }
+  .email {
+    font-size: 1rem;
   }
 }
 /*

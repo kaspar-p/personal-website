@@ -66,7 +66,7 @@ class Updates extends React.Component {
         <div className="container-fluid">
           <div className="custompadding row justify-content-center">
             <div className="col-lg-7 col-md-10 col-sm-12 text-center">
-              <Table hover size="md" className="updateList text-center">
+              <Table hover size="sm" className="updateList text-center">
                 <thead>
                   <tr align="center">
                     <th scope="col">#</th>

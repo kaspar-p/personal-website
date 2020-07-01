@@ -3,7 +3,7 @@
   margin: auto;
   display: block;
   overflow: scroll;
-  height: 700px;
+  height: 75vh;
 }
 
 .custompadding {
@@ -18,4 +18,10 @@ p {
 
 #updateNumber {
   text-align: right;
+}
+
+@media (max-width: 1200px) {
+  .updateList {
+    font-size: 0.7rem;
+  }
 }
