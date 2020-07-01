@@ -33,7 +33,9 @@ class ContactMe extends React.Component {
         <TitleBar title="contact me" />
         <div className="socialWrapper">
           <div className="row justify-content-center">
-            <h4 className="col-auto montserrat-medium"> kaspar78@mouco.com </h4>
+            <h4 className="col-auto montserrat-medium email">
+              kaspar78@mouco.com
+            </h4>
           </div>
 
           <div className="row socialRow justify-content-center">
@@ -67,7 +69,7 @@ class ContactMe extends React.Component {
             <ContactMeSquare
               socialName="LinkedIn"
               handle="@Kaspar Poland"
-              socialLink="https://www.linkedin.com/in/kaspar-p-48b115110/"
+              socialLink="https://www.linkedin.com/in/kaspar-p-48b115110"
               width={this.state.width}
             />
           </div>
