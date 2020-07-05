@@ -49,7 +49,7 @@ router.get("/rs-paper", async (req, res) => {
     root = "client/public/";
   }
 
-  return res.sendFile("OnTheConstructionOfReedSolomonCodes.pdf", {
+  return res.sendFile("OntheConstructionofReedSolomonCodes.pdf", {
     root
   });
 });
