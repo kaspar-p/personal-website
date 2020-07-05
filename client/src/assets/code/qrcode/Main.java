@@ -4,9 +4,7 @@ import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
+import java.util.Random;
 
 public class Main {
 
@@ -50,13 +48,18 @@ public class Main {
 		}
 		System.out.println("");
 
-		// mess the data up a little bit
-		msgEnc[0] = 48;
-		msgEnc[1] = 42;
-		msgEnc[2] = 60;
-		msgEnc[3] = 74;
-		msgEnc[4] = 53;
-		msgEnc[5] = 86;
+		Random rand = new Random();
+
+		int[] corruptPositions = new int[rand.nextInt((n - k) / 2)];
+		System.out.println(corruptPositions.length);
+		// Set where the corruption is going to happen
+		for (int i = 0; i < corruptPositions.length; i++) {
+			corruptPositions[i] = rand.nextInt(k - 1);
+		}
+		// Choose the characters to override the current ones
+		for (int i = 0; i < corruptPositions.length; i++) {
+			msgEnc[corruptPositions[i]] = 32 + rand.nextInt(200);
+		}
 
 		StringBuilder corrupt = new StringBuilder();
 		for (int b : msgEnc) {
