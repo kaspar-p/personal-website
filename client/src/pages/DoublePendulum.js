@@ -26,115 +26,87 @@ class DoublePendulum extends React.Component {
         <div className="row justify-content-center textWrapper">
           <div className="col-10 col-lg-7">
             <h3 className="montserrat-light"> How do I use the program?</h3>
+
             <p>
-              Well, you watch it. The slider at the bottom controls how fast you
-              want the simulation to go. Far left is one tick per frame, far
-              right is 200 ticks per frame. I suggest 80, since too much really
-              does lag a laptop. My desktop at home runs 200 fine, however, so
-              if that suits you, go for it! Other than that, there is no
-              interaction. Think of it as a science experiment!
+              You just watch! The slider at the bottom controls how fast the
+              simulation runs, but beyond that, there is no interaction. Sit
+              back and watch learning happen!
             </p>
 
             <h3 className="montserrat-light">
               What does this program actually do?
             </h3>
             <p>
-              Well, put simply, it learns. Each cartpole (each little cart
-              attached to a pole) is its own thing, and has a brain. That brain
-              is a neural network, and it is set randomly in the beginning. The
-              point of this program is for them to learn how to stand up and
-              stay up for as long as possible. This is done with a genetic
-              algorithm in combination with a neural network, to create
-              something called
-              <strong> neuroevolution</strong>. It sounds fancy and it kind of
-              is, but the effect is really cool to watch.
+              Well, it learns. Each cart (blue rectangle with poles atop) has a
+              brain. That brain is what's called a neural network. The point of
+              this program is for the carts to learn how to balance their poles
+              for as long as possible. This is done with a genetic algorithm in
+              combination with a neural network, to create something called
+              neuroevolution. It sounds fancy, but the effect is special to
+              watch.
             </p>
 
             <h3 className="montserrat-light">
               How does that work and what do those words mean?
             </h3>
             <p>
-              Calculus, to put it simply. I should do a little introductory
-              paragraph about neural networks, but I won't. Not my place.
-              Essentially dummy AI, and there are many many places you can get
-              better info than here.
+              Calculus, to put it simply. Neural networks are computational
+              imitations of a human brain, and when each cart is fed input about
+              its surroundings, it uses some complex math to make a decision.
             </p>
+            <br />
             <p>
-              Back to my program. The algorithm starts every generation of
-              cartpoles with a population of 1000. There are bounds to how far
-              their poles can go down before they are classified as dead and
-              removed from the simulation. Every frame, the remaining cartpoles
-              gain +1 score. This has to do with the fitness function, which I
-              will address later. This keeps going, until they all die. The BEST
-              cartpole (evalutated through the fitness function) is then chosen
-              to be the father of his people. (I laughed when writing that).
-              From its specific characteristics, the new generation of 1000
-              cartpoles are born, all based upon their father, but with a 10%
-              mutation rate (another piece of jargon I'll get to later). This
-              makes them slightly different so that they have the chance to
-              improve. This process goes on and on until one succeeds, and he is
-              crowned the best of Balance Land!
+              Neural networks are only one piece of the puzzle. There also needs
+              to be a system for them to change. A decision making machine (the
+              neural network) is nothing if it can't change and learn after
+              making the wrong decision. That's where genetic evolution comes
+              in. Evolution works by changing little things about a species
+              every generation, and hoping that those changes positively
+              affected the species to live longer or better. The same effect is
+              simulated here.
             </p>
-
+            <br />
             <p>
-              There is a little more that goes on behind the scenes, though. How
-              does the cartpole balance? What is a fitness function? What are
-              mutation rates?
+              The algorithm begins with the first generation of 1000 carts. To
+              simulate a lifecycle (similar to what real animals experience),
+              there are bounds to how far their poles can go in each direction
+              before they are classified as dead and removed. Every frame, the
+              remaining carts gain +1 score. This keeps going, until they all
+              die. The cart that survived the longest did the best, and is
+              selected to pass their genes down onto the next generation. Those
+              genes are slightly mutated, and the new generation of 1000 carts
+              is born. This process continues for each generation, slowly
+              improving the gene pool until a cart is finally able to balance
+              their poles forever.
             </p>
-
+            <br />
             <p>
-              A mutation rate is essentially a function. It takes a number, and
-              changes it by what is called a normed value. The image below is a
-              normal distribution of values over an interval.
+              There is a little more that goes on behind the scenes, though.
             </p>
-            <div className="row justify-content-center">
-              <div className="col-10 text-center">
-                <img
-                  className="w-75"
-                  src={normalDistImage}
-                  alt="Normal Distribution Graph"
-                />
-              </div>
-            </div>
+            <br />
             <p>
-              Imagine the number passed into the mutation function is at the
-              very crest. If the mutation happens (a 10% chance), then a number
-              is chosen from this normal distribution. This number is more
-              likely to be closer to the number passed in than farther away, and
-              we get a desired
-              <strong> edging towards victory </strong> effect. If you know AI,
-              its like a hack for gradient descent. It's like genetic's cheat to
-              be like "please AI notice me I'm inefficient but I try". This
-              mutation function, when used on a child's characteristics, causes
-              it to be slightly different than its parent, which sometimes makes
-              them fail harder and other times, succeed. The mutation function
-              ends up being used within the brain of the cartpole to change the
-              outcome of each decision it makes. The weights, specifically, for
-              AI people.
+              Another term: fitness functions. Essentially for AI to be able to
+              rank themselves, we need to quantify success. A fitness function
+              is a way to do that. For our purposes, our fitness function was
+              simply the amount of time the cart was alive. Fitness functions
+              have everything to do with the final goal. Because we want the
+              carts to balance forever, selecting carts that stood the longest
+              edges us slowly towards that goal.
             </p>
-
+            <br />
             <p>
-              Another term: fitness functions. This one gets complicated for
-              other AI, but is really simple for this one. Essentially for AI to
-              succeed, we need to quantify success. The fitness function is a
-              function that takes in any amount of inputs, and spits one one{" "}
-              <strong>scalar quantity</strong> (a number). This number is
-              usually made to be the higher the better. The trick is finding the
-              right function. Mine is really simple. The cartpoles that lasted
-              the longest are obviously better, so my fitness function IS each
-              cartpoles score value. If a cartpole is bad, it will fall fast,
-              and have one of maybe 50, and if it lasts for 10,000 ticks, then
-              it is good, and it should have a greater fitness value than its
-              bad cartpole friend.
+              The fitness function could be anything, and are tailored to the
+              goal of the program. If we had made an AI trying to jump, then the
+              fitness function might be the maximum height the AI tried to jump,
+              and slowly the AI would get better at jumping. For this program,
+              we will stick to the cart's age.
             </p>
-
+            <br />
             <p>
-              Now to the
-              <strong>really</strong> good stuff: how does the cartpole
-              <strong>actually</strong> balance? Well, that requires me to talk
-              about its brain. Its brain is a neural network, with 6 input
-              neurons, 2 hidden layers with 10 nodes each, and an output layer
-              with 3 neurons.
+              Now to the good stuff: how does the cart balance? Well, that
+              requires discussion of its brain. As mentioned before, its brain
+              is a neural network with 6 input neurons, 2 hidden layers with 10
+              nodes each, and an output layer with 3 neurons.
             </p>
 
             <div className="row justify-content-center">
@@ -144,102 +116,77 @@ class DoublePendulum extends React.Component {
             </div>
 
             <p>
-              The picture above depicts a neural network with 6 inputs, 2 hidden
-              layers with 10 nodes each, and 3 output nodes. Each circle either
-              represents a calculation point (for the hidden layers), an input,
-              or an output. The circles on the left represent each of the 6
-              inputs, and the circles on the right represent each of the three
-              outputs. The circles in the middle are all points of calculation,
-              and they are the source of complexity for the neural network.
+              From left to right, the picture above depicts a neural network
+              with 6 inputs, 2 hidden layers with 10 nodes each, and 3 output
+              nodes. Without diving too far into how neural networks make
+              decisions, we can discuss what affects a decision for a neural
+              network.
             </p>
-
+            <br />
             <p>
               If that made no sense to you, don't worry about it. The only
               important part to non AI people is the 3 output neurons.
-              Essentially, the neural networks take INPUTS, does calculations
-              (remember the calculus up there), and spits out numbers in each of
-              the 3 neurons. So every time our cartpole makes a decision, a
-              total of <strong>three</strong> numbers are outputted, one for
-              each neuron. At every frame, the cartpole makes a decision. To
-              make that decision, it uses its six inputs: its position, its
-              velocity, the angle of first pole, the angular velocity of the
-              first pole, the angle of the second pole, and the angular velocity
-              of the second pole. Essentially, those 6 pieces of data that tell
-              the cartpole where each of its body parts are and how they are
-              moving. The cartpole then uses these inputs, does some number
-              crunching, and spits out three output numbers. Each number means
-              something specific in how the decision is affected. The first
-              number means:
-              <strong>
-                How much force do I want to put into my next movement
-              </strong>
-              on a scale of 0 to 1 (0 being no force, 1 being lots of force).
-              The second and third numbers are simpler. They compare against
-              each other and whichever is highest is the direction that force is
-              applied. The decision numbers go
-              <strong>
-                [amount_of_force, go_left_confidence, go_right_confidence]
-              </strong>
-              . For example, if the numbers are [1, 1, 0], then lots of force is
-              applied to the left, but at [0.4, 0.2, 0.3], there is a medium
-              amount of force applied to the right. At every frame, the cartpole
-              makes this decision. This force is applied into the physics
-              equations, and the cycle begins again.
+              Essentially, a neural network takes input numbers, does
+              calculations (remember the calculus up there), and spits out
+              numbers for each output node. So every time a cart makes a
+              decision, 3 numbers are outputted. For this program, each cart
+              makes a decision each frame. To make that decision, it uses its
+              six inputs: its position, its velocity, the angle of first pole,
+              the angular velocity of the first pole, the angle of the second
+              pole, and the angular velocity of the second pole. Essentially,
+              those 6 pieces of data that tell the cart where each of its body
+              parts are and how they are moving. The cart then uses these
+              inputs, does some number crunching, and spits out three output
+              numbers. Each number means something specific in how the decision
+              is affected.
             </p>
-
+            <br />
             <p>
-              In essence, that's all there is to it. They learn. They end up
-              learning how to stand at an average (not tested or measured, only
-              noticed) at generation 1400. Because it is based on random chance
-              (as all genetic algorithms are), the lowest generation I've seen
-              them learn at was 565, and the highest was ~14,000.
+              The first number represents the amount of force the cart wants to
+              put into its next movement on a scale of 0 to 1 (0 being no force,
+              1 being lots of force). The second and third numbers are simpler.
+              They compare against each other and whichever is highest is the
+              direction that force is applied. If the second neuron is a higher
+              number than the third, the cart applies the force from the first
+              neuron to the left, and if the third neuron has a higher value
+              than the second, that force is applied to the right. For example,
+              if the numbers are (1, 1, 0), then lots of force is applied to the
+              left, but at (0.4, 0, 1), there is a medium amount of force
+              applied to the right. At every frame, the cart makes this
+              decision. The diretion and force are applied at the next frame,
+              and the cart makes another decision. This cycles for each cart
+              until that cart dies.
+            </p>
+            <br />
+            <p>
+              In essence, that's all there is to it. The carts learn. They end
+              up learning how to balance at an average (not tested or measured,
+              only noticed) at generation 1000. Because it is based on random
+              initial conditions and genetic mutations (as all genetic
+              algorithms are), the lowest generation I've seen them learn at was
+              565, and the highest was ~14,000.
             </p>
 
             <h3 className="montserrat-light">Where is this project going?</h3>
             <p>
-              Right now, nowhere, but hopefully in the future, somewhere. When I
-              finished this version of the program I immediately had the coolest
-              idea to make it better. I wanted the pendulum to learn to succeed
-              with 1 joint on top, and once it hit some arbitrary point of
-              success, say, a score of 10,000, it would get another joint added
-              onto the end. This would be really interesting to learn if the
-              skills would carry over. I imagine they would, and would simply
-              refine to the point of perfection, but who knows. This ended up
-              never being finished, as THERE WAS SO MUCH MATH. I'm still working
-              on understanding the
-              <a
-                className="colored"
-                href="https://en.wikipedia.org/wiki/Functional_(mathematics)"
-              >
-                functionals
-              </a>
-              ,
-              <a
-                className="colored"
-                href="https://en.wikipedia.org/wiki/Partial_derivative"
-              >
-                partial derivatives
-              </a>
-              ,
-              <a
-                className="colored"
-                href="https://en.wikipedia.org/wiki/Multivariable_calculus"
-              >
-                multi-variate functions
-              </a>
-              , and taking numerical derivatives of all of it. The problem
-              arises when calculating the physics formulae for each different
-              number of links. It really is cool stuff. Point is, taking a
-              second order numeric partial derivatives is hard when solving for
-              lots of unknown variables (accelerations the angles of each
-              "pole"). I do hope someday I come back and am able to do it.
+              Right now, nowhere. When I finished this version of the program I
+              immediately had an idea to make it better. I wanted the pendulum
+              to learn to succeed with 1 joint on top, and once it hit some
+              arbitrary point of success, say, being able to stay alive for
+              10,000 frames, it would get another joint added onto the end. This
+              would be really interesting to test if the skills needed to
+              balance one pole carried to balancing two, or three, or an
+              infinite amount. I imagine they would, and would simply refine to
+              the point of perfection, but who knows. This version of the
+              program is in the works, but programming a symbolic mathematical
+              calculator to do differentials and integrals is harder than I
+              thought it would be.
             </p>
 
             <h3 className="montserrat-light">That's it...</h3>
             <p>
-              Hope you learned something or at least thought it was
-              interesting... This might be the only project I do this long of a
-              writeup for, but that's only because I loved working on it.
+              I hope there was something to be learned. Checkout my other
+              projects!
             </p>
           </div>
         </div>

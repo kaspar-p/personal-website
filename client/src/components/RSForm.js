@@ -22,12 +22,7 @@ function RSForm(props) {
               className="form-control-plaintext"
               id="messageInput"
               name="messageVal"
-              onChange={e => {
-                props.setState({
-                  [e.target.name]: e.target.value,
-                  buttonText: "Go!"
-                });
-              }}
+              onChange={e => props.changeText(e.target.value)}
               value={props.messageVal}
             />
           </div>
@@ -68,6 +63,22 @@ function RSForm(props) {
               disabled
               className="form-control"
               id="staticErrors"
+              placeholder=""
+            />
+          </div>
+        </div>
+
+        <hr />
+        <div className="form-group row">
+          <label htmlFor="staticCorruptions" className="col-4 col-form-label">
+            # of errors occured
+          </label>
+          <div className="col-8">
+            <input
+              type="text"
+              disabled
+              className="form-control"
+              id="staticCorruptions"
               placeholder=""
             />
           </div>

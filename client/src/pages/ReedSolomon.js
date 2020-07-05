@@ -12,6 +12,7 @@ class ReedSolomon extends React.Component {
     super(props);
 
     this.copyText = this.copyText.bind(this);
+    this.changeText = this.changeText.bind(this);
 
     this.state = {
       pageNumber: 1,
@@ -58,11 +59,14 @@ class ReedSolomon extends React.Component {
     // Encoded Message Field
     document.getElementById("staticEncoded").value = parsed[1];
 
+    // Number of Corruptions Field
+    document.getElementById("staticCorruptions").value = parsed[2];
+
     // Corrupted Message Field
-    document.getElementById("staticCorrupted").value = parsed[2];
+    document.getElementById("staticCorrupted").value = parsed[3];
 
     // Decoded Message Field
-    document.getElementById("staticDecoded").value = parsed[3];
+    document.getElementById("staticDecoded").value = parsed[4];
   };
 
   componentDidMount() {
@@ -102,6 +106,13 @@ class ReedSolomon extends React.Component {
     );
   }
 
+  changeText(newText) {
+    this.setState({
+      messageVal: newText,
+      buttonText: "Go!"
+    });
+  }
+
   render() {
     return (
       <div>
@@ -112,7 +123,7 @@ class ReedSolomon extends React.Component {
             callBackend={this.callBackend}
             messageVal={this.state.messageVal}
             buttonText={this.state.buttonText}
-            setState={this.setState}
+            changeText={this.changeText}
           />
           <Grid
             item
@@ -126,36 +137,66 @@ class ReedSolomon extends React.Component {
           >
             <h3 className="montserrat-light">What is this page?</h3>
             <p>
-              Above is an example of a Reed-Solomon Encoder and Decoder. It uses
-              the Berlekamp-Massey Algorithm to decode Reed-Solomon codes. An RS
-              encoder/decoder is a way to protect data from any type of
-              corruption. That may be the static through the phone, or the
-              natural imperfections of the wires we use to transmit digital
-              data. I conceptualized/planned this for my AP Computer Science
-              Principles Class in April of 2018, and finally built it in
-              December 2018 and January 2019.
+              Above is an example of a Reed-Solomon (RS) Encoder and Decoder. It
+              uses the Berlekamp-Massey Algorithm to decode Reed-Solomon codes.
             </p>
 
             <h3 className="montserrat-light">
               What does an RS encoder/decoder do?
             </h3>
-            <p>
-              As previously stated, it protects data. Specifically, it adds
-              specially chosen characters on the end of some data so that if the
-              data gets corrupted, it can be recovered again. There are a couple
-              terms to remember here. A 'message' is the data that is inputted.
-              In the example above, the 'message' is simply a string of
-              characters that you can put in yourself. An 'encoded message' is
-              the message + the other specially chosen characters. You will see
-              this as the message with some weird symbols on the end. The
-              'corrupted message' is a way I am pretending that the message has
-              experienced some corruption, like what happens over old phone
-              lines or imperfect wires. The 'decoded message' is then the
-              message, but recovered. The algorithm has used the special
-              characters on the end and done some math and gotten the original
-              message back.
-            </p>
 
+            <p>
+              First, we have to define data. When we discuss data, there can be
+              multiple ways of interpreting it. For us, we will use data in a
+              way that means physical characters, including alphabetic and
+              numerical. These characters are really just numbers, but seeing
+              them as characters helps visualize what an RS encoder/decoder is
+              doing.
+            </p>
+            <br />
+            <p>
+              An RS encoder/decoder protects data. When a message (like
+              "Hello!") is sent over the internet or a physical wire, there is a
+              chance for corruption. All data transmission is subject to
+              corruption, and when the message arrives, the receiver might get
+              "Bello!" instead of "Hello!". This is what RS encoding/decoding
+              schemes attempt to control.
+            </p>
+            <br />
+            <p>
+              Think of it this way. Image you sent a letter to a friend. You
+              wrote in perfect handwriting, and proofread before sending it. You
+              know that there is nothing wrong with the letter before sending
+              it. In transit, the post office takes your letter and dunks it
+              into water. The writing begins to bleed, and when it arrives, some
+              parts of the letter are impossible to read. This is what
+              corruption in data looks like.
+            </p>
+            <h3 className="montserrat-light">How does it work?</h3>
+            <p>
+              Well, there are two parts: the encoder and the decoder. Each is
+              used at different points in the timeline of sending a message.
+            </p>
+            <br />
+            <p>
+              The encoder is analogous to proofreading the letter before sending
+              it. For digital data, the encoder uses the message to determine
+              the characters to append to the end. Think of it like adding a
+              list to the end of your letter. The list details how many of each
+              alphabetic letter the message contained. For example, it would
+              say: "65 a's, 43 b's, ...". This information can be used by the
+              decoder to determine of the message was received correctly.
+            </p>
+            <br />
+            <p>
+              The decoder is a little bit more involved, but put simply, it uses
+              the characters at the end to check whether the message comes out
+              correctly. Considering the list of letter the sender added to the
+              end of their message. The receiver can count their message for its
+              letters, and check with the list that the sender sent. If
+              everything matches up, there is a good chance that the message
+              sent is the same as the message received.
+            </p>
             <h3 className="montserrat-light">How is this useful?</h3>
             <p>
               RS encoding/decoding techniques are used in nearly all forms of
@@ -163,17 +204,18 @@ class ReedSolomon extends React.Component {
               RS encoding being used is in the Voyager 1 spacecraft. It flew
               beyond the solar system and used a method of RS encoding and
               decoding to make sure the pictures it took got back to NASA
-              safely, without corruption from the radiation in space.
+              safely, without corruption from the radiation that permeates
+              space.
             </p>
 
             <h3 className="montserrat-light">What do I do?</h3>
             <p>
-              This program is one of the least exciting I've ever written.
-              Simply type some characters into the message field, press the
-              button, and witness the algorithm work. You could learn more about
-              it, though. I've written a very long paper explaining how someone
-              can construct a Reed-Solomon code, and use this technique
-              themselves.
+              Play around with the values! In the first text box, try typing any
+              text. You can then follow the boxes down for the flow. The program
+              simulates some corruption to the message, as you can see that the
+              "Corrupted Message" box is different than the "Encoded Message"
+              box. Then, using a RS decoder, the message is retrieved, errors
+              corrected!
             </p>
 
             <br />
