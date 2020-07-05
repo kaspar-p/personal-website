@@ -73,25 +73,33 @@ class ReedSolomon extends React.Component {
   copyText() {
     const citationText = `Poland, K. (2018). On the Construction of Reed-Solomon Codes. Unpublished manuscript.`;
 
-    navigator.permissions.query({ name: "clipboard-write" }).then(result => {
-      if (result.state === "granted" || result.state === "prompt") {
-        navigator.clipboard.writeText(citationText).then(
-          () => {
-            this.setState({ citePaperText: "citation copied!" });
-            const itvl = setTimeout(
-              () =>
-                this.setState({ citePaperText: "cite the paper" }, () =>
-                  clearTimeout(itvl)
-                ),
-              2000
-            );
-          },
-          function () {
-            console.log("failed");
-          }
-        );
-      }
-    });
+    const el = document.createElement("textarea");
+    el.value = citationText;
+    el.setAttribute("readonly", "");
+    el.style.position = "absolute";
+    el.style.left = "-9999px";
+    document.body.appendChild(el);
+    const selected =
+      document.getSelection().rangeCount > 0
+        ? document.getSelection().getRangeAt(0)
+        : false;
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+    if (selected) {
+      document.getSelection().removeAllRanges();
+      document.getSelection().addRange(selected);
+    }
+
+    // Change the text of the button
+    this.setState({ citePaperText: "citation copied!" });
+    const itvl = setTimeout(
+      () =>
+        this.setState({ citePaperText: "cite the paper" }, () =>
+          clearTimeout(itvl)
+        ),
+      2000
+    );
   }
 
   render() {
