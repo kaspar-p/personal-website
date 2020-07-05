@@ -30,10 +30,13 @@ class RSPaper extends React.Component {
         direction="column"
         justify="center"
         alignItems="center"
-        style={{ height: "95vh" }}
+        style={{ height: "95vh", lineHeight: "50px" }}
       >
         <button onClick={this.downloadFile} className="like-link">
-          <h2 className="montserrat-medium text-center hover-underline reed-solomon-paper-link">
+          <h2
+            className="montserrat-medium text-center hover-underline reed-solomon-paper-link"
+            style={{ lineHeight: "1" }}
+          >
             If the download does not begin after 5 seconds, click this text
           </h2>
         </button>
