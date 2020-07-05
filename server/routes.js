@@ -44,9 +44,9 @@ router.post("/RS", async (req, res) => {
 router.get("/rs-paper", async (req, res) => {
   let root;
   if (process.env.NODE_ENV === "production") {
-    root = "/";
+    root = "client/public/";
   } else {
-    root = "client/public";
+    root = "client/public/";
   }
 
   return res.sendFile("OnTheConstructionOfReedSolomonCodes.pdf", {
