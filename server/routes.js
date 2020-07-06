@@ -4,7 +4,8 @@ import express from "express";
 import Update from "./dataModels/Update.js";
 import pollGithubAndSave from "./lib.js";
 
-const VoiceResponse = require("twilio").twiml.VoiceResponse;
+import twilio from "twilio";
+const VoiceResponse = twilio.twiml.VoiceResponse;
 
 // ------------------
 //     ALL ROUTES
@@ -71,14 +72,6 @@ router.get("/caller", (req, res) => {
   // Render the response as XML in reply to the webhook request
   response.type("text/xml");
   response.send(twiml.toString());
-});
-
-// Create an HTTP server and listen for requests on port 3000
-app.listen(3000, () => {
-  console.log(
-    "Now listening on port 3000. " +
-      "Be sure to restart when you make code changes!"
-  );
 });
 
 // -----------------
