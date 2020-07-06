@@ -4,6 +4,8 @@ import express from "express";
 import Update from "./dataModels/Update.js";
 import pollGithubAndSave from "./lib.js";
 
+const VoiceResponse = require("twilio").twiml.VoiceResponse;
+
 // ------------------
 //     ALL ROUTES
 // ------------------
@@ -55,13 +57,38 @@ router.get("/rs-paper", async (req, res) => {
 });
 
 // -----------------
+//    TWILIO ROUTES
+// -----------------
+
+router.get("/caller", (req, res) => {
+  const message =
+    "Thank you for calling. Thank you for calling. This is an automated response. Call my personal number to reach me: 9 7 0 4 8 1 2 1 4 2";
+
+  // Use the Twilio Node.js SDK to build an XML response
+  const twiml = new VoiceResponse();
+  twiml.say({ voice: "man" }, message);
+
+  // Render the response as XML in reply to the webhook request
+  response.type("text/xml");
+  response.send(twiml.toString());
+});
+
+// Create an HTTP server and listen for requests on port 3000
+app.listen(3000, () => {
+  console.log(
+    "Now listening on port 3000. " +
+      "Be sure to restart when you make code changes!"
+  );
+});
+
+// -----------------
 //    TEST ROUTES
 // -----------------
 
 // Fetches immediately for testing
 router.post("/test-fetchGithub", async (req, res) => {
   await pollGithubAndSave();
-  return res.send({ success: "Successfully fetched data from Github!" });
+  return res.json({ success: "Successfully fetched data from Github!" });
 });
 
 // Test GET method
