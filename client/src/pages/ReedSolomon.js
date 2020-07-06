@@ -4,6 +4,7 @@ import axios from "axios";
 
 import TitleBar from "../components/TitleBar";
 import RSForm from "../components/RSForm";
+import { isMobile, downloadFile } from "../lib";
 
 import "../assets/css/reed-solomon.css";
 
@@ -21,22 +22,6 @@ class ReedSolomon extends React.Component {
       citePaperText: "cite the paper",
       buttonText: "Wait..."
     };
-  }
-
-  async downloadFile() {
-    const response = await axios({
-      method: "get",
-      url: "/api/rs-paper",
-      responseType: "blob"
-    });
-
-    const url = window.URL.createObjectURL(new Blob([response.data]));
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", "OnTheConstructionOfReedSolomonCodes.pdf");
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
   }
 
   callBackend = async () => {
@@ -223,13 +208,15 @@ class ReedSolomon extends React.Component {
         </Grid>
         <div className="link-wrapper">
           <Grid container direction="row" justify="center">
-            <div item="true" className="col-auto">
-              <button onClick={this.downloadFile} className="like-link">
-                <h1 className="montserrat-medium hover-underline reed-solomon-paper-link">
-                  read the paper
-                </h1>
-              </button>
-            </div>
+            {!isMobile() ? (
+              <div item="true" className="col-auto">
+                <button onClick={downloadFile} className="like-link">
+                  <h1 className="montserrat-medium hover-underline reed-solomon-paper-link">
+                    read the paper
+                  </h1>
+                </button>
+              </div>
+            ) : null}
             <div item="true" className="col-auto">
               <button onClick={this.copyText} className="like-link">
                 <h1 className="montserrat-medium hover-underline reed-solomon-paper-link">
