@@ -14,7 +14,7 @@ export const beginInterval = async itvl => {
 
 /**
  * Error handling wrapper around pollGithubAndSave
- * @param   {Interval} itvl The globla interval variable
+ * @param   {Interval} itvl The global interval variable
  * @returns {void}
  */
 const pollGithubWrapper = async itvl => {
