@@ -4,9 +4,6 @@ import express from "express";
 import Update from "./dataModels/Update.js";
 import pollGithubAndSave from "./lib.js";
 
-import twilio from "twilio";
-const VoiceResponse = twilio.twiml.VoiceResponse;
-
 // ------------------
 //     ALL ROUTES
 // ------------------
@@ -55,23 +52,6 @@ router.get("/rs-paper", async (req, res) => {
   return res.sendFile("OntheConstructionofReedSolomonCodes.pdf", {
     root
   });
-});
-
-// -----------------
-//    TWILIO ROUTES
-// -----------------
-
-router.get("/caller", (req, res) => {
-  const message =
-    "Thank you for calling. Thank you for calling. This is an automated response. Call my personal number to reach me: 9 7 0 4 8 1 2 1 4 2";
-
-  // Use the Twilio Node.js SDK to build an XML response
-  const twiml = new VoiceResponse();
-  twiml.say({ voice: "man" }, message);
-
-  // Render the response as XML in reply to the webhook request
-  response.type("text/xml");
-  response.send(twiml.toString());
 });
 
 // -----------------
