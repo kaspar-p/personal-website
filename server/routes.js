@@ -42,15 +42,8 @@ router.post("/RS", async (req, res) => {
 
 // Sends back the PDF file of the paper
 router.get("/rs-paper", async (req, res) => {
-  let root;
-  if (process.env.NODE_ENV === "production") {
-    root = "client/public/";
-  } else {
-    root = "client/public/";
-  }
-
   return res.sendFile("OntheConstructionofReedSolomonCodes.pdf", {
-    root
+    root: "client/public/"
   });
 });
 
