@@ -693,6 +693,7 @@ var nm6b = [
 ];
 
 function nameGen() {
+  let names1, names2, names3;
   var snt1 = (Math.random() * 5) | 0;
   var snt2 = (Math.random() * 2) | 0;
   var snt3 = (Math.random() * 3) | 0;
