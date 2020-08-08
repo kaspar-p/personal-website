@@ -142,4 +142,6 @@ const pollGithubAndSave = async () => {
   };
 };
 
+export const roundOut = n => Math.round(n * 100) / 100;
+
 export default pollGithubAndSave;

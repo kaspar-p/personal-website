@@ -5,7 +5,7 @@ import Update from "./dataModels/Update.js";
 import pollGithubAndSave from "./lib.js";
 
 // ------------------
-//     ALL ROUTES
+//     API ROUTES
 // ------------------
 
 const router = express.Router();
