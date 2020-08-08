@@ -7,6 +7,7 @@ import { fileURLToPath } from "url";
 import socketInitializer from "socket.io";
 
 import routes from "./routes.js";
+import twilioRoutes from "./twilioRoutes.js";
 import { beginInterval, endInterval } from "./lib.js";
 
 // Production will inject a port, undefined if in development mode
@@ -21,7 +22,10 @@ const app = express();
 
 // Config
 app.use(bodyparser.json()); // Before routes
+
 app.use("/api", routes);
+app.use("/mocha", twilioRoutes);
+
 if (process.env.NODE_ENV === "production") {
   // Before, for CSS and other styles
   app.use(express.static(buildPath));
@@ -55,8 +59,6 @@ io.on("connection", async socket => {
   if (numUsers === 1) {
     // The first user connected, begin the loop
     await beginInterval(itvl);
-    const used = process.memoryUsage().heapUsed / 1024 / 1024;
-    console.log(`The script uses approximately ${used} MB`);
   }
 
   socket.on("disconnect", () => {
@@ -83,6 +85,3 @@ try {
   console.log("Database connection not established! Error occurred!");
   console.log(error);
 }
-
-const used = process.memoryUsage().heapUsed / 1024 / 1024;
-console.log(`The script uses approximately ${used} MB`);
