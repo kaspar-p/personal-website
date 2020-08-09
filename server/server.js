@@ -1,5 +1,5 @@
 import express from "express";
-import bodyparser from "body-parser";
+import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import path, { dirname } from "path";
@@ -21,7 +21,7 @@ const buildPath = path.join(__dirname, "../", "client", "build");
 const app = express();
 
 // Config
-app.use(bodyparser.json()); // Before routes
+app.use(bodyParser.json()); // Before routes
 
 app.use("/api", routes);
 app.use("/mocha", twilioRoutes);
