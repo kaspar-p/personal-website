@@ -7,7 +7,6 @@ import { fileURLToPath } from "url";
 import socketInitializer from "socket.io";
 
 import routes from "./routes.js";
-import twilioRoutes from "./twilioRoutes.js";
 import { beginInterval, endInterval } from "./lib.js";
 
 // Production will inject a port, undefined if in development mode
@@ -24,7 +23,6 @@ const app = express();
 app.use(bodyParser.json()); // Before routes
 
 app.use("/api", routes);
-app.use("/mocha", twilioRoutes);
 
 if (process.env.NODE_ENV === "production") {
   // Before, for CSS and other styles
