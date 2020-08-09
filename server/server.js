@@ -21,6 +21,7 @@ const app = express();
 
 // Config
 app.use(bodyParser.json()); // Before routes
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/api", routes);
 
