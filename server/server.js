@@ -20,6 +20,7 @@ const buildPath = path.join(__dirname, "../", "client", "build");
 const app = express();
 
 // Config
+dotenv.config();
 app.use(bodyParser.json()); // Before routes
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -34,7 +35,6 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile("/index.html", { root: buildPath });
   });
 }
-dotenv.config();
 let itvl;
 
 const server = app.listen(PORT, () =>
