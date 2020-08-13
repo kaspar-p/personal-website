@@ -60,7 +60,7 @@ router.get("/rs-paper", async (req, res) => {
 //     TWILIO ROUTES
 // ---------------------
 
-let balance = 26.04;
+let balance = 4.44; // 26.04;
 const mochaPrices = {
   S: 3.48,
   M: 3.96,
@@ -77,7 +77,7 @@ router.post("/mocha", (req, res) => {
     console.log("ERROR, NO MESSAGE");
   }
 
-  const incomingText = req.body.Body.toString().toUpper();
+  const incomingText = req.body.Body.toString().toUpperCase();
 
   const expandedSize = {
     S: "Small",
@@ -90,9 +90,27 @@ router.post("/mocha", (req, res) => {
     );
   };
 
+  const endMessageChain = () => {
+    storedSize = "";
+    orderBegun = false;
+  };
+
+  const insufficientFunds = sizeText => {
+    twiml.message(
+      `There is not enough money left in your balance for a${
+        sizeText ? " " + expandedSize[sizeText].toLowerCase() : ""
+      } mocha! You can always request a haiku with "HAIKU", though!`
+    );
+    endMessageChain();
+  };
+
   const orderMocha = sizeText => {
-    sizeText = sizeText.toUpper();
+    sizeText = sizeText.toUpperCase();
     balance = roundOut(balance - mochaPrices[sizeText]);
+
+    twiml.message(
+      `${expandedSize[sizeText]} mocha ordered. Remaining balance: $${balance}. Now for some poetry to enjoy it with, just send "HAIKU"!`
+    );
 
     twilioClient.messages.create({
       body: `Papa ordered a mocha of size: ${sizeText}`,
@@ -100,18 +118,25 @@ router.post("/mocha", (req, res) => {
       to: process.env.MY_NUMBER
     });
 
-    // Reset
-    orderBegun = false;
-    storedSize = "";
+    endMessageChain();
+  };
+
+  const checkBalance = (sizeText, onError, onSuccess) => {
+    const projectedBalance = roundOut(balance - mochaPrices[sizeText]);
+    if (projectedBalance < 0) {
+      onError(sizeText);
+    } else {
+      onSuccess(sizeText);
+    }
   };
 
   if (incomingText === "MOCHA") {
-    let sizeOptions = ["S", "M", "L"].filter(key => mochaPrices[key] < balance);
+    let sizeOptions = Object.keys(mochaPrices).filter(
+      key => mochaPrices[key] < balance
+    );
 
     if (sizeOptions.length === 0) {
-      twiml.message(
-        'There is not enough money left in your balance for a mocha! You can always request a haiku with "HAIKU", though!'
-      );
+      insufficientFunds();
     } else {
       sizeOptions = sizeOptions.join("/");
       twiml.message(`What size mocha would you like? (${sizeOptions}): `);
@@ -123,40 +148,36 @@ router.post("/mocha", (req, res) => {
     incomingText === "L"
   ) {
     if (orderBegun) {
-      const projectedBalance = roundOut(balance - mochaPrices[incomingText]);
-      if (projectedBalance < 0) {
-        twiml.message(
-          'There is not enough money left in your balance for a mocha! You can always request a haiku with "HAIKU", though!'
-        );
-      } else {
-        orderMocha(incomingText);
-        twiml.message(
-          `${expandedSize[incomingText]} Mocha ordered. Remaining balance: $${balance}. Now for some poetry to enjoy it with, just send "HAIKU"!`
-        );
-      }
+      checkBalance(incomingText, insufficientFunds, orderMocha);
     } else {
       storedSize = incomingText;
-      twiml.message(
-        `Seems like you asked for a mocha size before beginning an order. Would you like to order a ${expandedSize[
-          incomingText
-        ].toLower()} size mocha anyway? (Y/N)`
+      orderBegun = true;
+
+      checkBalance(storedSize, insufficientFunds, () =>
+        twiml.message(
+          `Seems like you asked for a mocha size before beginning an order. Would you like to order a ${expandedSize[
+            incomingText
+          ].toLowerCase()} mocha anyway? (Y/N)`
+        )
       );
     }
   } else if (incomingText === "HAIKU") {
     twiml.message(generateHaiku().join(" / "));
   } else if (incomingText === "Y") {
-    if (!orderBegun) {
-      orderMocha(storedSize);
-      twiml.message(
-        `${expandedSize[incomingText]} mocha ordered! Enjoy it with a "HAIKU"!`
-      );
+    if (orderBegun) {
+      checkBalance(storedSize, insufficientFunds, orderMocha);
     } else {
       unrecognizedMessage();
     }
   } else if (incomingText === "N") {
-    twiml.message(
-      'Ok, no mocha ordered. A "HAIKU" is always available, though!'
-    );
+    if (orderBegun) {
+      twiml.message(
+        'Ok, no mocha ordered. A "HAIKU" is always available, though!'
+      );
+      endMessageChain();
+    } else {
+      unrecognizedMessage();
+    }
   } else {
     unrecognizedMessage();
   }
