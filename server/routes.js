@@ -60,7 +60,7 @@ router.get("/rs-paper", async (req, res) => {
 //     TWILIO ROUTES
 // ---------------------
 
-let balance = 4.44; // 26.04;
+let balance = 26.04;
 const mochaPrices = {
   S: 3.48,
   M: 3.96,
