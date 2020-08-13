@@ -113,7 +113,7 @@ router.post("/mocha", (req, res) => {
     );
 
     twilioClient.messages.create({
-      body: `Papa ordered a mocha of size: ${sizeText}`,
+      body: `Papa just ordered a mocha of size: ${sizeText}. He has $${balance} remaining.`,
       from: process.env.TWILIO_NUMBER,
       to: process.env.MY_NUMBER
     });
