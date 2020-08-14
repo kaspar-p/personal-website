@@ -19,7 +19,6 @@ class ProjectBar extends React.Component {
   }
 
   render() {
-    console.log(this.state.width);
     return (
       <Grid
         item
@@ -36,9 +35,11 @@ class ProjectBar extends React.Component {
         <img
           item="true"
           className="project-img"
-          xs={6}
-          height="100%"
+          height="90%"
+          width={this.state.width > 960 ? "auto" : "100%"}
+          alt={this.props.title}
           src={this.props.image}
+          style={{ marginBottom: "2rem" }}
         />
         <Grid
           item
