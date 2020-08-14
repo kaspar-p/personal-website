@@ -1,6 +1,5 @@
 import React from "react";
 import TitleBar from "../components/TitleBar";
-import normalDistImage from "../assets/images/double-pendulum/normalDist.jpg";
 import nnImage from "../assets/images/double-pendulum/nn.png";
 import { sketch } from "../assets/code/doublePendulum/sketch";
 import p5 from "p5";
