@@ -24,7 +24,7 @@ function Home(props) {
             </li>
           </a>
           <hr className="showForSmallScreen pageDivider" />
-          <a href="../contactme">
+          <a href="../contact-me">
             <li className="max-width hover-underline text-left pageLink">
               contact me
             </li>
