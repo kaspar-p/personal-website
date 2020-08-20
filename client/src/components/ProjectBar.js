@@ -13,11 +13,13 @@ function ProjectBar(props) {
       justify="space-evenly"
       alignItems="center"
       className="project-bar"
-      style={{ marginBottom: "2rem" }}
       lg={8}
       xs={11}
       onClick={() => (window.location = props.path)}
-      style={{ borderTop: props.isFirst ? "black solid 2px" : "none" }}
+      style={{
+        marginBottom: "2rem",
+        borderTop: props.isFirst ? "black solid 2px" : "none"
+      }}
     >
       <img
         item="true"
@@ -51,11 +53,12 @@ function ProjectBar(props) {
 }
 
 ProjectBar.propTypes = {
-  isFirst: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
   blurb: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired
+  image: PropTypes.string.isRequired,
+  isFirst: PropTypes.bool.isRequired,
+  width: PropTypes.number.isRequired
 };
 
 export default ProjectBar;
