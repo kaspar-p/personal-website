@@ -5,22 +5,22 @@ import Commit from "./dataModels/Commit.js";
 
 /**
  * Begin retrieving data from Github
- * @param   {Interval}  itvl  The global interval variable
+ * @param   {Interval}  interval  The global interval variable
  * @returns {void}
  */
-export const beginInterval = async itvl => {
-  await pollGithubWrapper(itvl);
+export const beginInterval = async interval => {
+  await pollGithubWrapper(interval);
 };
 
 /**
  * Error handling wrapper around pollGithubAndSave
- * @param   {Interval} itvl The global interval variable
+ * @param   {Interval} interval The global interval variable
  * @returns {void}
  */
-const pollGithubWrapper = async itvl => {
+const pollGithubWrapper = async interval => {
   const { status, statusMsg } = await pollGithubAndSave();
   if (status === "SUCCESS") {
-    itvl = setInterval(() => pollGithubWrapper(itvl), 60 * 60 * 1000);
+    interval = setInterval(() => pollGithubWrapper(interval), 60 * 60 * 1000);
   }
   console.log({ STATUS: status, STATUS_MSG: statusMsg });
   return;
@@ -28,11 +28,11 @@ const pollGithubWrapper = async itvl => {
 
 /**
  * Stop polling Github for data
- * @param   {Interval}  itvl The global interval variable
+ * @param   {Interval}  interval The global interval variable
  * @returns {void}
  */
-export const endInterval = async itvl => {
-  clearInterval(itvl);
+export const endInterval = async interval => {
+  clearInterval(interval);
 };
 
 // For checking whether a certain commit has already been in the DB
@@ -49,14 +49,14 @@ const checkChanges = (url, commits) => {
   return false;
 };
 
-// Fetchs Github commits and saves into the DB as Update documents
+// Fetches Github commits and saves into the DB as Update documents
 const pollGithubAndSave = async () => {
   let numUpdates = await Update.countDocuments();
 
   // Get all repo names
-  let repos;
+  let repositories;
   try {
-    repos = await axios({
+    repositories = await axios({
       method: "get",
       url: `https://api.github.com/users/${process.env.GITHUB_USERNAME}/repos`,
       headers: {
@@ -64,19 +64,14 @@ const pollGithubAndSave = async () => {
       }
     }).then(response => response.data);
   } catch (error) {
-    console.log("GETTING REPO NAMES FAILED");
-    console.log(
-      "ERROR  -->  " + error.response.status + ": " + error.response.statusText
-    );
     return {
-      statusMsg: error.response.status + ": " + error.response.statusText,
+      statusMsg: `Getting Github repositories failed ::: ${error.response.status} : ${error.response.statusText}`,
       status: "FAILED"
     };
   }
-  console.log("GETTING REPO NAMES SUCCESS");
-  const repoNames = repos.map(repo => repo.name);
+  const repoNames = repositories.map(repo => repo.name);
 
-  // Get all commits from all reponames as promises to run them concurrently
+  // Get all commits from all repoNames as promises to run them concurrently
   const commitPromises = repoNames.map(repoName =>
     axios({
       method: "get",
@@ -92,16 +87,11 @@ const pollGithubAndSave = async () => {
   try {
     commitsPacked = await Promise.all(commitPromises);
   } catch (error) {
-    console.log("GETTING COMMITS FAILED");
-    console.log(
-      "ERROR  -->  " + error.response.status + ": " + error.response.statusText
-    );
     return {
-      statusMsg: error.response.status + ": " + error.response.statusText,
+      statusMsg: `Getting Github commits failed ::: ${error.response.status} : ${error.response.statusText}`,
       status: "FAILED"
     };
   }
-  console.log("GETTING COMMITS SUCCESS");
 
   // For checking commits if they are already in the DB
   const allCommits = await Commit.find().then(commits => commits);

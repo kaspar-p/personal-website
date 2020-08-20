@@ -35,7 +35,8 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile("/index.html", { root: buildPath });
   });
 }
-let itvl;
+
+let interval;
 
 const server = app.listen(PORT, () =>
   console.log(
@@ -57,7 +58,7 @@ io.on("connection", async socket => {
 
   if (numUsers === 1) {
     // The first user connected, begin the loop
-    await beginInterval(itvl);
+    await beginInterval(interval);
   }
 
   socket.on("disconnect", () => {
@@ -65,7 +66,7 @@ io.on("connection", async socket => {
     console.log("USER DISCONNECTED! TOTAL: ", numUsers);
 
     if (numUsers === 0) {
-      endInterval(itvl);
+      endInterval(interval);
     }
   });
 });
