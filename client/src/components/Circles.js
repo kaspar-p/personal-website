@@ -1,5 +1,6 @@
 import React from "react";
 import circleImg from "../assets/images/blackCircle.png";
+
 import "../assets/css/circles.css";
 
 function Squares(props) {

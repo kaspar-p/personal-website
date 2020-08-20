@@ -1,9 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
+import Grid from "@material-ui/core/Grid";
+
 import TwitterLogo from "../assets/images/contactme/twitterLogo.png";
 import GithubLogo from "../assets/images/contactme/githubLogo.png";
 import InstagramLogo from "../assets/images/contactme/instagramLogo.jpg";
 import LinkedInLogo from "../assets/images/contactme/linkedinLogo.png";
-import Grid from "@material-ui/core/Grid";
 
 import "../assets/css/contactme.css";
 
@@ -125,5 +127,12 @@ function ContactMeSquare(props) {
     return smallSize;
   }
 }
+
+ContactMeSquare.propTypes = {
+  width: PropTypes.number.isRequired,
+  socialName: PropTypes.string.isRequired,
+  handle: PropTypes.string.isRequired,
+  socialLink: PropTypes.string.isRequired
+};
 
 export default ContactMeSquare;

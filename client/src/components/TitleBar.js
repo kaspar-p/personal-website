@@ -1,5 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
+
 import "../assets/css/titleBar.css";
 
 class TitleBar extends React.Component {
@@ -18,7 +20,6 @@ class TitleBar extends React.Component {
   }
 
   render() {
-    console.log(this.state.width);
     return (
       <Grid
         container
@@ -63,5 +64,9 @@ class TitleBar extends React.Component {
     );
   }
 }
+
+TitleBar.propTypes = {
+  title: PropTypes.string.isRequired
+};
 
 export default TitleBar;
