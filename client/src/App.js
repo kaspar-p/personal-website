@@ -10,7 +10,6 @@ import ContactMe from ".//pages/ContactMe";
 import NotFound from "./pages/NotFound";
 import ReedSolomon from "./pages/ReedSolomon";
 import DoublePendulum from "./pages/DoublePendulum";
-import ProjectBar from "./components/ProjectBar";
 import Paper from "./pages/RSPaper";
 import socketClientInitializer from "socket.io-client";
 
@@ -47,9 +46,6 @@ class App extends React.Component {
           </Route>
           <Route path="/OnTheConstructionOfReedSolomonCodes">
             <Paper />
-          </Route>
-          <Route path="/project-bar">
-            <ProjectBar />
           </Route>
           <Route exact path="/">
             <HomePage />
