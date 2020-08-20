@@ -35,7 +35,7 @@ class App extends React.Component {
           <Route exact path="/updates">
             <Updates />
           </Route>
-          <Route exact path="/contactme">
+          <Route exact path="/contact-me">
             <ContactMe />
           </Route>
           <Route exact path="/double-pendulum">
