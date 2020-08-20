@@ -4,8 +4,7 @@ import express from "express";
 import dotenv from "dotenv";
 
 import Update from "./dataModels/Update.js";
-import pollGithubAndSave, { roundOut } from "./lib.js";
-import generateHaiku from "./haiku.js";
+import { pollGithubAndSave, roundOut, getPoem } from "./lib.js";
 
 // ------------------
 //     API ROUTES
@@ -70,7 +69,7 @@ const mochaPrices = {
 let orderBegun = false;
 let storedSize = "";
 
-router.post("/mocha", (req, res) => {
+router.post("/mocha", async (req, res) => {
   const twiml = new MessagingResponse();
 
   if (Object.keys(req.body).length === 0) {
@@ -86,7 +85,7 @@ router.post("/mocha", (req, res) => {
   };
   const unrecognizedMessage = () => {
     twiml.message(
-      'Unrecognized message. Please send "MOCHA" or "HAIKU" to get started!'
+      'Unrecognized message. Please send "MOCHA" or "POEM" to get started!'
     );
   };
 
@@ -99,7 +98,7 @@ router.post("/mocha", (req, res) => {
     twiml.message(
       `There is not enough money left in your balance for a${
         sizeText ? " " + expandedSize[sizeText].toLowerCase() : ""
-      } mocha! You can always request a haiku with "HAIKU", though!`
+      } mocha! You can always request a haiku with "POEM", though!`
     );
     endMessageChain();
   };
@@ -109,7 +108,7 @@ router.post("/mocha", (req, res) => {
     balance = roundOut(balance - mochaPrices[sizeText]);
 
     twiml.message(
-      `${expandedSize[sizeText]} mocha ordered. Remaining balance: $${balance}. Now for some poetry to enjoy it with, just send "HAIKU"!`
+      `${expandedSize[sizeText]} mocha ordered. Remaining balance: $${balance}. Now for some poetry to enjoy it with, just send "POEM"!`
     );
 
     twilioClient.messages.create({
@@ -161,8 +160,6 @@ router.post("/mocha", (req, res) => {
         )
       );
     }
-  } else if (incomingText === "HAIKU") {
-    twiml.message(generateHaiku().join(" / "));
   } else if (incomingText === "Y") {
     if (orderBegun) {
       checkBalance(storedSize, insufficientFunds, orderMocha);
@@ -172,12 +169,15 @@ router.post("/mocha", (req, res) => {
   } else if (incomingText === "N") {
     if (orderBegun) {
       twiml.message(
-        'Ok, no mocha ordered. A "HAIKU" is always available, though!'
+        'Ok, no mocha ordered. A "POEM" is always available, though!'
       );
       endMessageChain();
     } else {
       unrecognizedMessage();
     }
+  } else if (incomingText === "POEM") {
+    const poem = await getPoem();
+    twiml.message(poem);
   } else {
     unrecognizedMessage();
   }
