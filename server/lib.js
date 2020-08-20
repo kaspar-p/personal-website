@@ -8,17 +8,29 @@ import Commit from "./dataModels/Commit.js";
  * @returns {String}
  */
 export const getPoem = async () => {
-  let response;
-  try {
-    response = await axios.get("https://poetrydb.org/random");
-  } catch (error) {
-    console.log(`Error occurred, poem not retrieved: `, error);
+  let data;
+  let responseSuccess = false;
+
+  while (responseSuccess === false) {
+    const response = await axios.get("https://poetrydb.org/random/100");
+
+    let chosenPoem = {};
+    for (let poem of response.data) {
+      if (poem.linecount <= 30) {
+        chosenPoem = poem;
+        break;
+      }
+    }
+
+    if (Object.keys(chosenPoem) !== 0) {
+      data = chosenPoem;
+      break;
+    }
   }
 
-  const { author, title, lines } = response.data;
-
-  const formattedLines = lines.join("\n");
-  const formattedPoem = `\n${title}\nBy ${author}\n\n${formattedLines}`;
+  const formattedPoem = `\n${data.title}\nBy ${
+    data.author
+  }\n\n${data.lines.join("\n")}`;
 
   return formattedPoem;
 };
