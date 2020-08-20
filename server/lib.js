@@ -4,6 +4,26 @@ import Update from "./dataModels/Update.js";
 import Commit from "./dataModels/Commit.js";
 
 /**
+ * Uses PoetryDB from https://github.com/thundercomb/poetrydb to get a random poem.
+ * @returns {String}
+ */
+export const getPoem = async () => {
+  let response;
+  try {
+    response = await axios.get("https://poetrydb.org/random");
+  } catch (error) {
+    console.log(`Error occurred, poem not retrieved: `, error);
+  }
+
+  const { author, title, lines } = response.data;
+
+  const formattedLines = lines.join("\n");
+  const formattedPoem = `\n${title}\nBy ${author}\n\n${formattedLines}`;
+
+  return formattedPoem;
+};
+
+/**
  * Begin retrieving data from Github
  * @param   {Interval}  interval  The global interval variable
  * @returns {void}
@@ -50,7 +70,7 @@ const checkChanges = (url, commits) => {
 };
 
 // Fetches Github commits and saves into the DB as Update documents
-const pollGithubAndSave = async () => {
+export const pollGithubAndSave = async () => {
   let numUpdates = await Update.countDocuments();
 
   // Get all repo names
@@ -133,5 +153,3 @@ const pollGithubAndSave = async () => {
 };
 
 export const roundOut = n => Math.round(n * 100) / 100;
-
-export default pollGithubAndSave;
