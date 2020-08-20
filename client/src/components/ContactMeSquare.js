@@ -28,6 +28,7 @@ function ContactMeSquare(props) {
         >
           {/* Centers the image on small screens */}
           <Grid
+            container
             direction="row"
             justify="center"
             className="no-margin no-padding imgDiv"
@@ -39,7 +40,7 @@ function ContactMeSquare(props) {
               src={nameToImageSrcMap.get(props.socialName)}
             />
           </Grid>
-          <div item className="col no-margin no-padding">
+          <div item="true" className="col no-margin no-padding">
             <h2 className="montserrat-medium socialHandle">{props.handle}</h2>
           </div>
         </Grid>
@@ -57,11 +58,12 @@ function ContactMeSquare(props) {
           alignItems="center"
           className="no-margin no-padding"
         >
-          <div item className="col no-margin no-padding socialTitle">
+          <div item="true" className="col no-margin no-padding socialTitle">
             <h2 className="montserrat-medium socialName">{props.socialName}</h2>
           </div>
           {/* Centers the image on small screens */}
           <Grid
+            container
             direction="row"
             justify="center"
             className="no-margin no-padding imgDiv"
@@ -73,7 +75,7 @@ function ContactMeSquare(props) {
               src={nameToImageSrcMap.get(props.socialName)}
             />
           </Grid>
-          <div item className="col no-margin no-padding">
+          <div item="true" className="col no-margin no-padding">
             <h2 className="montserrat-medium socialHandle">{props.handle}</h2>
           </div>
         </Grid>
@@ -107,6 +109,7 @@ function ContactMeSquare(props) {
             />
           </Grid>
           <Grid
+            container
             direction="column"
             justify="center"
             className="col no-margin no-padding socialTitle"

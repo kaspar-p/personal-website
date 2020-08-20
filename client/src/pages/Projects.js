@@ -34,6 +34,7 @@ class Projects extends React.Component {
         >
           {_.map(projects, (project, projectName) => (
             <ProjectBar
+              key={project.path}
               image={project.image}
               title={project.title}
               path={project.path}
