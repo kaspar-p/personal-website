@@ -12,7 +12,7 @@ export const getPoem = async () => {
   let responseSuccess = false;
 
   while (responseSuccess === false) {
-    const response = await axios.get("https://poetrydb.org/random/100");
+    const response = await axios.get("https://poetrydb.org/random/10");
 
     let chosenPoem = {};
     for (let poem of response.data) {
