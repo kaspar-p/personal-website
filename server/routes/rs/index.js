@@ -1,27 +1,14 @@
-import childProcess from "child_process";
 import express from "express";
-import dotenv from "dotenv";
-
-import Update from "../dataModels/Update.js";
+import childProcess from "child_process";
 
 const router = express.Router();
-dotenv.config();
 
-// ------------------
-//     API ROUTES
-// ------------------
-
-// Gets updates when the 'recent updates' page is visited
-router.get("/updates", async (req, res) => {
-  const updates = await Update.find()
-    .sort({ date: -1 })
-    .then(updates => updates);
-
-  return res.json(updates);
-});
+// -------------------------
+//    REED-SOLOMON ROUTES
+// -------------------------
 
 // For the Reed-Solomon encoder/decoder in projects
-router.post("/RS", async (req, res) => {
+router.post("/program", async (req, res) => {
   // Run the java program
   try {
     childProcess.exec(
@@ -42,7 +29,7 @@ router.post("/RS", async (req, res) => {
 });
 
 // Sends back the PDF file of the paper
-router.get("/rs-paper", async (req, res) => {
+router.get("/paper", async (req, res) => {
   return res.sendFile("OntheConstructionofReedSolomonCodes.pdf", {
     root: "client/public/"
   });
@@ -55,7 +42,7 @@ router.get("/rs-paper", async (req, res) => {
 // Test GET method
 router.get("/test", (req, res) => {
   return res.json({
-    path: "/api/test",
+    path: "/api/rs/test",
     method: "GET",
     status: "SUCCESS"
   });
@@ -64,7 +51,7 @@ router.get("/test", (req, res) => {
 // Test POST method
 router.post("/test", (req, res) => {
   return res.json({
-    path: "/api/test",
+    path: "/api/rs/test",
     method: "POST",
     status: "SUCCESS"
   });

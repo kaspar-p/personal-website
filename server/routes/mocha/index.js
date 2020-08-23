@@ -1,14 +1,9 @@
-import childProcess from "child_process";
 import twilio from "twilio";
 import express from "express";
 import dotenv from "dotenv";
+import fs from "fs";
 
-import Update from "./dataModels/Update.js";
-import { pollGithubAndSave, roundOut, getPoem } from "./lib.js";
-
-// ------------------
-//     API ROUTES
-// ------------------
+import { roundOut, getPoem, setBalance, getBalance } from "./lib.js";
 
 const router = express.Router();
 dotenv.config();
@@ -18,48 +13,10 @@ const twilioClient = twilio(
   process.env.TWILIO_AUTH_TOKEN
 );
 
-// Gets updates when the 'recent updates' page is visited
-router.get("/updates", async (req, res) => {
-  const updates = await Update.find()
-    .sort({ date: -1 })
-    .then(updates => updates);
-
-  return res.json(updates);
-});
-
-// For the Reed-Solomon encoder/decoder in projects
-router.post("/RS", async (req, res) => {
-  // Run the java program
-  try {
-    childProcess.exec(
-      "cd client/src/assets/code " + "&& java qrcode/Main " + req.body.message,
-      (err, stdout, stderr) => {
-        if (err) console.log(err);
-        if (stderr) console.log(stderr.toString());
-        const dataArray = stdout.split("\n").slice(0, -1);
-        // Return the data back to the page that wanted it
-        return res.send(dataArray);
-      }
-    );
-  } catch (error) {
-    return res.json({
-      ERROR: error
-    });
-  }
-});
-
-// Sends back the PDF file of the paper
-router.get("/rs-paper", async (req, res) => {
-  return res.sendFile("OntheConstructionofReedSolomonCodes.pdf", {
-    root: "client/public/"
-  });
-});
-
 // ---------------------
 //     TWILIO ROUTES
 // ---------------------
 
-let balance = 26.04;
 const mochaPrices = {
   S: 3.48,
   M: 3.96,
@@ -69,8 +26,10 @@ const mochaPrices = {
 let orderBegun = false;
 let storedSize = "";
 
-router.post("/mocha", async (req, res) => {
+router.post("/", async (req, res) => {
   const twiml = new MessagingResponse();
+
+  let balance = getBalance();
 
   if (Object.keys(req.body).length === 0) {
     console.log("ERROR, NO MESSAGE");
@@ -105,7 +64,9 @@ router.post("/mocha", async (req, res) => {
 
   const orderMocha = sizeText => {
     sizeText = sizeText.toUpperCase();
-    balance = roundOut(balance - mochaPrices[sizeText]);
+
+    setBalance(roundOut(balance - mochaPrices[sizeText]));
+    balance = getBalance();
 
     twiml.message(
       `${expandedSize[sizeText]} mocha ordered. Remaining balance: $${balance}. Now for some poetry to enjoy it with, just send "POEM"!`
@@ -190,23 +151,30 @@ router.post("/mocha", async (req, res) => {
 //    TEST ROUTES
 // -----------------
 
-// Fetches immediately for testing
-router.post("/test-fetchGithub", async (req, res) => {
-  await pollGithubAndSave();
-  return res.json({ success: "Successfully fetched data from Github!" });
-});
-
 // Test GET method
 router.get("/test", (req, res) => {
   return res.json({
-    success: "This GET test returned successfully!!"
+    path: "/api/mocha/test",
+    method: "GET",
+    status: "SUCCESS"
   });
+});
+
+// For altering the balance manually
+router.post("/set-balance/:amount", (req, res) => {
+  fs.writeFileSync(
+    "./server/routes/mocha/balance.txt",
+    parseFloat(req.params.amount)
+  );
+  res.send("SUCCESS");
 });
 
 // Test POST method
 router.post("/test", (req, res) => {
   return res.json({
-    success: "This POST test returned successfully!!"
+    path: "/api/mocha/test",
+    method: "POST",
+    status: "SUCCESS"
   });
 });
 
