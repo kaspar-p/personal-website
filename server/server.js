@@ -6,7 +6,7 @@ import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import socketInitializer from "socket.io";
 
-import routes from "./routes.js";
+import routes from "./routes/index.js";
 import { beginInterval, endInterval } from "./lib.js";
 
 // Production will inject a port, undefined if in development mode
