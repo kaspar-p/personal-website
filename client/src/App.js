@@ -1,20 +1,20 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import socketClientInitializer from "socket.io-client";
+import LoadingPage from "./pages/LoadingPage";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-
-import HomePage from "./pages/Home";
-import Updates from "./pages/Updates";
-import Projects from "./pages/Projects";
-import ContactMe from ".//pages/ContactMe";
-import NotFound from "./pages/NotFound";
-import ReedSolomon from "./pages/ReedSolomon";
-import DoublePendulum from "./pages/DoublePendulum";
-import Paper from "./pages/RSPaper";
-import socketClientInitializer from "socket.io-client";
-
 import "./assets/css/global.css";
 import "./assets/css/global-font.css";
+
+const HomePage = lazy(() => import("./pages/Home"));
+const Updates = lazy(() => import("./pages/Updates"));
+const Projects = lazy(() => import("./pages/Projects"));
+const ContactMe = lazy(() => import(".//pages/ContactMe"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const ReedSolomon = lazy(() => import("./pages/ReedSolomon"));
+const DoublePendulum = lazy(() => import("./pages/DoublePendulum"));
+const Paper = lazy(() => import("./pages/RSPaper"));
 
 class App extends React.Component {
   componentDidMount() {
@@ -26,33 +26,51 @@ class App extends React.Component {
   }
 
   render() {
+    const renderLoadingPage = () => <LoadingPage />;
+
     return (
       <Router>
         <Switch>
           <Route exact path="/projects">
-            <Projects />
+            <Suspense fallback={renderLoadingPage()}>
+              <Projects />
+            </Suspense>
           </Route>
           <Route exact path="/updates">
-            <Updates />
+            <Suspense fallback={renderLoadingPage()}>
+              <Updates />
+            </Suspense>
           </Route>
           <Route exact path="/contact-me">
-            <ContactMe />
+            <Suspense fallback={renderLoadingPage()}>
+              <ContactMe />
+            </Suspense>
           </Route>
           <Route exact path="/double-pendulum">
-            <DoublePendulum />
+            <Suspense fallback={renderLoadingPage()}>
+              <DoublePendulum />
+            </Suspense>
           </Route>
           <Route exact path="/reed-solomon">
-            <ReedSolomon />
+            <Suspense fallback={renderLoadingPage()}>
+              <ReedSolomon />
+            </Suspense>
           </Route>
           <Route path="/OnTheConstructionOfReedSolomonCodes">
-            <Paper />
+            <Suspense fallback={renderLoadingPage()}>
+              <Paper />
+            </Suspense>
           </Route>
           <Route exact path="/">
-            <HomePage />
+            <Suspense fallback={renderLoadingPage()}>
+              <HomePage />
+            </Suspense>
           </Route>
           {/* This route has to be last, as last resort to all others */}
           <Route exact path="*">
-            <NotFound />
+            <Suspense fallback={renderLoadingPage()}>
+              <NotFound />
+            </Suspense>
           </Route>
         </Switch>
       </Router>
