@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/css/global.css";
 import "./assets/css/global-font.css";
 
-const HomePage = lazy(() => import("./pages/Home"));
+const Home = lazy(() => import("./pages/Home"));
 const Updates = lazy(() => import("./pages/Updates"));
 const Projects = lazy(() => import("./pages/Projects"));
 const ContactMe = lazy(() => import(".//pages/ContactMe"));
@@ -30,49 +30,22 @@ class App extends React.Component {
 
     return (
       <Router>
-        <Switch>
-          <Route exact path="/projects">
-            <Suspense fallback={renderLoadingPage()}>
-              <Projects />
-            </Suspense>
-          </Route>
-          <Route exact path="/updates">
-            <Suspense fallback={renderLoadingPage()}>
-              <Updates />
-            </Suspense>
-          </Route>
-          <Route exact path="/contact-me">
-            <Suspense fallback={renderLoadingPage()}>
-              <ContactMe />
-            </Suspense>
-          </Route>
-          <Route exact path="/double-pendulum">
-            <Suspense fallback={renderLoadingPage()}>
-              <DoublePendulum />
-            </Suspense>
-          </Route>
-          <Route exact path="/reed-solomon">
-            <Suspense fallback={renderLoadingPage()}>
-              <ReedSolomon />
-            </Suspense>
-          </Route>
-          <Route path="/OnTheConstructionOfReedSolomonCodes">
-            <Suspense fallback={renderLoadingPage()}>
-              <Paper />
-            </Suspense>
-          </Route>
-          <Route exact path="/">
-            <Suspense fallback={renderLoadingPage()}>
-              <HomePage />
-            </Suspense>
-          </Route>
-          {/* This route has to be last, as last resort to all others */}
-          <Route exact path="*">
-            <Suspense fallback={renderLoadingPage()}>
-              <NotFound />
-            </Suspense>
-          </Route>
-        </Switch>
+        <Suspense fallback={renderLoadingPage()}>
+          <Switch>
+            <Route exact path="/projects" component={Projects} />
+            <Route exact path="/updates" component={Updates} />
+            <Route exact path="/contact-me" component={ContactMe} />
+            <Route exact path="/double-pendulum" component={DoublePendulum} />
+            <Route exact path="/reed-solomon" component={ReedSolomon} />
+            <Route
+              path="/OnTheConstructionOfReedSolomonCodes"
+              component={Paper}
+            />
+            <Route exact path="/" component={Home} />
+            {/* This route has to be last, as last resort to all others */}
+            <Route exact path="*" component={NotFound} />
+          </Switch>
+        </Suspense>
       </Router>
     );
   }
