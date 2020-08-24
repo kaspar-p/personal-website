@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
+import compression from "compression";
 import socketInitializer from "socket.io";
 
 import routes from "./routes/index.js";
@@ -21,6 +22,7 @@ const app = express();
 
 // Config
 dotenv.config();
+app.use(compression());
 app.use(bodyParser.json()); // Before routes
 app.use(bodyParser.urlencoded({ extended: false }));
 
