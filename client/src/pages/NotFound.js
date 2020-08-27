@@ -14,7 +14,7 @@ function NotFound(props) {
         height: "100vh",
         padding: "0",
         margin: 0,
-        textAlign: "center"
+        textAlign: "center",
       }}
     >
       <div item="true" className="text-center" style={{ margin: 0 }}>

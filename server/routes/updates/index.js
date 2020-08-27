@@ -12,7 +12,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   const updates = await Update.find()
     .sort({ date: -1 })
-    .then(updates => updates);
+    .then((updates) => updates);
 
   return res.json(updates);
 });
@@ -26,7 +26,7 @@ router.get("/test", (req, res) => {
   return res.json({
     path: "/api/updates/test",
     method: "GET",
-    status: "SUCCESS"
+    status: "SUCCESS",
   });
 });
 
@@ -35,7 +35,7 @@ router.post("/test", (req, res) => {
   return res.json({
     path: "/api/updates/test",
     method: "POST",
-    status: "SUCCESS"
+    status: "SUCCESS",
   });
 });
 

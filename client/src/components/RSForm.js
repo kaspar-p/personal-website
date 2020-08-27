@@ -23,7 +23,7 @@ function RSForm(props) {
               className="form-control-plaintext"
               id="messageInput"
               name="messageVal"
-              onChange={e => props.changeText(e.target.value)}
+              onChange={(e) => props.changeText(e.target.value)}
               value={props.messageVal}
             />
           </div>
@@ -126,7 +126,7 @@ RSForm.propTypes = {
   buttonText: PropTypes.string.isRequired,
   messageVal: PropTypes.string.isRequired,
   changeText: PropTypes.func.isRequired,
-  callBackend: PropTypes.func.isRequired
+  callBackend: PropTypes.func.isRequired,
 };
 
 export default RSForm;

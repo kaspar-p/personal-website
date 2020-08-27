@@ -135,7 +135,7 @@ ContactMeSquare.propTypes = {
   width: PropTypes.number.isRequired,
   socialName: PropTypes.string.isRequired,
   handle: PropTypes.string.isRequired,
-  socialLink: PropTypes.string.isRequired
+  socialLink: PropTypes.string.isRequired,
 };
 
 export default ContactMeSquare;

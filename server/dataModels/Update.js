@@ -3,27 +3,27 @@ import mongoose from "mongoose";
 const UpdateSchema = mongoose.Schema({
   title: {
     required: false,
-    type: String
+    type: String,
   },
   desc: {
     type: String,
-    required: false
+    required: false,
   },
   date: {
     type: Date,
     required: true,
-    default: new Date().toLocaleDateString()
+    default: new Date().toLocaleDateString(),
   },
   isCommit: {
     type: Boolean,
     required: true,
-    default: false
+    default: false,
   },
   commit: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Commit",
-    required: false
-  }
+    required: false,
+  },
 });
 
 const UpdateModel = mongoose.model("Update", UpdateSchema);

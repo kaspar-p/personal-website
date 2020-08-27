@@ -8,22 +8,22 @@ export const projects = {
     title: "double pendulum learning simulation",
     blurb:
       "Built in April of 2018, watch carts attempt to balance poles on top of themselves, and when they fail, learn from their mistakes. Utilizing a genetic evolution algorithm called NEAT, the carts learn to balance!",
-    image: doublePendulumImg
+    image: doublePendulumImg,
   },
   reedSolomon: {
     path: "/reed-solomon",
     title: "reed-solomon encoding/decoding",
     blurb:
       "Built in December of 2018, learn about how a message can be garbled and messed with to guarantee that if the data were to get corrupted in transmission, the original message would still be recoverable!",
-    image: reedSolomonImg
-  }
+    image: reedSolomonImg,
+  },
 };
 
 export const downloadFile = async () => {
   const response = await axios({
     method: "get",
     url: "/api/rs-paper",
-    responseType: "blob"
+    responseType: "blob",
   });
 
   const url = window.URL.createObjectURL(new Blob([response.data]));

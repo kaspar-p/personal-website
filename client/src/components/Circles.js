@@ -11,13 +11,13 @@ function Circles(props) {
 
   return (
     <div className="squareWrapper">
-      {_.times(20, i => (
+      {_.times(20, (i) => (
         <div
           className="circle-wrapper"
           key={i}
           style={{
             left: fromLeftOffset + i * pixelsBetween,
-            animationDelay: `${offset + rate * i}s`
+            animationDelay: `${offset + rate * i}s`,
           }}
         >
           <div className="circle"></div>

@@ -54,7 +54,7 @@ const io = socketInitializer(server, { serveClient: false });
 // ----------------------------------
 
 let numUsers = 0;
-io.on("connection", async socket => {
+io.on("connection", async (socket) => {
   numUsers++;
   console.log("USER CONNECTED! TOTAL: ", numUsers);
 
@@ -79,7 +79,7 @@ io.on("connection", async socket => {
 
 try {
   mongoose.connect(process.env.DB_URL, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
   });
 
   console.log("Database securely connected");
