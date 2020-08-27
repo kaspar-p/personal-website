@@ -46,7 +46,7 @@ export default class Matrix {
   }
 
   randomize() {
-    return this.map(e => Math.random() * 2 - 1);
+    return this.map((e) => Math.random() * 2 - 1);
   }
 
   add(n) {
@@ -57,7 +57,7 @@ export default class Matrix {
       }
       return this.map((e, i, j) => e + n.data[i][j]);
     } else {
-      return this.map(e => e + n);
+      return this.map((e) => e + n);
     }
   }
 
@@ -95,7 +95,7 @@ export default class Matrix {
       return this.map((e, i, j) => e * n.data[i][j]);
     } else {
       // Scalar product
-      return this.map(e => e * n);
+      return this.map((e) => e * n);
     }
   }
 

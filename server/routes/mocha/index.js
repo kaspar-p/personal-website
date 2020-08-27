@@ -20,7 +20,7 @@ const twilioClient = twilio(
 const mochaPrices = {
   S: 3.48,
   M: 3.96,
-  L: 4.45
+  L: 4.45,
 };
 
 let orderBegun = false;
@@ -40,7 +40,7 @@ router.post("/", async (req, res) => {
   const expandedSize = {
     S: "Small",
     M: "Medium",
-    L: "Large"
+    L: "Large",
   };
   const unrecognizedMessage = () => {
     twiml.message(
@@ -53,7 +53,7 @@ router.post("/", async (req, res) => {
     orderBegun = false;
   };
 
-  const insufficientFunds = sizeText => {
+  const insufficientFunds = (sizeText) => {
     twiml.message(
       `There is not enough money left in your balance for a${
         sizeText ? " " + expandedSize[sizeText].toLowerCase() : ""
@@ -62,7 +62,7 @@ router.post("/", async (req, res) => {
     endMessageChain();
   };
 
-  const orderMocha = sizeText => {
+  const orderMocha = (sizeText) => {
     sizeText = sizeText.toUpperCase();
 
     setBalance(roundOut(balance - mochaPrices[sizeText]));
@@ -75,7 +75,7 @@ router.post("/", async (req, res) => {
     twilioClient.messages.create({
       body: `Papa just ordered a mocha of size: ${sizeText}. He has $${balance} remaining.`,
       from: process.env.TWILIO_NUMBER,
-      to: process.env.MY_NUMBER
+      to: process.env.MY_NUMBER,
     });
 
     endMessageChain();
@@ -92,7 +92,7 @@ router.post("/", async (req, res) => {
 
   if (incomingText === "MOCHA") {
     let sizeOptions = Object.keys(mochaPrices).filter(
-      key => mochaPrices[key] < balance
+      (key) => mochaPrices[key] < balance
     );
 
     if (sizeOptions.length === 0) {
@@ -156,7 +156,7 @@ router.get("/test", (req, res) => {
   return res.json({
     path: "/api/mocha/test",
     method: "GET",
-    status: "SUCCESS"
+    status: "SUCCESS",
   });
 });
 
@@ -174,7 +174,7 @@ router.post("/test", (req, res) => {
   return res.json({
     path: "/api/mocha/test",
     method: "POST",
-    status: "SUCCESS"
+    status: "SUCCESS",
   });
 });
 

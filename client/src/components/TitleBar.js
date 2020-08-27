@@ -9,12 +9,12 @@ class TitleBar extends React.Component {
     super(props);
 
     this.state = {
-      width: window.outerWidth
+      width: window.outerWidth,
     };
   }
 
   componentDidMount() {
-    window.addEventListener("resize", event =>
+    window.addEventListener("resize", (event) =>
       this.setState({ width: window.outerWidth })
     );
   }
@@ -66,7 +66,7 @@ class TitleBar extends React.Component {
 }
 
 TitleBar.propTypes = {
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
 };
 
 export default TitleBar;

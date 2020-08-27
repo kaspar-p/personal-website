@@ -3,28 +3,28 @@ import mongoose from "mongoose";
 const CommitSchema = mongoose.Schema({
   message: {
     required: true,
-    type: String
+    type: String,
   },
   url: {
     type: String,
-    required: true
+    required: true,
   },
   author: {
     type: Object,
     required: true,
     name: {
       type: String,
-      required: true
+      required: true,
     },
     email: {
       type: String,
-      required: true
+      required: true,
     },
     date: {
       type: Date,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 });
 
 const CommitModel = mongoose.model("Commit", CommitSchema);

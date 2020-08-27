@@ -10,7 +10,7 @@ class ContactMe extends React.Component {
     this.updateWidth = this.updateWidth.bind(this);
 
     this.state = {
-      width: window.innerWidth
+      width: window.innerWidth,
     };
   }
 

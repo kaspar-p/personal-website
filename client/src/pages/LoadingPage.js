@@ -25,7 +25,7 @@ class LoadingPage extends React.Component {
 
     return (
       <div className="loading-page-wrapper">
-        {_.times(numPoints, n => {
+        {_.times(numPoints, (n) => {
           const x = (n - numPoints / 2) * (1.5 * width + 10);
 
           return (
@@ -35,7 +35,7 @@ class LoadingPage extends React.Component {
                 offsetPath: `path("M ${
                   x + width * 2
                 },${100} l ${0},-${jumpHeight}")`,
-                animationDelay: `-${n}s`
+                animationDelay: `-${n}s`,
               }}
             ></div>
           );
