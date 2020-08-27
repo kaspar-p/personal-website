@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import "../assets/css/project-bar.css";
 
 function ProjectBar(props) {
-  return (
+  let projectBar = (
     <Grid
       item
       container
@@ -13,22 +13,20 @@ function ProjectBar(props) {
       justify="space-evenly"
       alignItems="center"
       className="project-bar"
-      lg={8}
+      lg={9}
       xs={11}
       onClick={() => (window.location = props.path)}
       style={{
-        marginBottom: "2rem",
         borderTop: props.isFirst ? "black solid 2px" : "none",
       }}
     >
       <img
         item="true"
         className="project-img"
-        height="90%"
-        width={props.width > 960 ? "auto" : "100%"}
+        height="95%"
+        width={props.width > 1100 ? "auto" : "100%"}
         alt={props.title}
         src={props.image}
-        style={{ marginBottom: "2rem" }}
       />
       <Grid
         item
@@ -42,7 +40,7 @@ function ProjectBar(props) {
         <div className="project-title">
           <h2>{props.title}</h2>
         </div>
-        {props.width > 960 ? (
+        {props.width > 1100 ? (
           <div className="project-blurb">
             <p>{props.blurb}</p>
           </div>
@@ -50,6 +48,8 @@ function ProjectBar(props) {
       </Grid>
     </Grid>
   );
+
+  return projectBar;
 }
 
 ProjectBar.propTypes = {
