@@ -23,7 +23,7 @@ router.post("/program", async (req, res) => {
     );
   } catch (error) {
     return res.json({
-      ERROR: error
+      ERROR: error,
     });
   }
 });
@@ -31,7 +31,7 @@ router.post("/program", async (req, res) => {
 // Sends back the PDF file of the paper
 router.get("/paper", async (req, res) => {
   return res.sendFile("OntheConstructionofReedSolomonCodes.pdf", {
-    root: "client/public/"
+    root: "client/public/",
   });
 });
 
@@ -44,7 +44,7 @@ router.get("/test", (req, res) => {
   return res.json({
     path: "/api/rs/test",
     method: "GET",
-    status: "SUCCESS"
+    status: "SUCCESS",
   });
 });
 
@@ -53,7 +53,7 @@ router.post("/test", (req, res) => {
   return res.json({
     path: "/api/rs/test",
     method: "POST",
-    status: "SUCCESS"
+    status: "SUCCESS",
   });
 });
 

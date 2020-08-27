@@ -33,7 +33,7 @@ export const getPoem = async () => {
   return formattedPoem;
 };
 
-export const setBalance = newBalance => {
+export const setBalance = (newBalance) => {
   fs.writeFileSync(balanceFilePath, newBalance);
 };
 
@@ -47,4 +47,4 @@ export const getBalance = () => {
 
 export const balanceFilePath = "./server/routes/mocha/balance.txt";
 
-export const roundOut = n => Math.round(n * 100) / 100;
+export const roundOut = (n) => Math.round(n * 100) / 100;

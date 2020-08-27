@@ -20,7 +20,7 @@ class ReedSolomon extends React.Component {
       numPages: null,
       messageVal: "  Change this text!",
       citePaperText: "cite the paper",
-      buttonText: "Wait..."
+      buttonText: "Wait...",
     };
   }
 
@@ -30,10 +30,10 @@ class ReedSolomon extends React.Component {
 
     const response = await axios({
       method: "post",
-      url: "/api/RS",
+      url: "/api/rs/program",
       data: {
-        message
-      }
+        message,
+      },
     });
 
     const parsed = await response.data;
@@ -94,7 +94,7 @@ class ReedSolomon extends React.Component {
   changeText(newText) {
     this.setState({
       messageVal: newText,
-      buttonText: "Go!"
+      buttonText: "Go!",
     });
   }
 

@@ -49,7 +49,7 @@ class Updates extends React.Component {
   async getUpdateData() {
     const response = await axios({
       method: "GET",
-      url: "/api/updates"
+      url: "/api/updates",
     });
 
     return await response.data;

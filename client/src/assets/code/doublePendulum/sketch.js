@@ -30,7 +30,7 @@ let newFontSize;
 let outsideP;
 export default outsideP;
 
-export const sketch = p => {
+export const sketch = (p) => {
   outsideP = p;
 
   p.windowResized = () => {
@@ -217,7 +217,7 @@ export const sketch = p => {
         p.random(-1.9, 1.9),
         p.random(-1, 1),
         p.random(-1.9, 1.9),
-        p.random(-1, 1)
+        p.random(-1, 1),
       ];
     }
 

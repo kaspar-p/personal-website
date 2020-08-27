@@ -18,7 +18,7 @@ function ProjectBar(props) {
       onClick={() => (window.location = props.path)}
       style={{
         marginBottom: "2rem",
-        borderTop: props.isFirst ? "black solid 2px" : "none"
+        borderTop: props.isFirst ? "black solid 2px" : "none",
       }}
     >
       <img
@@ -58,7 +58,7 @@ ProjectBar.propTypes = {
   path: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   isFirst: PropTypes.bool.isRequired,
-  width: PropTypes.number.isRequired
+  width: PropTypes.number.isRequired,
 };
 
 export default ProjectBar;

@@ -8,7 +8,7 @@ import Commit from "./dataModels/Commit.js";
  * @param   {Interval}  interval  The global interval variable
  * @returns {void}
  */
-export const beginInterval = async interval => {
+export const beginInterval = async (interval) => {
   await pollGithubWrapper(interval);
 };
 
@@ -17,7 +17,7 @@ export const beginInterval = async interval => {
  * @param   {Interval} interval The global interval variable
  * @returns {void}
  */
-const pollGithubWrapper = async interval => {
+const pollGithubWrapper = async (interval) => {
   const { status, statusMsg } = await pollGithubAndSave();
   if (status === "SUCCESS") {
     interval = setInterval(() => pollGithubWrapper(interval), 60 * 60 * 1000);
@@ -31,7 +31,7 @@ const pollGithubWrapper = async interval => {
  * @param   {Interval}  interval The global interval variable
  * @returns {void}
  */
-export const endInterval = async interval => {
+export const endInterval = async (interval) => {
   clearInterval(interval);
 };
 
@@ -60,25 +60,25 @@ export const pollGithubAndSave = async () => {
       method: "get",
       url: `https://api.github.com/users/${process.env.GITHUB_USERNAME}/repos`,
       headers: {
-        Authorization: `token ${process.env.GITHUB_TOKEN}`
-      }
-    }).then(response => response.data);
+        Authorization: `token ${process.env.GITHUB_TOKEN}`,
+      },
+    }).then((response) => response.data);
   } catch (error) {
     return {
       statusMsg: `Getting Github repositories failed ::: ${error.response.status} : ${error.response.statusText}`,
-      status: "FAILED"
+      status: "FAILED",
     };
   }
-  const repoNames = repositories.map(repo => repo.name);
+  const repoNames = repositories.map((repo) => repo.name);
 
   // Get all commits from all repoNames as promises to run them concurrently
-  const commitPromises = repoNames.map(repoName =>
+  const commitPromises = repoNames.map((repoName) =>
     axios({
       method: "get",
       url: `https://api.github.com/repos/${process.env.GITHUB_USERNAME}/${repoName}/commits`,
       headers: {
-        Authorization: `token ${process.env.GITHUB_TOKEN}`
-      }
+        Authorization: `token ${process.env.GITHUB_TOKEN}`,
+      },
     })
   );
 
@@ -89,12 +89,12 @@ export const pollGithubAndSave = async () => {
   } catch (error) {
     return {
       statusMsg: `Getting Github commits failed ::: ${error.response.status} : ${error.response.statusText}`,
-      status: "FAILED"
+      status: "FAILED",
     };
   }
 
   // For checking commits if they are already in the DB
-  const allCommits = await Commit.find().then(commits => commits);
+  const allCommits = await Commit.find().then((commits) => commits);
 
   // Weird file structure
   for (let commits of commitsPacked) {
@@ -116,7 +116,7 @@ export const pollGithubAndSave = async () => {
           desc: "Update to code: " + newCommit.url.split("/")[5],
           updateNumber: numUpdates + 1,
           isCommit: true,
-          commit: newCommit
+          commit: newCommit,
         });
         await newUpdate.save();
 
@@ -128,6 +128,6 @@ export const pollGithubAndSave = async () => {
 
   return {
     status: "SUCCESS",
-    statusMsg: "Github data retrieved and saved"
+    statusMsg: "Github data retrieved and saved",
   };
 };
