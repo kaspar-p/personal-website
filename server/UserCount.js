@@ -9,14 +9,14 @@ class UserCount {
   }
 
   static decrementUsers() {
-    this.writeValue(this.getUsers() - 1);
+    UserCount.writeValue(UserCount.getUsers() - 1);
   }
 
   static incrementUsers() {
-    this.writeValue(this.getUsers() + 1);
+    UserCount.writeValue(UserCount.getUsers() + 1);
   }
 
-  writeValue(newValue) {
+  static writeValue(newValue) {
     fs.writeFileSync(userCountPath, newValue);
   }
 }
