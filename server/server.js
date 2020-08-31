@@ -8,6 +8,7 @@ import compression from "compression";
 import socketInitializer from "socket.io";
 
 import routes from "./routes/index.js";
+import UserCount from "./UserCount.js";
 import { beginInterval, endInterval } from "./lib.js";
 
 // Production will inject a port, undefined if in development mode
@@ -55,19 +56,19 @@ const io = socketInitializer(server, { serveClient: false });
 
 let numUsers = 0;
 io.on("connection", async (socket) => {
-  numUsers++;
+  UserCount.incrementUsers();
   console.log("USER CONNECTED! TOTAL: ", numUsers);
 
-  if (numUsers === 1) {
+  if (UserCount.getUsers() === 1) {
     // The first user connected, begin the loop
     await beginInterval(interval);
   }
 
   socket.on("disconnect", () => {
-    numUsers--;
+    UserCount.decrementUsers();
     console.log("USER DISCONNECTED! TOTAL: ", numUsers);
 
-    if (numUsers === 0) {
+    if (UserCount.getUsers() === 0) {
       endInterval(interval);
     }
   });
