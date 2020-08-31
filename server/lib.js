@@ -2,6 +2,7 @@ import axios from "axios";
 
 import Update from "./dataModels/Update.js";
 import Commit from "./dataModels/Commit.js";
+import UserCount from "./UserCount.js";
 
 /**
  * Begin retrieving data from Github
@@ -21,7 +22,7 @@ const pollGithubWrapper = async (interval) => {
   const { status, statusMsg } = await pollGithubAndSave();
   if (status === "SUCCESS") {
     interval = setInterval(() => {
-      if (numUsers === 0) return;
+      if (UserCount.getUsers() === 0) return;
       pollGithubWrapper(interval), 60 * 60 * 1000;
     });
   } else {
