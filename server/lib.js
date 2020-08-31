@@ -21,7 +21,7 @@ const pollGithubWrapper = async (interval) => {
   const { status, statusMsg } = await pollGithubAndSave();
   if (status === "SUCCESS") {
     interval = setInterval(() => {
-      if (numUsers === 0) break;
+      if (numUsers === 0) return;
       pollGithubWrapper(interval), 60 * 60 * 1000;
     });
   } else {
