@@ -24,9 +24,11 @@ const pollGithubWrapper = async (interval) => {
       if (numUsers === 0) break;
       pollGithubWrapper(interval), 60 * 60 * 1000;
     });
+  } else {
+    clearInterval(interval);
+    console.log({ STATUS: status, STATUS_MSG: statusMsg });
+    return;
   }
-  console.log({ STATUS: status, STATUS_MSG: statusMsg });
-  return;
 };
 
 /**
