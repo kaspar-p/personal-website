@@ -3,7 +3,8 @@ import express from "express";
 import dotenv from "dotenv";
 import fs from "fs";
 
-import { roundOut, getPoem, setBalance, getBalance } from "./lib.js";
+import { Mocha } from "../../database/index.js";
+import { roundOut, getPoem } from "./lib.js";
 
 const router = express.Router();
 dotenv.config();
@@ -29,7 +30,7 @@ let storedSize = "";
 router.post("/", async (req, res) => {
   const twiml = new MessagingResponse();
 
-  let balance = getBalance();
+  let balance = Mocha.getBalance();
 
   if (Object.keys(req.body).length === 0) {
     console.log("ERROR, NO MESSAGE");
@@ -65,8 +66,8 @@ router.post("/", async (req, res) => {
   const orderMocha = (sizeText) => {
     sizeText = sizeText.toUpperCase();
 
-    setBalance(roundOut(balance - mochaPrices[sizeText]));
-    balance = getBalance();
+    Mocha.setBalance(roundOut(balance - mochaPrices[sizeText]));
+    balance = Mocha.getBalance();
 
     twiml.message(
       `${expandedSize[sizeText]} mocha ordered. Remaining balance: $${balance}. Now for some poetry to enjoy it with, just send "POEM"!`
@@ -163,7 +164,7 @@ router.get("/test", (req, res) => {
 // For altering the balance manually
 router.post("/set-balance/:amount", (req, res) => {
   fs.writeFileSync(
-    "./server/routes/mocha/balance.txt",
+    "./server/database/data/balance.txt",
     parseFloat(req.params.amount)
   );
   res.send("SUCCESS");
