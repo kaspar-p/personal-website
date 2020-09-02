@@ -1,6 +1,5 @@
 import express from "express";
 import bodyParser from "body-parser";
-import mongoose from "mongoose";
 import dotenv from "dotenv";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -8,7 +7,7 @@ import compression from "compression";
 import socketInitializer from "socket.io";
 
 import routes from "./routes/index.js";
-import UserCount from "./UserCount.js";
+import { Users } from "./database/index.js";
 import { beginInterval, endInterval } from "./lib.js";
 
 // Production will inject a port, undefined if in development mode
@@ -54,37 +53,21 @@ const io = socketInitializer(server, { serveClient: false });
 //     SOCKET.IO EVENTS & ROUTES
 // ----------------------------------
 
-let numUsers = 0;
 io.on("connection", async (socket) => {
-  UserCount.incrementUsers();
-  console.log("USER CONNECTED! TOTAL: ", numUsers);
+  Users.incrementUsers();
+  console.log("USER CONNECTED! TOTAL: ", Users.getUsers());
 
-  if (UserCount.getUsers() === 1) {
+  if (Users.getUsers() === 1) {
     // The first user connected, begin the loop
     await beginInterval(interval);
   }
 
   socket.on("disconnect", () => {
-    UserCount.decrementUsers();
-    console.log("USER DISCONNECTED! TOTAL: ", numUsers);
+    Users.decrementUsers();
+    console.log("USER DISCONNECTED! TOTAL: ", Users.getUsers());
 
-    if (UserCount.getUsers() === 0) {
+    if (Users.getUsers() === 0) {
       endInterval(interval);
     }
   });
 });
-
-// -------------------------------
-//     DATABASE INITIALIZATION
-// -------------------------------
-
-try {
-  mongoose.connect(process.env.DB_URL, {
-    useNewUrlParser: true,
-  });
-
-  console.log("Database securely connected");
-} catch (error) {
-  console.log("Database connection not established! Error occurred!");
-  console.log(error);
-}
