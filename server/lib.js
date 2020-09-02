@@ -1,8 +1,6 @@
 import axios from "axios";
 
-import Update from "./dataModels/Update.js";
-import Commit from "./dataModels/Commit.js";
-import UserCount from "./UserCount.js";
+import { Users, Commit, Update } from "./database/index.js";
 
 /**
  * Begin retrieving data from Github
@@ -19,14 +17,14 @@ export const beginInterval = async (interval) => {
  * @returns {void}
  */
 const pollGithubWrapper = async (interval) => {
-  const { status, statusMsg } = await pollGithubAndSave();
+  let { status, statusMsg } = await pollGithubAndSave();
+
   if (status === "SUCCESS") {
     interval = setInterval(() => {
-      if (UserCount.getUsers() === 0) return;
-      pollGithubWrapper(interval), 60 * 60 * 1000;
-    });
+      if (Users.getUsers() === 0) return;
+      pollGithubWrapper(interval);
+    }, 60 * 60 * 1000);
   } else {
-    clearInterval(interval);
     console.log({ STATUS: status, STATUS_MSG: statusMsg });
     return;
   }
@@ -41,24 +39,8 @@ export const endInterval = async (interval) => {
   clearInterval(interval);
 };
 
-// For checking whether a certain commit has already been in the DB
-const checkChanges = (url, commits) => {
-  for (let commit of commits) {
-    // Return true because it exists. URL is unique to each commit
-    if (commit.url === url) return true;
-
-    // No properties in common. URL is unique. Commits do not match.
-    if (commit.url !== url) continue;
-  }
-
-  // If we have 'continued' through the entire list - this is a new commit
-  return false;
-};
-
 // Fetches Github commits and saves into the DB as Update documents
 export const pollGithubAndSave = async () => {
-  let numUpdates = await Update.countDocuments();
-
   // Get all repo names
   let repositories;
   try {
@@ -75,6 +57,7 @@ export const pollGithubAndSave = async () => {
       status: "FAILED",
     };
   }
+
   const repoNames = repositories.map((repo) => repo.name);
 
   // Get all commits from all repoNames as promises to run them concurrently
@@ -99,35 +82,33 @@ export const pollGithubAndSave = async () => {
     };
   }
 
-  // For checking commits if they are already in the DB
-  const allCommits = await Commit.find().then((commits) => commits);
-
   // Weird file structure
   for (let commits of commitsPacked) {
     for (let commit of commits.data) {
       const { message, url, author } = commit.commit;
 
       // If this commit has already been saved in the DB: true if exists, false if doesn't
-      if (checkChanges(url, allCommits)) {
+
+      if (Commit.exists(url.toString())) {
         continue;
       } else {
-        console.log("NEW COMMIT FOUND");
-        const newCommit = new Commit({ message, url, author });
-        await newCommit.save();
+        try {
+          console.log("NEW COMMIT FOUND");
+          console.log(commit.commit);
+          await Commit.create({ message, url, author });
 
-        // For displaying, the commit property is for the author and URL - further down the line
-        // TODO: clickable list to expand each item?
-        const newUpdate = new Update({
-          title: newCommit.message,
-          desc: "Update to code: " + newCommit.url.split("/")[5],
-          updateNumber: numUpdates + 1,
-          isCommit: true,
-          commit: newCommit,
-        });
-        await newUpdate.save();
-
-        // To give each github commit a different updateNumber
-        numUpdates++;
+          // For displaying, the commit property is for the author and URL - further down the line
+          // TODO: clickable list to expand each item?
+          await Update.create({
+            title: message,
+            desc: "Update to code: " + url.split("/")[5],
+            isCommit: true,
+            date: author.date,
+            commitURL: url,
+          });
+        } catch (error) {
+          console.log("error saving!: ", error);
+        }
       }
     }
   }
