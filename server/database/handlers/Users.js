@@ -1,4 +1,4 @@
-import DatabaseHandler from "../DatabaseHandler";
+import DatabaseHandler from "../DatabaseHandler.js";
 
 class UsersDBHandler extends DatabaseHandler {
   filepath = "./server/database/data/users.txt";
@@ -11,7 +11,7 @@ class UsersDBHandler extends DatabaseHandler {
   }
 
   setUserCount(newUserCount) {
-    this.monoSet(this.filepath, newUserCount);
+    this.write(this.filepath, newUserCount);
   }
 
   getUsers() {
