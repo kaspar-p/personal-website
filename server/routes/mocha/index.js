@@ -165,7 +165,7 @@ router.get("/test", (req, res) => {
 router.post("/set-balance/:amount", (req, res) => {
   fs.writeFileSync(
     "./server/database/data/balance.txt",
-    parseFloat(req.params.amount)
+    req.params.amount.toString()
   );
   res.send("SUCCESS");
 });

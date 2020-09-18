@@ -17,7 +17,7 @@ class DatabaseHandler {
   }
 
   write(filepath, data) {
-    fs.writeFileSync(filepath, data);
+    fs.writeFileSync(filepath, data.toString());
   }
 
   // Empty to be overridden by the various children that each know
