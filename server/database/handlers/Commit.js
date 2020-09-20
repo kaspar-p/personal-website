@@ -1,12 +1,13 @@
 import DatabaseHandler from "../DatabaseHandler.js";
 
 class CommitDBHandler extends DatabaseHandler {
-  filepath = "./server/database/data/commits.txt";
+  filepath;
   commits = {};
 
   constructor() {
     super();
-    const data = this.getAll(this.filepath);
+    const data = this.getAll();
+    this.filepath = "./server/database/data/commits.txt";
     this.commits = this.formatRawData(data);
   }
 
@@ -51,7 +52,7 @@ class CommitDBHandler extends DatabaseHandler {
     ];
 
     const formattedData = dataArray.join("|");
-    this.append(this.filepath, formattedData);
+    this.append(formattedData);
   }
 
   exists(commitID) {

@@ -2,18 +2,19 @@ import DatabaseHandler from "../DatabaseHandler.js";
 import { roundOut } from "../../routes/mocha/lib.js";
 
 class MochaDBHandler extends DatabaseHandler {
-  filepath = "./server/database/data/balance.txt";
+  filepath;
 
   constructor() {
     super();
+    this.filepath = "./server/database/data/balance.txt";
   }
 
   setBalance(newBalance) {
-    this.write(this.filepath, newBalance);
+    this.write(newBalance);
   }
 
   getBalance() {
-    const data = this.getFirst(this.filepath);
+    const data = this.getFirst();
     return this.formatData(data);
   }
 

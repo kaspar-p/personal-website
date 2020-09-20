@@ -1,30 +1,32 @@
 import DatabaseHandler from "../DatabaseHandler.js";
 
 class UsersDBHandler extends DatabaseHandler {
-  filepath = "./server/database/data/users.txt";
+  filepath;
 
   constructor() {
     super();
 
     // Clear users every time server restarts
     this.setUserCount(0);
+
+    this.filepath = "./server/database/data/users.txt";
   }
 
   setUserCount(newUserCount) {
-    this.write(this.filepath, newUserCount);
+    this.write(newUserCount);
   }
 
   getUsers() {
-    const data = this.getFirst(this.filepath);
+    const data = this.getFirst();
     return this.formatData(data);
   }
 
   decrementUsers() {
-    this.write(this.filepath, this.getUsers() - 1);
+    this.write(this.getUsers() - 1);
   }
 
   incrementUsers() {
-    this.write(this.filepath, this.getUsers() + 1);
+    this.write(this.getUsers() + 1);
   }
 
   formatData(data) {
