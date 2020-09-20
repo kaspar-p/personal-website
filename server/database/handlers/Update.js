@@ -2,14 +2,15 @@ import DatabaseHandler from "../DatabaseHandler.js";
 import _ from "lodash";
 
 class UpdateDBHandler extends DatabaseHandler {
-  filepath = "./server/database/data/updates.txt";
+  filepath;
   updates = {};
 
   constructor() {
     super();
-
     const data = this.getAll(this.filepath);
     this.updates = this.formatRawData(data);
+
+    this.filepath = "./server/database/data/updates.txt";
   }
 
   formatRawData(data) {
@@ -56,7 +57,7 @@ class UpdateDBHandler extends DatabaseHandler {
     ];
 
     const formattedData = dataArray.join("|");
-    this.append(this.filepath, formattedData);
+    this.append(formattedData);
   }
 
   exists(updateID) {
