@@ -3,12 +3,13 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
+import mysql from "mysql";
 import compression from "compression";
 import socketInitializer from "socket.io";
 
 import routes from "./routes/index.js";
-import { Users } from "./database/index.js";
-import { beginInterval, endInterval } from "./lib.js";
+//import { Users } from "./database/index.js";
+//import { beginInterval, endInterval } from "./lib.js";
 
 // Production will inject a port, undefined if in development mode
 const PORT = process.env.PORT || 1111;
@@ -20,7 +21,9 @@ const buildPath = path.join(__dirname, "../", "client", "build");
 
 const app = express();
 
-// Config
+// ---------------------
+//     CONFIGURATION
+// ---------------------
 dotenv.config();
 app.use(compression());
 app.use(bodyParser.json()); // Before routes
@@ -38,7 +41,30 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-let interval;
+// ----------------------------------
+//     CONNECT TO THE DATABASE
+// ----------------------------------
+// const connection = new Pool({
+//   user: process.env.PG_USER,
+//   host: process.env.PG_HOST,
+//   database: process.env.PG_DATABASE,
+//   password: process.env.PG_PASSWORD,
+//   port: process.env.PG_PORT,
+// });
+const connection = mysql.createConnection({
+  host: process.env.MYSQL_ENDPOINT,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+});
+
+connection.connect((error) => {
+  if (error) {
+    console.log("Error connecting to the MySQL database!");
+    console.error(error);
+  }
+  console.log("Successfully connected to the database!");
+  con.end();
+});
 
 const server = app.listen(PORT, () =>
   console.log(
@@ -53,21 +79,21 @@ const io = socketInitializer(server, { serveClient: false });
 //     SOCKET.IO EVENTS & ROUTES
 // ----------------------------------
 
+let interval;
+
 io.on("connection", async (socket) => {
-  Users.incrementUsers();
-  console.log("USER CONNECTED! TOTAL: ", Users.getUsers());
-
-  if (Users.getUsers() === 1) {
-    // The first user connected, begin the loop
-    await beginInterval(interval);
-  }
-
-  socket.on("disconnect", () => {
-    Users.decrementUsers();
-    console.log("USER DISCONNECTED! TOTAL: ", Users.getUsers());
-
-    if (Users.getUsers() === 0) {
-      endInterval(interval);
-    }
-  });
+  // Users.incrementUsers();
+  // console.log("USER CONNECTED! TOTAL: ", Users.getUsers());
+  // if (Users.getUsers() === 1) {
+  //   // The first user connected, begin the loop
+  //   await beginInterval(interval);
+  // }
+  // socket.on("disconnect", () => {
+  //   Users.decrementUsers();
+  //   console.log("USER DISCONNECTED! TOTAL: ", Users.getUsers());
+  //   if (Users.getUsers() === 0) {
+  //     endInterval(interval);
+  //   }
+  // });
+  console.log("user connected");
 });
