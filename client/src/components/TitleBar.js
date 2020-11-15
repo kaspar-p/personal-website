@@ -42,7 +42,7 @@ class TitleBar extends React.Component {
               onClick={() => (window.location.href = "/")}
               href="#"
             >
-              <h1 className="montserrat-medium buttonFS">home</h1>
+              <h1 className="montserrat-medium buttonFS center-title">home</h1>
             </button>
           </div>
           <div item="true" className="buttonItemWrapper backWrapper">
@@ -51,12 +51,12 @@ class TitleBar extends React.Component {
               onClick={() => window.history.back(-1)}
               href="#"
             >
-              <h1 className="montserrat-medium buttonFS">back</h1>
+              <h1 className="montserrat-medium buttonFS center-title">back</h1>
             </button>
           </div>
         </Grid>
         {this.props.title ? (
-          <h1 item="true" id="title" className="montserrat-medium">
+          <h1 item="true" id="title" className="montserrat-medium center-title">
             {this.props.title}
           </h1>
         ) : null}
