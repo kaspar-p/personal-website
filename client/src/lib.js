@@ -1,21 +1,29 @@
 import axios from "axios";
 import doublePendulumImg from "./assets/images/double-pendulum/headliner.png";
 import reedSolomonImg from "./assets/images/reed-solomon/headliner.png";
+import turingMachineImg from "./assets/images/turing-machine/headliner.png";
 
 export const projects = {
   doublePendulum: {
-    path: "/double-pendulum",
+    path: "/projects/double-pendulum",
     title: "double pendulum learning simulation",
     blurb:
       "Built in April of 2018, watch carts attempt to balance poles on top of themselves, and when they fail, learn from their mistakes. Utilizing a genetic evolution algorithm called NEAT, the carts learn to balance!",
     image: doublePendulumImg,
   },
   reedSolomon: {
-    path: "/reed-solomon",
+    path: "/projects/reed-solomon",
     title: "reed-solomon encoding/decoding",
     blurb:
       "Built in December of 2018, learn about how a message can be garbled and messed with to guarantee that if the data were to get corrupted in transmission, the original message would still be recoverable!",
     image: reedSolomonImg,
+  },
+  turingMachine: {
+    path: "/projects/turing-machine",
+    title: "programming a turing machine",
+    blurb:
+      "Built in August of 2020, learn how a Turing Machine can be configured through multiple layers of abstraction to complete complex mathematical computations, as well as act like a low-level computer.",
+    image: turingMachineImg,
   },
 };
 

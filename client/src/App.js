@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import socketClientInitializer from "socket.io-client";
 import LoadingPage from "./pages/LoadingPage";
+import { projects } from "./lib.js";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/css/global.css";
@@ -13,8 +14,9 @@ const Projects = lazy(() => import("./pages/Projects"));
 const ContactMe = lazy(() => import(".//pages/ContactMe"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const ReedSolomon = lazy(() => import("./pages/ReedSolomon"));
-const DoublePendulum = lazy(() => import("./pages/DoublePendulum"));
 const Paper = lazy(() => import("./pages/RSPaper"));
+const TuringMachine = lazy(() => import("./pages/TuringMachine"));
+const DoublePendulum = lazy(() => import("./pages/DoublePendulum"));
 
 class App extends React.Component {
   componentDidMount() {
@@ -28,6 +30,8 @@ class App extends React.Component {
   render() {
     const renderLoadingPage = () => <LoadingPage />;
 
+    const { doublePendulum, reedSolomon, turingMachine } = projects;
+
     return (
       <Router>
         <Suspense fallback={renderLoadingPage()}>
@@ -35,8 +39,13 @@ class App extends React.Component {
             <Route exact path="/projects" component={Projects} />
             <Route exact path="/updates" component={Updates} />
             <Route exact path="/contact-me" component={ContactMe} />
-            <Route exact path="/double-pendulum" component={DoublePendulum} />
-            <Route exact path="/reed-solomon" component={ReedSolomon} />
+            <Route
+              exact
+              path={doublePendulum.path}
+              component={DoublePendulum}
+            />
+            <Route exact path={reedSolomon.path} component={ReedSolomon} />
+            <Route exact path={turingMachine.path} component={TuringMachine} />
             <Route
               path="/OnTheConstructionOfReedSolomonCodes"
               component={Paper}

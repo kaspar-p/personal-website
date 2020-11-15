@@ -4,6 +4,8 @@ import nnImage from "../assets/images/double-pendulum/nn.png";
 import { sketch } from "../assets/code/doublePendulum/sketch";
 import p5 from "p5";
 
+import { projects } from "../lib";
+
 import "../assets/css/doublePendulum.css";
 
 class DoublePendulum extends React.Component {
@@ -14,7 +16,7 @@ class DoublePendulum extends React.Component {
   render() {
     return (
       <div style={{ overflow: "hidden" }}>
-        <TitleBar title="double pendulum learning simulation" />
+        <TitleBar title={projects.doublePendulum.title} />
         <div className="row justify-content-center">
           <div id="sliderHolder"></div>
         </div>
@@ -41,7 +43,7 @@ class DoublePendulum extends React.Component {
               this program is for the carts to learn how to balance their poles
               for as long as possible. This is done with a genetic algorithm in
               combination with a neural network, to create something called
-              neuroevolution. It sounds fancy, but the effect is special to
+              neuro-evolution. It sounds fancy, but the effect is special to
               watch.
             </p>
 
@@ -53,7 +55,6 @@ class DoublePendulum extends React.Component {
               imitations of a human brain, and when each cart is fed input about
               its surroundings, it uses some complex math to make a decision.
             </p>
-            <br />
             <p>
               Neural networks are only one piece of the puzzle. There also needs
               to be a system for them to change. A decision making machine (the
@@ -64,7 +65,6 @@ class DoublePendulum extends React.Component {
               affected the species to live longer or better. The same effect is
               simulated here.
             </p>
-            <br />
             <p>
               The algorithm begins with the first generation of 1000 carts. To
               simulate a lifecycle (similar to what real animals experience),
@@ -78,11 +78,9 @@ class DoublePendulum extends React.Component {
               improving the gene pool until a cart is finally able to balance
               their poles forever.
             </p>
-            <br />
             <p>
               There is a little more that goes on behind the scenes, though.
             </p>
-            <br />
             <p>
               Another term: fitness functions. Essentially for AI to be able to
               rank themselves, we need to quantify success. A fitness function
@@ -92,7 +90,6 @@ class DoublePendulum extends React.Component {
               carts to balance forever, selecting carts that stood the longest
               edges us slowly towards that goal.
             </p>
-            <br />
             <p>
               The fitness function could be anything, and are tailored to the
               goal of the program. If we had made an AI trying to jump, then the
@@ -100,7 +97,6 @@ class DoublePendulum extends React.Component {
               and slowly the AI would get better at jumping. For this program,
               we will stick to the cart's age.
             </p>
-            <br />
             <p>
               Now to the good stuff: how does the cart balance? Well, that
               requires discussion of its brain. As mentioned before, its brain
@@ -121,7 +117,6 @@ class DoublePendulum extends React.Component {
               decisions, we can discuss what affects a decision for a neural
               network.
             </p>
-            <br />
             <p>
               If that made no sense to you, don't worry about it. The only
               important part to non AI people is the 3 output neurons.
@@ -139,7 +134,6 @@ class DoublePendulum extends React.Component {
               numbers. Each number means something specific in how the decision
               is affected.
             </p>
-            <br />
             <p>
               The first number represents the amount of force the cart wants to
               put into its next movement on a scale of 0 to 1 (0 being no force,
@@ -152,11 +146,10 @@ class DoublePendulum extends React.Component {
               if the numbers are (1, 1, 0), then lots of force is applied to the
               left, but at (0.4, 0, 1), there is a medium amount of force
               applied to the right. At every frame, the cart makes this
-              decision. The diretion and force are applied at the next frame,
+              decision. The direction and force are applied at the next frame,
               and the cart makes another decision. This cycles for each cart
               until that cart dies.
             </p>
-            <br />
             <p>
               In essence, that's all there is to it. The carts learn. They end
               up learning how to balance at an average (not tested or measured,

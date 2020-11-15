@@ -4,7 +4,8 @@ import axios from "axios";
 
 import TitleBar from "../components/TitleBar";
 import RSForm from "../components/RSForm";
-import { isMobile, downloadFile } from "../lib";
+
+import { isMobile, downloadFile, projects } from "../lib";
 
 import "../assets/css/reed-solomon.css";
 
@@ -101,7 +102,7 @@ class ReedSolomon extends React.Component {
   render() {
     return (
       <div>
-        <TitleBar title="reed solomon encoding/decoding" />
+        <TitleBar title={projects.reedSolomon.title} />
         <Grid container direction="column" justify="center" alignItems="center">
           <RSForm
             item="true"

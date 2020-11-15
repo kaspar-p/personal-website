@@ -1,7 +1,9 @@
 import React from "react";
 import TitleBar from "../components/TitleBar";
 import axios from "axios";
+import _ from "lodash";
 import { Table } from "react-bootstrap";
+
 import "../assets/css/updates.css";
 import "../assets/css/global.css";
 import "../assets/css/global-font.css";
@@ -16,14 +18,13 @@ class Updates extends React.Component {
 
   fillTable(tableData) {
     // Looping over the rows
-    for (let rowData of tableData) {
+    _.forEach(tableData, (updateData, updateName) => {
       const row = document.createElement("tr");
+      const index = Object.keys(tableData).indexOf(updateName);
 
       // To create the number down the side
       const rowNumber = document.createElement("th");
-      rowNumber.appendChild(
-        document.createTextNode(tableData.indexOf(rowData) + 1)
-      );
+      rowNumber.appendChild(document.createTextNode(index + 1));
       row.appendChild(rowNumber);
 
       // Fill each cell in this table with the respective data
@@ -33,7 +34,7 @@ class Updates extends React.Component {
         const cell = document.createElement("td");
 
         // To change from weird dates to a simple format - date only
-        let cellData = rowData[currentKey];
+        let cellData = updateData[currentKey];
         if (currentKey === "date")
           cellData = new Date(cellData).toLocaleDateString();
 
@@ -43,7 +44,7 @@ class Updates extends React.Component {
       }
 
       document.getElementById("tableBody").appendChild(row);
-    }
+    });
   }
 
   async getUpdateData() {
