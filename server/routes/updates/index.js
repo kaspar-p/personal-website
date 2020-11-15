@@ -1,6 +1,5 @@
 import express from "express";
-
-import { Update } from "../../database/index.js";
+import Update from "../../models/Update.js";
 
 const router = express.Router();
 
@@ -10,7 +9,9 @@ const router = express.Router();
 
 // Gets updates when the 'recent updates' page is visited
 router.get("/", async (req, res) => {
-  const updates = Update.getSortedUpdates();
+  const updates = await Update.find()
+    .sort({ date: -1 })
+    .then((updates) => updates);
 
   return res.json(updates);
 });

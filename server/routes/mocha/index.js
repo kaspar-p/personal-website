@@ -3,8 +3,8 @@ import express from "express";
 import dotenv from "dotenv";
 import fs from "fs";
 
-import { Mocha } from "../../database/index.js";
 import { roundOut, getPoem } from "./lib.js";
+//import Balance from "../../models/Balance";
 
 const router = express.Router();
 dotenv.config();
@@ -24,11 +24,18 @@ const mochaPrices = {
   L: 4.45,
 };
 
+const disabled = true;
+
 let orderBegun = false;
 let storedSize = "";
 
 router.post("/", async (req, res) => {
   const twiml = new MessagingResponse();
+
+  if (disabled === true) {
+    twiml.message("Past functionality no longer supported. Aborting!");
+    return;
+  }
 
   let balance = Mocha.getBalance();
 
