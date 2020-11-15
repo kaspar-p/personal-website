@@ -1,6 +1,8 @@
 import axios from "axios";
 
-import { Users, Commit, Update } from "./database/index.js";
+import Update from "./models/Update.js";
+import Commit from "./models/Commit.js";
+import UserCount from "./models/UserCount.js";
 
 /**
  * Begin retrieving data from Github
@@ -21,7 +23,11 @@ const pollGithubWrapper = async (interval) => {
 
   if (status === "SUCCESS") {
     interval = setInterval(() => {
-      if (Users.getUsers() === 0) return;
+      const userCount = UserCount.find()
+        .then((UC) => parseInt(UC))
+        .pop();
+
+      if (userCount === 0) return;
       pollGithubWrapper(interval);
     }, 60 * 60 * 1000);
   } else {
