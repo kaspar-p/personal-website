@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
-import mysql from "mysql";
+import mongoose from "mongoose";
 import compression from "compression";
 import socketInitializer from "socket.io";
 
@@ -41,30 +41,20 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-// ----------------------------------
-//     CONNECT TO THE DATABASE
-// ----------------------------------
-// const connection = new Pool({
-//   user: process.env.PG_USER,
-//   host: process.env.PG_HOST,
-//   database: process.env.PG_DATABASE,
-//   password: process.env.PG_PASSWORD,
-//   port: process.env.PG_PORT,
-// });
-const connection = mysql.createConnection({
-  host: process.env.MYSQL_ENDPOINT,
-  user: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASSWORD,
-});
+// -------------------------------
+//     DATABASE INITIALIZATION
+// -------------------------------
 
-connection.connect((error) => {
-  if (error) {
-    console.log("Error connecting to the MySQL database!");
-    console.error(error);
-  }
-  console.log("Successfully connected to the database!");
-  con.end();
-});
+try {
+  mongoose.connect(process.env.MONGO_DATABASE_URL, {
+    useNewUrlParser: true,
+  });
+
+  console.log("Database securely connected");
+} catch (error) {
+  console.log("Database connection not established! Error occurred!");
+  console.log(error);
+}
 
 const server = app.listen(PORT, () =>
   console.log(
