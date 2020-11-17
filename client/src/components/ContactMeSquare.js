@@ -7,7 +7,7 @@ import GithubLogo from "../assets/images/contactme/githubLogo.png";
 import InstagramLogo from "../assets/images/contactme/instagramLogo.jpg";
 import LinkedInLogo from "../assets/images/contactme/linkedinLogo.png";
 
-import "../assets/css/contactme.css";
+import "../assets/css/contact-me.css";
 
 function ContactMeSquare(props) {
   const nameToImageSrcMap = new Map();
@@ -16,93 +16,73 @@ function ContactMeSquare(props) {
   nameToImageSrcMap.set("Instagram", InstagramLogo);
   nameToImageSrcMap.set("LinkedIn", LinkedInLogo);
 
-  const smallSize = (
-    <Grid container direction="row" justify="center">
-      <a className="col-12 socialBox text-center" href={props.socialLink}>
-        <Grid
-          container
-          direction="column"
-          justify="center"
-          alignItems="center"
-          className="no-margin no-padding"
-        >
-          {/* Centers the image on small screens */}
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            className="no-margin no-padding imgDiv"
-          >
-            <img
-              className="logoImg"
-              width="20%"
-              alt={`${props.socialName}Logo`}
-              src={nameToImageSrcMap.get(props.socialName)}
-            />
-          </Grid>
-          <div item="true" className="col no-margin no-padding">
-            <h2 className="montserrat-medium socialHandle">{props.handle}</h2>
-          </div>
-        </Grid>
-      </a>
-    </Grid>
-  );
+  const mapSizeToImgWidth = (size) => {
+    switch (size) {
+      case "small":
+        return "20%";
+      case "medium":
+        return "50%";
+      case "large":
+        return "100%";
+      default:
+        console.log("invalid size passed into image!");
+    }
+  };
+  const mapWidthToSize = (width) => {
+    if (width > 1400) {
+      return "large";
+    } else if (width <= 1400 && width > 700) {
+      return "medium";
+    } else {
+      return "small";
+    }
+  };
 
-  const mediumSize = (
-    <Grid container direction="row" justify="center">
-      <a className="col-7 socialBox text-center" href={props.socialLink}>
-        <Grid
-          container
-          direction="column"
-          justify="center"
-          alignItems="center"
-          className="no-margin no-padding"
-        >
-          <div item="true" className="col no-margin no-padding socialTitle">
-            <h2 className="montserrat-medium socialName">{props.socialName}</h2>
-          </div>
+  // The largest size has a different layout, so we have to split the cases
+  const smallOrMedium = (size) => (
+    <Grid container xs={12} item direction="row" justify="center">
+      <a item="true" className="social-box text-center" href={props.socialLink}>
+        <Grid container direction="column" justify="center" alignItems="center">
+          {size !== "small" && (
+            <Grid item xs className="social-title">
+              <h2 className="montserrat-medium social-name">
+                {props.socialName}
+              </h2>
+            </Grid>
+          )}
           {/* Centers the image on small screens */}
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            className="no-margin no-padding imgDiv"
-          >
+          <Grid container direction="row" justify="center" className="img-div">
             <img
-              className="logoImg"
-              width="50%"
-              alt={`${props.socialName}Logo`}
+              className="logo-img"
+              width={mapSizeToImgWidth(size)}
+              alt={`${props.socialName}Logo!`}
               src={nameToImageSrcMap.get(props.socialName)}
             />
           </Grid>
-          <div item="true" className="col no-margin no-padding">
-            <h2 className="montserrat-medium socialHandle">{props.handle}</h2>
-          </div>
+          <Grid item xs>
+            <h2 className="montserrat-medium social-handle">{props.handle}</h2>
+          </Grid>
         </Grid>
       </a>
     </Grid>
   );
 
   const bigSize = (
-    <div className="socialBox col-4">
-      <a className="text-center" href={props.socialLink}>
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-          className="row no-margin no-padding"
-        >
+    <Grid container item xs={4} direction="row" justify="center">
+      <a item="true" className="social-box text-center" href={props.socialLink}>
+        <Grid container direction="row" justify="center" alignItems="center">
           {/* Centers the image on small screens */}
           <Grid
             container
+            item
+            xs={4}
             direction="row"
             alignItems="center"
             justify="center"
-            className="col-4 no-margin no-padding imgDiv"
+            className="img-div"
           >
             <img
-              className="logoImg"
+              className="logo-img"
               width="100%"
               alt={`${props.socialName}Logo!`}
               src={nameToImageSrcMap.get(props.socialName)}
@@ -110,24 +90,28 @@ function ContactMeSquare(props) {
           </Grid>
           <Grid
             container
+            item
             direction="column"
             justify="center"
-            className="col no-margin no-padding socialTitle"
+            xs
+            className="social-title"
           >
-            <h2 className="montserrat-medium socialName">{props.socialName}</h2>
-            <h2 className="montserrat-medium socialHandle">{props.handle}</h2>
+            <h2 className="montserrat-medium social-name">
+              {props.socialName}
+            </h2>
+            <h2 className="montserrat-medium social-handle">{props.handle}</h2>
           </Grid>
         </Grid>
       </a>
-    </div>
+    </Grid>
   );
+
+  let size = mapWidthToSize(props.width);
 
   if (props.width > 1400) {
     return bigSize;
-  } else if (props.width <= 1400 && props.width > 700) {
-    return mediumSize;
-  } else {
-    return smallSize;
+  } else if (props.width <= 1400) {
+    return smallOrMedium(size);
   }
 }
 
@@ -139,3 +123,11 @@ ContactMeSquare.propTypes = {
 };
 
 export default ContactMeSquare;
+
+/* DIFFERENCES BETWEEN SIZES
+Small-medium:
+  - The first <Grid /> regarding the socialName in medium is not rendered for smalls
+  - image width is 20% in small, 50% in medium
+  - 
+
+*/

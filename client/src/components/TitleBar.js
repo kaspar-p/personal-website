@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
 
-import "../assets/css/titleBar.css";
+import "../assets/css/title-bar.css";
 
 class TitleBar extends React.Component {
   constructor(props) {
@@ -11,12 +11,20 @@ class TitleBar extends React.Component {
     this.state = {
       width: window.outerWidth,
     };
+
+    this.setWidth = this.setWidth.bind(this);
+  }
+
+  setWidth() {
+    this.setState({ width: window.outerWidth });
   }
 
   componentDidMount() {
-    window.addEventListener("resize", (event) =>
-      this.setState({ width: window.outerWidth })
-    );
+    window.addEventListener("resize", this.setWidth);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.setWidth);
   }
 
   render() {
