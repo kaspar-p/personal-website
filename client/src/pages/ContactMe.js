@@ -1,7 +1,33 @@
 import React from "react";
+import { Grid } from "@material-ui/core";
+
 import TitleBar from "../components/TitleBar";
 import ContactMeSquare from "../components/ContactMeSquare";
-import "../assets/css/contactme.css";
+
+import "../assets/css/contact-me.css";
+
+const socialData = {
+  Instagram: {
+    socialName: "Instagram",
+    handle: "@kaspar.p",
+    socialLink: "https://instagram.com/kaspar.p",
+  },
+  Github: {
+    socialName: "Github",
+    handle: "@kaspar78",
+    socialLink: "https://github.com/kaspar78",
+  },
+  Twitter: {
+    socialName: "Twitter",
+    handle: "@kasparFpoland",
+    socialLink: "https://twitter.com/kasparFpoland",
+  },
+  LinkedIn: {
+    socialName: "LinkedIn",
+    handle: "@Kaspar Poland",
+    socialLink: "https://www.linkedin.com/in/kaspar-p-48b115110",
+  },
+};
 
 class ContactMe extends React.Component {
   constructor(props) {
@@ -15,7 +41,6 @@ class ContactMe extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ width: window.innerWidth });
     window.addEventListener("resize", this.updateWidth);
   }
 
@@ -29,52 +54,38 @@ class ContactMe extends React.Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <TitleBar title="contact me" />
-        <div className="socialWrapper">
-          <div className="row justify-content-center">
+        <Grid container direction="column">
+          <Grid item container justify="center">
             <h4 className="col-auto montserrat-medium email">
               kaspar78@mouco.com
             </h4>
-          </div>
+          </Grid>
 
-          <div className="row socialRow justify-content-center">
+          <Grid container direction="row" justify="center">
             {/* GITHUB */}
-            <ContactMeSquare
-              socialName="Github"
-              handle="@kaspar78"
-              socialLink="https://github.com/kaspar78"
-              width={this.state.width}
-            />
+            <ContactMeSquare {...socialData.Github} width={this.state.width} />
 
             {/* INSTAGRAM */}
             <ContactMeSquare
-              socialName="Instagram"
-              handle="@kaspar.p"
-              socialLink="https://instagram.com/kaspar.p"
+              {...socialData.Instagram}
               width={this.state.width}
             />
-          </div>
+          </Grid>
 
-          <div className="row socialRow justify-content-center">
+          <Grid container direction="row" justify="center">
             {/* TWITTER */}
-            <ContactMeSquare
-              socialName="Twitter"
-              handle="@kasparFpoland"
-              socialLink="https://twitter.com/kasparFpoland"
-              width={this.state.width}
-            />
+            <ContactMeSquare {...socialData.Twitter} width={this.state.width} />
 
             {/* LINKEDIN */}
             <ContactMeSquare
-              socialName="LinkedIn"
-              handle="@Kaspar Poland"
-              socialLink="https://www.linkedin.com/in/kaspar-p-48b115110"
+              {...socialData.LinkedIn}
               width={this.state.width}
             />
-          </div>
-        </div>
-      </div>
+          </Grid>
+        </Grid>
+      </React.Fragment>
     );
   }
 }
