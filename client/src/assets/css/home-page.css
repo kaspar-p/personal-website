@@ -1,0 +1,28 @@
+.home-body {
+  min-height: 100vh;
+  padding: 5%;
+}
+
+.home-title {
+  letter-spacing: 1.5rem;
+  font-size: 5rem;
+}
+
+.title-row {
+  padding: 0;
+}
+
+.home-option {
+  font-size: 2rem;
+  width: 100%;
+  padding-left: 100px;
+  letter-spacing: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.home-option:hover {
+  border-bottom: 2px black solid;
+  padding-top: 0rem;
+  padding-bottom: 1rem;
+}

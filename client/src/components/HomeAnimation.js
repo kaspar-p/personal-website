@@ -4,41 +4,35 @@ import * as Shape from "@visx/shape";
 import SimplexNoise from "simplex-noise";
 import _ from "lodash";
 
-import "../assets/css/circles.css";
-
 function HomeAnimation(props) {
-  // How often, in ms, to update state
-  let animationSpeed = 1;
+  // CONSTANTS FOR HOW THE ANIMATION SHOULD LOOK
+  const animationSpeed = 1; // How often to update, in ms (min of 1)
+  const noiseGranularity = 20; // How tight the waves should be
+  const noiseStep = 0.002; // How fast to scroll through dimensions
 
-  let noiseGranularity = 20;
+  const simplexNoise = new SimplexNoise(1);
 
-  let noiseStep = 0.02;
-
-  let simplexNoise = new SimplexNoise(1);
-
-  let width = 500;
-  let height = 100;
-
-  let maxWidth = 1540;
+  // Page layout constants
+  const width = 500;
+  const height = 150;
+  const maxWidth = 1540;
 
   const [step, setStep] = useState(0);
 
-  useEffect(
-    () =>
-      setInterval(
-        () => setStep((currentStep) => currentStep + noiseStep),
-        animationSpeed
-      ),
-    []
-  );
+  // Update the step variable by [noiseStep] every [animationSpeed] ms
+  useEffect(() => {
+    setInterval(() => {
+      setStep((currentStep) => currentStep + noiseStep);
+      //setTransformedStep(currentS);
+    }, animationSpeed);
+  });
 
-  let calculateData = (value) => {
-    let newData = [];
+  const calculateData = (value) => {
+    const newData = [];
 
     _.times(width / noiseGranularity, (x) => {
-      let step = x + value;
-
-      let noiseVal = 3 * x * simplexNoise.noise2D(step, step);
+      const step = x + value;
+      const noiseVal = 3 * x * simplexNoise.noise2D(step, step);
 
       newData.push([x * noiseGranularity, noiseVal + height / 2]);
     });
@@ -52,7 +46,7 @@ function HomeAnimation(props) {
         curve={Curve.curveCatmullRom}
         data={calculateData(step)}
         stroke="black"
-        strokeWidth={5}
+        strokeWidth={8}
       />
     </svg>
   ) : null;
