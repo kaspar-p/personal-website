@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
+import { WidthContext } from "../App";
 
 import "../assets/css/project-bar.css";
 
 function ProjectBar(props) {
+  const width = useContext(WidthContext);
+
   let projectBar = (
     <Grid
       item
@@ -24,7 +27,7 @@ function ProjectBar(props) {
         item="true"
         className="project-img"
         height="95%"
-        width={props.width > 1100 ? "auto" : "100%"}
+        width={width > 1100 ? "auto" : "100%"}
         alt={props.title}
         src={props.image}
       />
@@ -40,7 +43,7 @@ function ProjectBar(props) {
         <div className="project-title">
           <h2>{props.title}</h2>
         </div>
-        {props.width > 1100 ? (
+        {width > 1100 ? (
           <div className="project-blurb">
             <p>{props.blurb}</p>
           </div>
@@ -58,7 +61,6 @@ ProjectBar.propTypes = {
   path: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   isFirst: PropTypes.bool.isRequired,
-  width: PropTypes.number.isRequired,
 };
 
 export default ProjectBar;

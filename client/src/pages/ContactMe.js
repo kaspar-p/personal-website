@@ -29,65 +29,35 @@ const socialData = {
   },
 };
 
-class ContactMe extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.updateWidth = this.updateWidth.bind(this);
-
-    this.state = {
-      width: window.innerWidth,
-    };
-  }
-
-  componentDidMount() {
-    window.addEventListener("resize", this.updateWidth);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.updateWidth);
-  }
-
-  updateWidth() {
-    this.setState({ width: window.innerWidth });
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <TitleBar title="contact me" />
-        <Grid container direction="column">
-          <Grid item container justify="center">
-            <h4 className="col-auto montserrat-medium email">
-              kaspar78@mouco.com
-            </h4>
-          </Grid>
-
-          <Grid container direction="row" justify="center">
-            {/* GITHUB */}
-            <ContactMeSquare {...socialData.Github} width={this.state.width} />
-
-            {/* INSTAGRAM */}
-            <ContactMeSquare
-              {...socialData.Instagram}
-              width={this.state.width}
-            />
-          </Grid>
-
-          <Grid container direction="row" justify="center">
-            {/* TWITTER */}
-            <ContactMeSquare {...socialData.Twitter} width={this.state.width} />
-
-            {/* LINKEDIN */}
-            <ContactMeSquare
-              {...socialData.LinkedIn}
-              width={this.state.width}
-            />
-          </Grid>
+function ContactMe() {
+  return (
+    <React.Fragment>
+      <TitleBar title="contact me" />
+      <Grid container direction="column">
+        <Grid item container justify="center">
+          <h4 className="col-auto montserrat-medium email">
+            kaspar78@mouco.com
+          </h4>
         </Grid>
-      </React.Fragment>
-    );
-  }
+
+        <Grid container direction="row" justify="center">
+          {/* GITHUB */}
+          <ContactMeSquare {...socialData.Github} />
+
+          {/* INSTAGRAM */}
+          <ContactMeSquare {...socialData.Instagram} />
+        </Grid>
+
+        <Grid container direction="row" justify="center">
+          {/* TWITTER */}
+          <ContactMeSquare {...socialData.Twitter} />
+
+          {/* LINKEDIN */}
+          <ContactMeSquare {...socialData.LinkedIn} />
+        </Grid>
+      </Grid>
+    </React.Fragment>
+  );
 }
 
 export default ContactMe;
