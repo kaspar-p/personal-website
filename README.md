@@ -2,14 +2,18 @@
 
 #### npm scripts
 
--- npm run build --
+##### npm run build
+
 Alias for react-scripts build. Used during production for minification
 
--- npm run full --
+##### npm run dev
+
 Runs both the client at the server in the same terminal for development
 
--- npm run client --
+##### npm run client
+
 Runs only the React client, with none of the backend API functionality in the terminal
 
--- npm run server --
+##### npm run server
+
 Runs only the server and socket listener in the terminal
