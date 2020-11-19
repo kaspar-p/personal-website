@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import { isMobile, downloadFile } from "../lib";
 
 class RSPaper extends React.Component {
-  async componentDidMount() {
+  componentDidMount() {
     if (!isMobile()) downloadFile();
   }
 
