@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
+import { WidthContext } from "../App";
 
 import TwitterLogo from "../assets/images/contactme/twitterLogo.png";
 import GithubLogo from "../assets/images/contactme/githubLogo.png";
@@ -10,6 +11,8 @@ import LinkedInLogo from "../assets/images/contactme/linkedinLogo.png";
 import "../assets/css/contact-me.css";
 
 function ContactMeSquare(props) {
+  const width = useContext(WidthContext);
+
   const nameToImageSrcMap = new Map();
   nameToImageSrcMap.set("Github", GithubLogo);
   nameToImageSrcMap.set("Twitter", TwitterLogo);
@@ -106,28 +109,19 @@ function ContactMeSquare(props) {
     </Grid>
   );
 
-  let size = mapWidthToSize(props.width);
+  let size = mapWidthToSize(width);
 
-  if (props.width > 1400) {
+  if (width > 1400) {
     return bigSize;
-  } else if (props.width <= 1400) {
+  } else if (width <= 1400) {
     return smallOrMedium(size);
   }
 }
 
 ContactMeSquare.propTypes = {
-  width: PropTypes.number.isRequired,
   socialName: PropTypes.string.isRequired,
   handle: PropTypes.string.isRequired,
   socialLink: PropTypes.string.isRequired,
 };
 
 export default ContactMeSquare;
-
-/* DIFFERENCES BETWEEN SIZES
-Small-medium:
-  - The first <Grid /> regarding the socialName in medium is not rendered for smalls
-  - image width is 20% in small, 50% in medium
-  - 
-
-*/
