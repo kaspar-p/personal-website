@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
 
-import "../assets/css/notfound.css";
+import "../assets/css/not-found.css";
 
 function NotFound(props) {
   return (
@@ -10,22 +10,11 @@ function NotFound(props) {
       direction="column"
       justify="center"
       alignItems="center"
-      style={{
-        height: "100vh",
-        padding: "0",
-        margin: 0,
-        textAlign: "center",
-      }}
+      className="not-found"
     >
-      <div item="true" className="text-center" style={{ margin: 0 }}>
-        It seems that you have stumbled onto a page that doesn't exist.{"\n"}
-      </div>
-
+      It seems that you have stumbled onto a page that doesn't exist.{"\n"}
       <a href="/">
-        <h3
-          item="true"
-          className="hover-underline montserrat-medium fs-2rem return-to-safety"
-        >
+        <h3 className="hover-underline montserrat-medium return-to-safety">
           return to safety
         </h3>
       </a>
