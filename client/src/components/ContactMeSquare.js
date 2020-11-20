@@ -118,10 +118,10 @@ function ContactMeSquare(props) {
   }
 }
 
-ContactMeSquare.propTypes = {
+ContactMeSquare.propTypes = PropTypes.exact({
   socialName: PropTypes.string.isRequired,
   handle: PropTypes.string.isRequired,
   socialLink: PropTypes.string.isRequired,
-};
+}).isRequired;
 
 export default ContactMeSquare;
