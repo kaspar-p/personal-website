@@ -45007,29 +45007,33 @@
                               o = h(r, 2),
                               a = o[0],
                               i = o[1];
-                            this.read(a, i, "read", null, null, function (
-                              r,
-                              o
-                            ) {
-                              r &&
-                                t.logger.warn(
-                                  ""
-                                    .concat(n, "loading namespace ")
-                                    .concat(i, " for language ")
-                                    .concat(a, " failed"),
-                                  r
-                                ),
-                                !r &&
-                                  o &&
-                                  t.logger.log(
+                            this.read(
+                              a,
+                              i,
+                              "read",
+                              null,
+                              null,
+                              function (r, o) {
+                                r &&
+                                  t.logger.warn(
                                     ""
-                                      .concat(n, "loaded namespace ")
+                                      .concat(n, "loading namespace ")
                                       .concat(i, " for language ")
-                                      .concat(a),
-                                    o
+                                      .concat(a, " failed"),
+                                    r
                                   ),
-                                t.loaded(e, r, o);
-                            });
+                                  !r &&
+                                    o &&
+                                    t.logger.log(
+                                      ""
+                                        .concat(n, "loaded namespace ")
+                                        .concat(i, " for language ")
+                                        .concat(a),
+                                      o
+                                    ),
+                                  t.loaded(e, r, o);
+                              }
+                            );
                           },
                         },
                         {
@@ -48502,43 +48506,44 @@
                                       ),
                                     },
                                   ].concat(
-                                    W("langSys", n.langSysRecords, function (
-                                      e,
-                                      t
-                                    ) {
-                                      var n = e.langSys;
-                                      return [
-                                        {
-                                          name: "langSysTag" + t,
-                                          type: "TAG",
-                                          value: e.tag,
-                                        },
-                                        {
-                                          name: "langSys" + t,
-                                          type: "TABLE",
-                                          value: new z(
-                                            "langSys",
-                                            [
-                                              {
-                                                name: "lookupOrder",
-                                                type: "USHORT",
-                                                value: 0,
-                                              },
-                                              {
-                                                name: "reqFeatureIndex",
-                                                type: "USHORT",
-                                                value: n.reqFeatureIndex,
-                                              },
-                                            ].concat(
-                                              V(
-                                                "featureIndex",
-                                                n.featureIndexes
+                                    W(
+                                      "langSys",
+                                      n.langSysRecords,
+                                      function (e, t) {
+                                        var n = e.langSys;
+                                        return [
+                                          {
+                                            name: "langSysTag" + t,
+                                            type: "TAG",
+                                            value: e.tag,
+                                          },
+                                          {
+                                            name: "langSys" + t,
+                                            type: "TABLE",
+                                            value: new z(
+                                              "langSys",
+                                              [
+                                                {
+                                                  name: "lookupOrder",
+                                                  type: "USHORT",
+                                                  value: 0,
+                                                },
+                                                {
+                                                  name: "reqFeatureIndex",
+                                                  type: "USHORT",
+                                                  value: n.reqFeatureIndex,
+                                                },
+                                              ].concat(
+                                                V(
+                                                  "featureIndex",
+                                                  n.featureIndexes
+                                                )
                                               )
-                                            )
-                                          ),
-                                        },
-                                      ];
-                                    })
+                                            ),
+                                          },
+                                        ];
+                                      }
+                                    )
                                   )
                                 ),
                               },
@@ -53814,14 +53819,16 @@
                                 value: new J.Coverage(e.coverage),
                               },
                             ].concat(
-                              J.tableList("altSet", e.alternateSets, function (
-                                e
-                              ) {
-                                return new J.Table(
-                                  "alternateSetTable",
-                                  J.ushortList("alternate", e)
-                                );
-                              })
+                              J.tableList(
+                                "altSet",
+                                e.alternateSets,
+                                function (e) {
+                                  return new J.Table(
+                                    "alternateSetTable",
+                                    J.ushortList("alternate", e)
+                                  );
+                                }
+                              )
                             )
                           )
                         );
@@ -53842,31 +53849,33 @@
                                 value: new J.Coverage(e.coverage),
                               },
                             ].concat(
-                              J.tableList("ligSet", e.ligatureSets, function (
-                                e
-                              ) {
-                                return new J.Table(
-                                  "ligatureSetTable",
-                                  J.tableList("ligature", e, function (e) {
-                                    return new J.Table(
-                                      "ligatureTable",
-                                      [
-                                        {
-                                          name: "ligGlyph",
-                                          type: "USHORT",
-                                          value: e.ligGlyph,
-                                        },
-                                      ].concat(
-                                        J.ushortList(
-                                          "component",
-                                          e.components,
-                                          e.components.length + 1
+                              J.tableList(
+                                "ligSet",
+                                e.ligatureSets,
+                                function (e) {
+                                  return new J.Table(
+                                    "ligatureSetTable",
+                                    J.tableList("ligature", e, function (e) {
+                                      return new J.Table(
+                                        "ligatureTable",
+                                        [
+                                          {
+                                            name: "ligGlyph",
+                                            type: "USHORT",
+                                            value: e.ligGlyph,
+                                          },
+                                        ].concat(
+                                          J.ushortList(
+                                            "component",
+                                            e.components,
+                                            e.components.length + 1
+                                          )
                                         )
-                                      )
-                                    );
-                                  })
-                                );
-                              })
+                                      );
+                                    })
+                                  );
+                                }
+                              )
                             )
                           )
                         );
@@ -56955,30 +56964,34 @@
                       (Cn.prototype.getPath = function (e, t, n, r, o) {
                         var a = new T();
                         return (
-                          this.forEachGlyph(e, t, n, r, o, function (
+                          this.forEachGlyph(
                             e,
                             t,
                             n,
-                            r
-                          ) {
-                            var i = e.getPath(t, n, r, o, this);
-                            a.extend(i);
-                          }),
+                            r,
+                            o,
+                            function (e, t, n, r) {
+                              var i = e.getPath(t, n, r, o, this);
+                              a.extend(i);
+                            }
+                          ),
                           a
                         );
                       }),
                       (Cn.prototype.getPaths = function (e, t, n, r, o) {
                         var a = [];
                         return (
-                          this.forEachGlyph(e, t, n, r, o, function (
+                          this.forEachGlyph(
                             e,
                             t,
                             n,
-                            r
-                          ) {
-                            var i = e.getPath(t, n, r, o, this);
-                            a.push(i);
-                          }),
+                            r,
+                            o,
+                            function (e, t, n, r) {
+                              var i = e.getPath(t, n, r, o, this);
+                              a.push(i);
+                            }
+                          ),
                           a
                         );
                       }),
@@ -57682,19 +57695,19 @@
                       (t._parse = oe),
                       (t.parse = Gn),
                       (t.load = function (e, t) {
-                        ("undefined" === typeof window ? Ln : Fn)(e, function (
+                        ("undefined" === typeof window ? Ln : Fn)(
                           e,
-                          n
-                        ) {
-                          if (e) return t(e);
-                          var r;
-                          try {
-                            r = Gn(n);
-                          } catch (o) {
-                            return t(o, null);
+                          function (e, n) {
+                            if (e) return t(e);
+                            var r;
+                            try {
+                              r = Gn(n);
+                            } catch (o) {
+                              return t(o, null);
+                            }
+                            return t(null, r);
                           }
-                          return t(null, r);
-                        });
+                        );
                       }),
                       (t.loadSync = function (t) {
                         return Gn(Ct(e("fs").readFileSync(t)));
@@ -60383,67 +60396,83 @@
                     };
                   (o.default._friendlyFileLoadError = function (e, t) {
                     var n = (function (e, t) {
-                        var n = (0,
-                        i.translator)("fes.fileLoadError.suggestion", {
-                          filePath: t,
-                          link:
-                            "https://github.com/processing/p5.js/wiki/Local-server",
-                        });
+                        var n = (0, i.translator)(
+                          "fes.fileLoadError.suggestion",
+                          {
+                            filePath: t,
+                            link:
+                              "https://github.com/processing/p5.js/wiki/Local-server",
+                          }
+                        );
                         switch (e) {
                           case 0:
                             return {
-                              message: (0,
-                              i.translator)("fes.fileLoadError.image", {
-                                suggestion: n,
-                              }),
+                              message: (0, i.translator)(
+                                "fes.fileLoadError.image",
+                                {
+                                  suggestion: n,
+                                }
+                              ),
                               method: "loadImage",
                             };
                           case 1:
                             return {
-                              message: (0,
-                              i.translator)("fes.fileLoadError.xml", {
-                                suggestion: n,
-                              }),
+                              message: (0, i.translator)(
+                                "fes.fileLoadError.xml",
+                                {
+                                  suggestion: n,
+                                }
+                              ),
                               method: "loadXML",
                             };
                           case 2:
                             return {
-                              message: (0,
-                              i.translator)("fes.fileLoadError.table", {
-                                suggestion: n,
-                              }),
+                              message: (0, i.translator)(
+                                "fes.fileLoadError.table",
+                                {
+                                  suggestion: n,
+                                }
+                              ),
                               method: "loadTable",
                             };
                           case 3:
                             return {
-                              message: (0,
-                              i.translator)("fes.fileLoadError.strings", {
-                                suggestion: n,
-                              }),
+                              message: (0, i.translator)(
+                                "fes.fileLoadError.strings",
+                                {
+                                  suggestion: n,
+                                }
+                              ),
                               method: "loadStrings",
                             };
                           case 4:
                             return {
-                              message: (0,
-                              i.translator)("fes.fileLoadError.font", {
-                                suggestion: n,
-                              }),
+                              message: (0, i.translator)(
+                                "fes.fileLoadError.font",
+                                {
+                                  suggestion: n,
+                                }
+                              ),
                               method: "loadFont",
                             };
                           case 5:
                             return {
-                              message: (0,
-                              i.translator)("fes.fileLoadError.json", {
-                                suggestion: n,
-                              }),
+                              message: (0, i.translator)(
+                                "fes.fileLoadError.json",
+                                {
+                                  suggestion: n,
+                                }
+                              ),
                               method: "loadJSON",
                             };
                           case 6:
                             return {
-                              message: (0,
-                              i.translator)("fes.fileLoadError.bytes", {
-                                suggestion: n,
-                              }),
+                              message: (0, i.translator)(
+                                "fes.fileLoadError.bytes",
+                                {
+                                  suggestion: n,
+                                }
+                              ),
                               method: "loadBytes",
                             };
                           case 7:
@@ -70757,18 +70786,20 @@
                         y = [],
                         v = [],
                         b = this._scale(i);
-                      this.font.forEachGlyph(e, r, o, i, s, function (
+                      this.font.forEachGlyph(
                         e,
-                        t,
-                        n,
-                        r
-                      ) {
-                        var o = e.getMetrics();
-                        y.push(t + o.xMin * b),
-                          y.push(t + o.xMax * b),
-                          v.push(n + -o.yMin * b),
-                          v.push(n + -o.yMax * b);
-                      }),
+                        r,
+                        o,
+                        i,
+                        s,
+                        function (e, t, n, r) {
+                          var o = e.getMetrics();
+                          y.push(t + o.xMin * b),
+                            y.push(t + o.xMax * b),
+                            v.push(n + -o.yMin * b),
+                            v.push(n + -o.yMax * b);
+                        }
+                      ),
                         (h = Math.min.apply(null, y)),
                         (f = Math.min.apply(null, v)),
                         (m = Math.max.apply(null, y)),
