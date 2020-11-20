@@ -14,7 +14,7 @@ function TitleBar(props) {
       direction="column"
       justify="center"
       alignItems="center"
-      id="headerWrapper"
+      id="headerWrapper" // I know this says vw. It works how it is, even thought vw makes no sense for a margin-top
       style={{ marginTop: "1vw", padding: "0 20px 0 20px" }}
     >
       <Grid
@@ -52,8 +52,8 @@ function TitleBar(props) {
   );
 }
 
-TitleBar.propTypes = {
+TitleBar.propTypes = PropTypes.exact({
   title: PropTypes.string.isRequired,
-};
+}).isRequired;
 
 export default TitleBar;
