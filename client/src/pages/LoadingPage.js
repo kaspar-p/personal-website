@@ -27,8 +27,8 @@ function LoadingPage() {
 
   // Update the step variable by [noiseStep] every [animationSpeed] ms
   useEffect(() => {
-    setInterval(updateState, animationSpeed);
-    return () => clearInterval(updateState);
+    let interval = setInterval(updateState, animationSpeed);
+    return () => clearInterval(interval);
   });
 
   const calculateData = (value) => {
