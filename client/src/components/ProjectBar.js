@@ -55,12 +55,12 @@ function ProjectBar(props) {
   return projectBar;
 }
 
-ProjectBar.propTypes = {
+ProjectBar.propTypes = PropTypes.exact({
   title: PropTypes.string.isRequired,
   blurb: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   isFirst: PropTypes.bool.isRequired,
-};
+}).isRequired;
 
 export default ProjectBar;

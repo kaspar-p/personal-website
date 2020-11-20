@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import * as Curve from "@visx/curve";
 import * as Shape from "@visx/shape";
 import SimplexNoise from "simplex-noise";
 import _ from "lodash";
 
-function HomeAnimation(props) {
+import { WidthContext } from "../App";
+
+function HomeAnimation() {
+  const pageWidth = useContext(WidthContext);
+
   // CONSTANTS FOR HOW THE ANIMATION SHOULD LOOK
   const animationSpeed = 1; // How often to update, in ms (min of 1)
   const noiseGranularity = 20; // How tight the waves should be
@@ -40,7 +44,7 @@ function HomeAnimation(props) {
     return newData;
   };
 
-  return props.width > maxWidth ? (
+  return pageWidth > maxWidth ? (
     <svg width={width} height={height}>
       <Shape.LinePath
         curve={Curve.curveCatmullRom}
