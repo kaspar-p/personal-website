@@ -10,9 +10,9 @@ function HomeAnimation() {
   const pageWidth = useContext(WidthContext);
 
   // CONSTANTS FOR HOW THE ANIMATION SHOULD LOOK
-  const animationSpeed = 1; // How often to update, in ms (min of 1)
+  const animationSpeed = 100; // How often to update, in ms (min of 1)
   const noiseGranularity = 20; // How tight the waves should be
-  const noiseStep = 0.002; // How fast to scroll through dimensions
+  const noiseStep = 0.001; // How fast to scroll through dimensions
 
   const simplexNoise = new SimplexNoise(1);
 
@@ -21,13 +21,12 @@ function HomeAnimation() {
   const height = 150;
   const maxWidth = 1540;
 
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(Math.random());
 
   // Update the step variable by [noiseStep] every [animationSpeed] ms
   useEffect(() => {
     setInterval(() => {
       setStep((currentStep) => currentStep + noiseStep);
-      //setTransformedStep(currentS);
     }, animationSpeed);
   });
 
@@ -35,8 +34,9 @@ function HomeAnimation() {
     const newData = [];
 
     _.times(width / noiseGranularity, (x) => {
-      const step = x + value;
-      const noiseVal = 3 * x * simplexNoise.noise2D(step, step);
+      const offsetStep = x + value;
+      //const noiseVal = 3 * x * simplexNoise.noise2D(step, step);
+      const noiseVal = 20 * simplexNoise.noise2D(offsetStep, x);
 
       newData.push([x * noiseGranularity, noiseVal + height / 2]);
     });
