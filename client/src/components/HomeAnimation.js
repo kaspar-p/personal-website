@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useState,
+  useContext,
+  useRef,
+} from "react";
 import * as Curve from "@visx/curve";
 import * as Shape from "@visx/shape";
 import SimplexNoise from "simplex-noise";
@@ -10,9 +16,9 @@ function HomeAnimation() {
   const pageWidth = useContext(WidthContext);
 
   // CONSTANTS FOR HOW THE ANIMATION SHOULD LOOK
-  const animationSpeed = 100; // How often to update, in ms (min of 1)
+  const animationSpeed = 10; // How often to update, in ms (min of 1)
   const noiseGranularity = 20; // How tight the waves should be
-  const noiseStep = 0.001; // How fast to scroll through dimensions
+  const noiseStep = 0.02; // How fast to scroll through dimensions
 
   const simplexNoise = new SimplexNoise(1);
 
@@ -25,18 +31,17 @@ function HomeAnimation() {
 
   // Update the step variable by [noiseStep] every [animationSpeed] ms
   useEffect(() => {
-    setInterval(() => {
-      setStep((currentStep) => currentStep + noiseStep);
+    const interval = setInterval(() => {
+      setStep((current) => current + noiseStep);
     }, animationSpeed);
-  });
+    return () => clearInterval(interval);
+  }, []);
 
   const calculateData = (value) => {
     const newData = [];
 
     _.times(width / noiseGranularity, (x) => {
-      const offsetStep = x + value;
-      //const noiseVal = 3 * x * simplexNoise.noise2D(step, step);
-      const noiseVal = 20 * simplexNoise.noise2D(offsetStep, x);
+      const noiseVal = 3 * x * simplexNoise.noise2D(step, x);
 
       newData.push([x * noiseGranularity, noiseVal + height / 2]);
     });
