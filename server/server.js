@@ -8,8 +8,13 @@ import compression from "compression";
 import socketInitializer from "socket.io";
 
 import routes from "./routes/index.js";
-//import { Users } from "./database/index.js";
-//import { beginInterval, endInterval } from "./lib.js";
+import UserCount from "./models/UserCount.js";
+import {
+  incrementUser,
+  decrementUser,
+  endInterval,
+  beginInterval,
+} from "./lib.js";
 
 // Production will inject a port, undefined if in development mode
 const PORT = process.env.PORT || 1111;
@@ -72,18 +77,23 @@ const io = socketInitializer(server, { serveClient: false });
 let interval;
 
 io.on("connection", async (socket) => {
-  // Users.incrementUsers();
-  // console.log("USER CONNECTED! TOTAL: ", Users.getUsers());
-  // if (Users.getUsers() === 1) {
-  //   // The first user connected, begin the loop
-  //   await beginInterval(interval);
-  // }
-  // socket.on("disconnect", () => {
-  //   Users.decrementUsers();
-  //   console.log("USER DISCONNECTED! TOTAL: ", Users.getUsers());
-  //   if (Users.getUsers() === 0) {
-  //     endInterval(interval);
+  // await incrementUser();
+  // // const { count } = await UserCount.findOne();
+  // // console.log("USER CONNECTED! TOTAL: ", count);
+  // // if (count === 1) {
+  // //   // The first user connected, begin the loop
+  // //   //await beginInterval(interval);
+  // //   interval = setInterval(() => console.log(Date.now()), 1000);
+  // // }
+  // socket.on("disconnect", async () => {
+  //   await decrementUser();
+  //   const { count } = await UserCount.findOne();
+  //   console.log("USER DISCONNECTED! TOTAL: ", count);
+  //   if (count === 0) {
+  //     //endInterval(interval);
+  //     clearInterval(interval);
   //   }
   // });
-  console.log("user connected");
 });
+
+io.on("error", (error) => console.log(error));
