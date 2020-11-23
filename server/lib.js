@@ -4,6 +4,18 @@ import Update from "./models/Update.js";
 import Commit from "./models/Commit.js";
 import UserCount from "./models/UserCount.js";
 
+export const incrementUser = async () => {
+  let userCount = await UserCount.findOne();
+  userCount.count = userCount.count + 1;
+  await userCount.save();
+};
+
+export const decrementUser = async () => {
+  let userCount = await UserCount.findOne();
+  userCount.count = userCount.count - 1;
+  await userCount.save();
+};
+
 /**
  * Begin retrieving data from Github
  * @param   {Interval}  interval  The global interval variable
