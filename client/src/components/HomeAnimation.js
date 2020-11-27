@@ -27,6 +27,8 @@ function HomeAnimation() {
   const height = 150;
   const maxWidth = 1540;
 
+  const titleColor = "#212529";
+
   const [step, setStep] = useState(Math.random());
 
   // Update the step variable by [noiseStep] every [animationSpeed] ms
@@ -54,7 +56,7 @@ function HomeAnimation() {
       <Shape.LinePath
         curve={Curve.curveCatmullRom}
         data={calculateData(step)}
-        stroke="black"
+        stroke={titleColor}
         strokeWidth={8}
       />
     </svg>
