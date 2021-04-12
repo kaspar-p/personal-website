@@ -211,7 +211,7 @@ class ReedSolomon extends React.Component {
             {!isMobile() ? (
               <div item="true" className="col-auto">
                 <button onClick={downloadFile} className="like-link">
-                  <h1 className="montserrat-medium hover-underline reed-solomon-paper-link">
+                  <h1 className="montserrat-medium hover-underline reed-solomon-paper-link center-title">
                     read the paper
                   </h1>
                 </button>
@@ -219,7 +219,7 @@ class ReedSolomon extends React.Component {
             ) : null}
             <div item="true" className="col-auto">
               <button onClick={this.copyText} className="like-link">
-                <h1 className="montserrat-medium hover-underline reed-solomon-paper-link">
+                <h1 className="montserrat-medium hover-underline reed-solomon-paper-link center-title">
                   {this.state.citePaperText}
                 </h1>
               </button>
