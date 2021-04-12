@@ -1,4 +1,4 @@
-.socialBox {
+.social-box {
   width: 100%;
   border-bottom: 4px solid black;
   margin-top: 0.5rem;
@@ -9,7 +9,7 @@
   height: 30vh;
 }
 
-.socialBox:hover {
+.social-box:hover {
   margin-top: 0rem;
   margin-bottom: 1rem;
 }
@@ -18,36 +18,27 @@
   font-size: 3rem;
 }
 
-.socialTitle {
+.social-title {
   padding-top: 4rem;
 }
 
-.logoImg {
+.logo-img {
   width: 100%;
 }
 
-.socialRow {
-  margin: 0;
-}
-
-.socialWrapper {
-  margin-right: 3rem;
-  margin-left: 3rem;
-}
-
-.socialHandle {
+.social-handle {
   padding-top: 3rem;
   padding-bottom: 2rem;
   font-size: 1.5rem;
 }
 
 @media (max-width: 1400px) {
-  .imgDiv {
+  .img-div {
     display: block;
     width: 50%;
   }
 
-  .socialBox {
+  .social-box {
     text-align: center;
     justify-content: center;
     justify-items: center;
@@ -56,15 +47,7 @@
     height: auto;
   }
 
-  .socialRow {
-    text-align: center;
-    display: block;
-    justify-content: center;
-    justify-items: center;
-    margin: 1rem;
-  }
-
-  .socialHandle {
+  .social-handle {
     padding: 1rem;
     font-size: 1.5rem;
   }
@@ -74,38 +57,10 @@
   }
 }
 @media (max-width: 500px) {
-  .socialHandle {
+  .social-handle {
     font-size: 1rem;
   }
   .email {
     font-size: 1rem;
   }
 }
-/*
-@media (max-width: 1000px) {
-  .socialTitle {
-    padding-top: 0rem;
-  }
-
-  .imgDiv {
-    display: block;
-  }
-
-  .logoImg {
-    width: 50%;
-  }
-
-  .socialBox {
-    border: 0px;
-    border-bottom: 4px solid black;
-    width: 0%;
-    margin: 1rem 0;
-    padding: 0.5rem 0;
-  }
-
-  .socialBox:hover {
-    padding-top: 0.1rem;
-    padding-bottom: 0.9rem;
-  }
-}
-*/

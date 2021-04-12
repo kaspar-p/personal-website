@@ -119,7 +119,6 @@ class ReedSolomon extends React.Component {
             alignItems="flex-start"
             xs={10}
             lg={7}
-            className="textWrapper"
           >
             <h3 className="montserrat-light">What is this page?</h3>
             <p>

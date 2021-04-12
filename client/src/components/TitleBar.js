@@ -1,72 +1,59 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
+import { WidthContext } from "../App";
 
-import "../assets/css/titleBar.css";
+import "../assets/css/title-bar.css";
 
-class TitleBar extends React.Component {
-  constructor(props) {
-    super(props);
+function TitleBar(props) {
+  const width = useContext(WidthContext);
 
-    this.state = {
-      width: window.outerWidth,
-    };
-  }
-
-  componentDidMount() {
-    window.addEventListener("resize", (event) =>
-      this.setState({ width: window.outerWidth })
-    );
-  }
-
-  render() {
-    return (
+  return (
+    <Grid
+      container
+      direction="column"
+      justify="center"
+      alignItems="center"
+      id="headerWrapper" // I know this says vw. It works how it is, even thought vw makes no sense for a margin-top
+      style={{ marginTop: "1vw", padding: "0 20px 0 20px" }}
+    >
       <Grid
+        item
         container
-        direction="column"
-        justify="center"
+        direction="row"
+        justify={width < 700 ? "center" : "space-between"}
         alignItems="center"
-        id="headerWrapper"
-        style={{ marginTop: "1vw", padding: "0 20px 0 20px" }}
       >
-        <Grid
-          item
-          container
-          direction="row"
-          justify={this.state.width < 700 ? "center" : "space-between"}
-          alignItems="center"
-        >
-          <div item="true" className="buttonItemWrapper homeWrapper">
-            <button
-              className="buttonsButton like-link homeButton hover-underline"
-              onClick={() => (window.location.href = "/")}
-              href="#"
-            >
-              <h1 className="montserrat-medium buttonFS">home</h1>
-            </button>
-          </div>
-          <div item="true" className="buttonItemWrapper backWrapper">
-            <button
-              className="buttonsButton like-link backButton hover-underline"
-              onClick={() => window.history.back(-1)}
-              href="#"
-            >
-              <h1 className="montserrat-medium buttonFS">back</h1>
-            </button>
-          </div>
-        </Grid>
-        {this.props.title ? (
-          <h1 item="true" id="title" className="montserrat-medium">
-            {this.props.title}
-          </h1>
-        ) : null}
+        <div item="true" className="buttonItemWrapper homeWrapper">
+          <button
+            className="buttonsButton like-link homeButton hover-underline"
+            onClick={() => (window.location.href = "/")}
+            href="#"
+          >
+            <h1 className="montserrat-medium buttonFS center-title">home</h1>
+          </button>
+        </div>
+        <div item="true" className="buttonItemWrapper backWrapper">
+          <button
+            className="buttonsButton like-link backButton hover-underline"
+            onClick={() => window.history.back(-1)}
+            href="#"
+          >
+            <h1 className="montserrat-medium buttonFS center-title">back</h1>
+          </button>
+        </div>
       </Grid>
-    );
-  }
+      {props.title ? (
+        <h1 item="true" id="title" className="montserrat-medium center-title">
+          {props.title}
+        </h1>
+      ) : null}
+    </Grid>
+  );
 }
 
-TitleBar.propTypes = {
+TitleBar.propTypes = PropTypes.exact({
   title: PropTypes.string.isRequired,
-};
+}).isRequired;
 
 export default TitleBar;

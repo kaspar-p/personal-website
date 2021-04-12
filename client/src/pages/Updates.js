@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TitleBar from "../components/TitleBar";
 import axios from "axios";
 import _ from "lodash";
@@ -8,9 +8,10 @@ import "../assets/css/updates.css";
 import "../assets/css/global.css";
 import "../assets/css/global-font.css";
 
-class Updates extends React.Component {
-  constructor(props) {
-    super(props);
+const fillTable = (tableData) => {
+  // Looping over the rows
+  for (let rowData of tableData) {
+    const row = document.createElement("tr");
 
     this.getUpdateData = this.getUpdateData.bind(this);
     this.fillTable = this.fillTable.bind(this);
@@ -38,52 +39,55 @@ class Updates extends React.Component {
         if (currentKey === "date")
           cellData = new Date(cellData).toLocaleDateString();
 
-        // Apply the cells to the entire row
-        cell.appendChild(document.createTextNode(cellData));
-        row.appendChild(cell);
-      }
+      // To change from weird dates to a simple format - date only
+      let cellData = rowData[currentKey];
+      if (currentKey === "date")
+        cellData = new Date(cellData).toLocaleDateString();
 
       document.getElementById("tableBody").appendChild(row);
     });
   }
+};
 
-  async getUpdateData() {
-    const response = await axios({
-      method: "GET",
-      url: "/api/updates",
-    });
+const getUpdateData = async () => {
+  const response = await axios({
+    method: "GET",
+    url: "/api/updates",
+  });
 
-    return await response.data;
-  }
+  return await response.data;
+};
 
-  async componentDidMount() {
-    this.fillTable(await this.getUpdateData());
-  }
+function Updates() {
+  useEffect(() => {
+    async function fill() {
+      fillTable(await getUpdateData());
+    }
+    fill();
+  });
 
-  render() {
-    return (
-      <div>
-        <TitleBar title="recent updates" />
-        <div className="container-fluid">
-          <div className="custompadding row justify-content-center">
-            <div className="col-lg-7 col-md-10 col-sm-12 text-center">
-              <Table hover size="sm" className="updateList text-center">
-                <thead>
-                  <tr align="center">
-                    <th scope="col">#</th>
-                    <th scope="col">What happened</th>
-                    <th scope="col">When it happened</th>
-                    <th scope="col">Some details</th>
-                  </tr>
-                </thead>
-                <tbody id="tableBody"></tbody>
-              </Table>
-            </div>
+  return (
+    <div>
+      <TitleBar title="recent updates" />
+      <div className="container-fluid">
+        <div className="custompadding row justify-content-center">
+          <div className="col-lg-7 col-md-10 col-sm-12 text-center">
+            <Table hover size="sm" className="updateList text-center">
+              <thead>
+                <tr align="center">
+                  <th scope="col">#</th>
+                  <th scope="col">What happened</th>
+                  <th scope="col">When it happened</th>
+                  <th scope="col">Some details</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody"></tbody>
+            </Table>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Updates;

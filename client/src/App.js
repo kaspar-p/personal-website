@@ -18,13 +18,31 @@ const Paper = lazy(() => import("./pages/RSPaper"));
 const TuringMachine = lazy(() => import("./pages/TuringMachine"));
 const DoublePendulum = lazy(() => import("./pages/DoublePendulum"));
 
+export const WidthContext = React.createContext(0);
+
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.updateWidth = this.updateWidth.bind(this);
+
+    this.state = {
+      width: window.innerWidth,
+    };
+  }
+
+  updateWidth() {
+    this.setState({ width: window.innerWidth });
+  }
+
   componentDidMount() {
     this.socket = socketClientInitializer();
+    window.addEventListener("resize", this.updateWidth);
   }
 
   componentWillUnmount() {
     this.socket.emit("disconnect");
+    window.removeEventListener("resize", this.updateWidth);
   }
 
   render() {
@@ -33,29 +51,34 @@ class App extends React.Component {
     const { doublePendulum, reedSolomon, turingMachine } = projects;
 
     return (
-      <Router>
-        <Suspense fallback={renderLoadingPage()}>
-          <Switch>
-            <Route exact path="/projects" component={Projects} />
-            <Route exact path="/updates" component={Updates} />
-            <Route exact path="/contact-me" component={ContactMe} />
-            <Route
-              exact
-              path={doublePendulum.path}
-              component={DoublePendulum}
-            />
-            <Route exact path={reedSolomon.path} component={ReedSolomon} />
-            <Route exact path={turingMachine.path} component={TuringMachine} />
-            <Route
-              path="/OnTheConstructionOfReedSolomonCodes"
-              component={Paper}
-            />
-            <Route exact path="/" component={Home} />
-            {/* This route has to be last, as last resort to all others */}
-            <Route exact path="*" component={NotFound} />
-          </Switch>
-        </Suspense>
-      </Router>
+      <WidthContext.Provider value={this.state.width}>
+        <Router>
+          <Suspense fallback={renderLoadingPage()}>
+            <Switch>
+              <Route exact path="/projects" component={Projects} />
+              <Route exact path="/updates" component={Updates} />
+              <Route exact path="/contact-me" component={ContactMe} />
+              <Route
+                exact
+                path={projects.doublePendulum.path}
+                component={DoublePendulum}
+              />
+              <Route
+                exact
+                path={projects.reedSolomon.path}
+                component={ReedSolomon}
+              />
+              <Route
+                path="/projects/OnTheConstructionOfReedSolomonCodes"
+                component={Paper}
+              />
+              <Route exact path="/" component={Home} />
+              {/* This route has to be last, as last resort to all others */}
+              <Route exact path="*" component={NotFound} />
+            </Switch>
+          </Suspense>
+        </Router>
+      </WidthContext.Provider>
     );
   }
 }

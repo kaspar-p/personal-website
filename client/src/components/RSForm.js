@@ -122,11 +122,11 @@ function RSForm(props) {
   );
 }
 
-RSForm.propTypes = {
+RSForm.propTypes = PropTypes.isRequired({
   buttonText: PropTypes.string.isRequired,
   messageVal: PropTypes.string.isRequired,
   changeText: PropTypes.func.isRequired,
   callBackend: PropTypes.func.isRequired,
-};
+}).isRequired;
 
 export default RSForm;
