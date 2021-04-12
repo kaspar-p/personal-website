@@ -1,38 +1,51 @@
 import React from "react";
-import Circles from "../components/Circles";
-import "../assets/css/homePage.css";
+import HomeAnimation from "../components/HomeAnimation";
+import Grid from "@material-ui/core/Grid";
 
-function Home(props) {
+import "../assets/css/home-page.css";
+
+function Home() {
   return (
-    <div>
-      <div className="three-margin verticalCenter">
-        <header className="header container-fluid no-padding no-margin row">
-          <h1 className="montserrat-medium homePageTitle">kaspar poland</h1>
-        </header>
-        <br />
-        <ul className="navMenu montserrat-medium">
-          <hr className="showForSmallScreen pageDivider" />
-          <a href="../projects">
-            <li className="max-width hover-underline text-left pageLink">
-              my creations
-            </li>
-          </a>
-          <hr className="showForSmallScreen pageDivider" />
-          <a href="../updates">
-            <li className="max-width hover-underline text-left pageLink">
-              recent updates
-            </li>
-          </a>
-          <hr className="showForSmallScreen pageDivider" />
-          <a href="../contact-me">
-            <li className="max-width hover-underline text-left pageLink">
-              contact me
-            </li>
-          </a>
-        </ul>
-      </div>
-      <Circles />
-    </div>
+    <Grid
+      container
+      className="home-body montserrat-medium"
+      direction="column"
+      justify="flex-end"
+      alignItems="flex-start"
+    >
+      <Grid
+        item
+        container
+        direction="row"
+        justify="flex-start"
+        alignItems="center"
+        className="title-row"
+      >
+        <h1 item="true" className="home-title">
+          kaspar poland
+        </h1>
+        <HomeAnimation width={window.innerWidth} />
+      </Grid>
+      <Grid
+        item
+        container
+        direction="column"
+        justify="center"
+        alignItems="flex-start"
+        className="home-options-wrapper"
+        xs={6}
+      >
+        <a item="true" className="home-option" href="../projects">
+          my creations
+        </a>
+        <a item="true" className="home-option" href="../updates">
+          recent updates
+        </a>
+        <a item="true" className="home-option" href="../contact-me">
+          contact me
+        </a>
+      </Grid>
+    </Grid>
   );
 }
 

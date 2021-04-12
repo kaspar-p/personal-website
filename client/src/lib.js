@@ -30,7 +30,7 @@ export const projects = {
 export const downloadFile = async () => {
   const response = await axios({
     method: "get",
-    url: "/api/rs-paper",
+    url: "/api/rs/paper",
     responseType: "blob",
   });
 
