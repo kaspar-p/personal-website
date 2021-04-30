@@ -3,6 +3,16 @@
   "version": "0.1.0",
   "type": "module",
   "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run client\" \"npm run server-dev\"",
+    "client": "cd client && PORT=7000 node --max-old-space-size=4096 node_modules/.bin/react-scripts start",
+    "server-dev": "nodemon server/server.js",
+    "server": "node --max-old-space-size=4096 server/server.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm i --prefix client && npm run build --prefix client",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -24,16 +34,6 @@
     "twilio": "^3.54.2",
     "url": "^0.11.0"
   },
-  "scripts": {
-    "dev": "concurrently \"npm run client\" \"npm run server-dev\"",
-    "client": "cd client && PORT=7000 node --max-old-space-size=4096 node_modules/.bin/react-scripts start",
-    "server-dev": "nodemon server/server.js",
-    "server": "node --max-old-space-size=4096 server/server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm i --prefix client && npm run build --prefix client",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -53,7 +53,12 @@
   "main": "index.js",
   "devDependencies": {
     "concurrently": "^5.3.0",
-    "nodemon": "^2.0.7"
+    "extglob": "^3.0.0",
+    "nodemon": "^2.0.7",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^4.0.3"
   },
   "author": "Kaspar Poland",
   "license": "ISC"

@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  useLayoutEffect,
-  useState,
-  useContext,
-  useRef,
-} from "react";
+import React, { useEffect, useState, useContext } from "react";
 import * as Curve from "@visx/curve";
 import * as Shape from "@visx/shape";
 import SimplexNoise from "simplex-noise";

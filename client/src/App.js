@@ -23,21 +23,19 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.updateWidth = this.updateWidth.bind(this);
-
     this.state = {
       width: window.innerWidth,
     };
   }
 
-  updateWidth() {
+  updateWidth = () => {
     this.setState({ width: window.innerWidth });
-  }
+  };
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.socket = socketClientInitializer();
     window.addEventListener("resize", this.updateWidth);
-  }
+  };
 
   componentWillUnmount() {
     this.socket.emit("disconnect");
@@ -45,6 +43,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log("here: ", WidthContext);
     const renderLoadingPage = () => <LoadingPage />;
 
     return (

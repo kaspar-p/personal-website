@@ -17,7 +17,7 @@ function ProjectBar(props) {
       alignItems="center"
       className="project-bar"
       lg={9}
-      xs={11}
+      xs={12}
       onClick={() => (window.location = props.path)}
       style={{
         borderTop: props.isFirst ? "black solid 2px" : "none",
@@ -26,7 +26,7 @@ function ProjectBar(props) {
       <img
         item="true"
         className="project-img"
-        height="95%"
+        height="90%"
         width={width > 1100 ? "auto" : "100%"}
         alt={props.title}
         src={props.image}

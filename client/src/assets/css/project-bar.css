@@ -26,5 +26,6 @@
 @media (max-width: 1100px) {
   .project-bar {
     height: 100%;
+    width: 80%;
   }
 }
