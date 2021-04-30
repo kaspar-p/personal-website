@@ -33,7 +33,7 @@ function HomeAnimation() {
     return () => clearInterval(interval);
   }, []);
 
-  const calculateData = (value) => {
+  const calculateData = () => {
     const newData = [];
 
     _.times(width / noiseGranularity, (x) => {

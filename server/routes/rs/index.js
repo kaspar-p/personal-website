@@ -12,7 +12,7 @@ router.post("/program", async (req, res) => {
   // Run the java program
   try {
     childProcess.exec(
-      "cd client/src/assets/code " + "&& java qrcode/Main " + req.body.message,
+      "cd client/src/assets/code && java qrcode/Main " + req.body.message,
       (err, stdout, stderr) => {
         if (err) console.log(err);
         if (stderr) console.log(stderr.toString());

@@ -18,7 +18,7 @@
     171: function (e, t, a) {
       "use strict";
       a.r(t);
-      var n = a(0),
+      const n = a(0),
         o = a.n(n),
         i = a(21),
         s = a.n(i),
@@ -33,7 +33,7 @@
         p = a(76),
         g = a.n(p);
       a(126);
-      var f = function (e) {
+      const f = function (e) {
         for (var t = [], a = 0; a < 20; a++)
           t.push(
             o.a.createElement(
@@ -58,7 +58,7 @@
         return o.a.createElement("div", { className: "squareWrapper" }, t);
       };
       a(127);
-      var E = function (e) {
+      const E = function (e) {
           return o.a.createElement(
             "div",
             null,
@@ -133,7 +133,7 @@
         b = a(25),
         C = a(15);
       a(129);
-      var I = function (e) {
+      const I = function (e) {
           return o.a.createElement(
             "div",
             null,
@@ -206,9 +206,9 @@
           a(60),
           (function (e) {
             Object(l.a)(a, e);
-            var t = Object(c.a)(a);
+            const t = Object(c.a)(a);
             function a(e) {
-              var n;
+              let n;
               return (
                 Object(r.a)(this, a),
                 ((n = t.call(this, e)).getUpdateData = n.getUpdateData.bind(
@@ -223,11 +223,11 @@
                 {
                   key: "fillTable",
                   value: function (e) {
-                    var t,
+                    let t,
                       a = Object(b.a)(e);
                     try {
                       for (a.s(); !(t = a.n()).done; ) {
-                        var n = t.value,
+                        const n = t.value,
                           o = document.createElement("tr"),
                           i = document.createElement("th");
                         i.appendChild(
@@ -235,11 +235,11 @@
                         ),
                           o.appendChild(i);
                         for (
-                          var s = ["title", "date", "desc"], r = 0;
+                          let s = ["title", "date", "desc"], r = 0;
                           r < s.length;
                           r++
                         ) {
-                          var A = s[r],
+                          let A = s[r],
                             l = document.createElement("td"),
                             c = n[A];
                           "date" === A &&
@@ -259,10 +259,10 @@
                 {
                   key: "getUpdateData",
                   value: (function () {
-                    var e = Object(v.a)(
+                    const e = Object(v.a)(
                       y.a.mark(function e() {
-                        var t;
-                        return y.a.wrap(function (e) {
+                        let t;
+                        return y.a.wrap((e) => {
                           for (;;)
                             switch ((e.prev = e.next)) {
                               case 0:
@@ -289,7 +289,7 @@
                 {
                   key: "componentDidMount",
                   value: (function () {
-                    var e = Object(v.a)(
+                    const e = Object(v.a)(
                       y.a.mark(function e() {
                         return y.a.wrap(
                           function (e) {
@@ -400,14 +400,14 @@
         P = a.n(q),
         J = a(188);
       a(132);
-      var x = function (e) {
-          var t = new Map();
+      const x = function (e) {
+          const t = new Map();
           t.set("double-pendulum", D.a),
             t.set("reed-solomon", j.a),
             t.set("double-pendulum_hover", O.a),
             t.set("reed-solomon_hover", P.a);
-          var a = function () {
-            var e = document.querySelector(".carousel-item.active");
+          const a = function () {
+            const e = document.querySelector(".carousel-item.active");
             if (e) return e.getAttribute("project-name");
           };
           return o.a.createElement(
@@ -445,7 +445,7 @@
                       srcName: "reed-solomon",
                     },
                   },
-                  function (e) {
+                  (e) => {
                     return o.a.createElement(
                       J.a.Item,
                       {
@@ -489,13 +489,13 @@
         F = a.n(H),
         S = a(187);
       a(61);
-      var V = function (e) {
-          var t = new Map();
+      const V = function (e) {
+          const t = new Map();
           t.set("Github", W.a),
             t.set("Twitter", Y.a),
             t.set("Instagram", K.a),
             t.set("LinkedIn", F.a);
-          var a = o.a.createElement(
+          const a = o.a.createElement(
               S.a,
               { container: !0, direction: "row", justify: "center" },
               o.a.createElement(
@@ -651,9 +651,9 @@
         },
         z = (function (e) {
           Object(l.a)(a, e);
-          var t = Object(c.a)(a);
+          const t = Object(c.a)(a);
           function a(e) {
-            var n;
+            let n;
             return (
               Object(r.a)(this, a),
               ((n = t.call(this, e)).updateWidth = n.updateWidth.bind(
@@ -745,7 +745,7 @@
           );
         })(o.a.Component);
       a(136);
-      var L = function (e) {
+      const L = function (e) {
           return o.a.createElement(
             S.a,
             {
@@ -786,15 +786,15 @@
           (a(137),
           (function (e) {
             Object(l.a)(a, e);
-            var t = Object(c.a)(a);
+            const t = Object(c.a)(a);
             function a(e) {
-              var n;
+              let n;
               return (
                 Object(r.a)(this, a),
                 ((n = t.call(this, e)).callBackend = Object(v.a)(
                   y.a.mark(function e() {
-                    var t, a, n, o;
-                    return y.a.wrap(function (e) {
+                    let t, a, n, o;
+                    return y.a.wrap((e) => {
                       for (;;)
                         switch ((e.prev = e.next)) {
                           case 0:
@@ -850,24 +850,24 @@
                 {
                   key: "copyText",
                   value: function () {
-                    var e = this;
+                    const e = this;
                     navigator.permissions
                       .query({ name: "clipboard-write" })
-                      .then(function (t) {
+                      .then((t) => {
                         ("granted" !== t.state && "prompt" !== t.state) ||
                           navigator.clipboard.writeText("CITATION").then(
-                            function () {
+                            () => {
                               e.setState({ citePaperText: "citation copied!" });
-                              var t = setTimeout(function () {
+                              var t = setTimeout(() => {
                                 return e.setState(
                                   { citePaperText: "cite the paper" },
-                                  function () {
+                                  () => {
                                     return clearTimeout(t);
                                   }
                                 );
                               }, 2e3);
                             },
-                            function () {
+                            () => {
                               console.log("failed");
                             }
                           );
@@ -877,7 +877,7 @@
                 {
                   key: "render",
                   value: function () {
-                    var e = this;
+                    const e = this;
                     return o.a.createElement(
                       "div",
                       null,
@@ -918,7 +918,7 @@
                                   id: "messageInput",
                                   name: "messageVal",
                                   onChange: function (t) {
-                                    var a;
+                                    let a;
                                     e.setState(
                                       ((a = {}),
                                       Object(X.a)(
@@ -1148,18 +1148,18 @@
           (n -= e[a].fitness), (a += 1);
         return e[(a -= 1)].copy();
       }
-      var ie,
+      let ie,
         se,
         re,
         Ae = (function () {
           function e(t, a) {
-            var n = this;
+            const n = this;
             Object(r.a)(this, e),
               (this.rows = t),
               (this.cols = a),
               (this.data = Array(this.rows)
                 .fill()
-                .map(function () {
+                .map(() => {
                   return Array(n.cols).fill(0);
                 }));
           }
@@ -1175,7 +1175,7 @@
                       a < this.rows;
                       a++
                     )
-                      for (var n = 0; n < this.cols; n++)
+                      for (let n = 0; n < this.cols; n++)
                         t.data[a][n] = this.data[a][n];
                     return t;
                   },
@@ -1184,7 +1184,7 @@
                   key: "toArray",
                   value: function () {
                     for (var e = [], t = 0; t < this.rows; t++)
-                      for (var a = 0; a < this.cols; a++)
+                      for (let a = 0; a < this.cols; a++)
                         e.push(this.data[t][a]);
                     return e;
                   },
@@ -1192,7 +1192,7 @@
                 {
                   key: "randomize",
                   value: function () {
-                    return this.map(function (e) {
+                    return this.map((e) => {
                       return 2 * Math.random() - 1;
                     });
                   },
@@ -1205,10 +1205,10 @@
                         ? void console.log(
                             "Columns and Rows of A must match Columns and Rows of B."
                           )
-                        : this.map(function (e, a, n) {
+                        : this.map((e, a, n) => {
                             return e + t.data[a][n];
                           })
-                      : this.map(function (e) {
+                      : this.map((e) => {
                           return e + t;
                         });
                   },
@@ -1221,10 +1221,10 @@
                         ? void console.log(
                             "Columns and Rows of A must match Columns and Rows of B."
                           )
-                        : this.map(function (e, a, n) {
+                        : this.map((e, a, n) => {
                             return e * t.data[a][n];
                           })
-                      : this.map(function (e) {
+                      : this.map((e) => {
                           return e * t;
                         });
                   },
@@ -1232,9 +1232,9 @@
                 {
                   key: "map",
                   value: function (e) {
-                    for (var t = 0; t < this.rows; t++)
-                      for (var a = 0; a < this.cols; a++) {
-                        var n = this.data[t][a];
+                    for (let t = 0; t < this.rows; t++)
+                      for (let a = 0; a < this.cols; a++) {
+                        const n = this.data[t][a];
                         this.data[t][a] = e(n, t, a);
                       }
                     return this;
@@ -1257,7 +1257,7 @@
                 {
                   key: "fromArray",
                   value: function (t) {
-                    return new e(t.length, 1).map(function (e, a) {
+                    return new e(t.length, 1).map((e, a) => {
                       return t[a];
                     });
                   },
@@ -1266,7 +1266,7 @@
                   key: "subtract",
                   value: function (t, a) {
                     if (t.rows === a.rows && t.cols === a.cols)
-                      return new e(t.rows, t.cols).map(function (e, n, o) {
+                      return new e(t.rows, t.cols).map((e, n, o) => {
                         return t.data[n][o] - a.data[n][o];
                       });
                     console.log(
@@ -1277,7 +1277,7 @@
                 {
                   key: "transpose",
                   value: function (t) {
-                    return new e(t.cols, t.rows).map(function (e, a, n) {
+                    return new e(t.cols, t.rows).map((e, a, n) => {
                       return t.data[n][a];
                     });
                   },
@@ -1286,7 +1286,7 @@
                   key: "multiply",
                   value: function (t, a) {
                     if (t.cols === a.rows)
-                      return new e(t.rows, a.cols).map(function (e, n, o) {
+                      return new e(t.rows, a.cols).map((e, n, o) => {
                         for (var i = 0, s = 0; s < t.cols; s++)
                           i += t.data[n][s] * a.data[s][o];
                         return i;
@@ -1297,7 +1297,7 @@
                 {
                   key: "map",
                   value: function (t, a) {
-                    return new e(t.rows, t.cols).map(function (e, n, o) {
+                    return new e(t.rows, t.cols).map((e, n, o) => {
                       return a(t.data[n][o], n, o);
                     });
                   },
@@ -1305,8 +1305,8 @@
                 {
                   key: "deserialize",
                   value: function (t) {
-                    "string" == typeof t && (t = JSON.parse(t));
-                    var a = new e(t.rows, t.cols);
+                    "string" === typeof t && (t = JSON.parse(t));
+                    const a = new e(t.rows, t.cols);
                     return (a.data = t.data), a;
                   },
                 },
@@ -1319,21 +1319,21 @@
           Object(r.a)(this, e), (this.func = t), (this.dfunc = a);
         },
         ce = new le(
-          function (e) {
+          ((e) => {
             return 1 / (1 + Math.exp(-e));
-          },
-          function (e) {
+          }),
+          ((e) => {
             return e * (1 - e);
-          }
+          })
         ),
         me =
           (new le(
-            function (e) {
+            ((e) => {
               return Math.tanh(e);
-            },
-            function (e) {
+            }),
+            ((e) => {
               return 1 - e * e;
-            }
+            })
           ),
           (function () {
             function e(t, a, n, o) {
@@ -1384,14 +1384,14 @@
                   {
                     key: "predict",
                     value: function (e) {
-                      var t = Ae.fromArray(e),
+                      const t = Ae.fromArray(e),
                         a = Ae.multiply(this.weights_ih, t),
                         n = Ae.multiply(this.weights_hh, a);
                       a.add(this.bias_h1),
                         n.add(this.bias_h2),
                         a.map(this.activation_function.func),
                         n.map(this.activation_function.func);
-                      var o = Ae.multiply(this.weights_ho, n);
+                      const o = Ae.multiply(this.weights_ho, n);
                       return (
                         o.add(this.bias_o),
                         o.map(this.activation_function.func),
@@ -1402,7 +1402,7 @@
                   {
                     key: "setLearningRate",
                     value: function () {
-                      var e =
+                      const e =
                         arguments.length > 0 && void 0 !== arguments[0]
                           ? arguments[0]
                           : 0.1;
@@ -1412,7 +1412,7 @@
                   {
                     key: "setActivationFunction",
                     value: function () {
-                      var e =
+                      const e =
                         arguments.length > 0 && void 0 !== arguments[0]
                           ? arguments[0]
                           : ce;
@@ -1422,23 +1422,23 @@
                   {
                     key: "train",
                     value: function (e, t) {
-                      var a = Ae.fromArray(e),
+                      const a = Ae.fromArray(e),
                         n = Ae.multiply(this.weights_ih, a);
                       n.add(this.bias_h), n.map(this.activation_function.func);
-                      var o = Ae.multiply(this.weights_ho, n);
+                      const o = Ae.multiply(this.weights_ho, n);
                       o.add(this.bias_o), o.map(this.activation_function.func);
-                      var i = Ae.fromArray(t),
+                      const i = Ae.fromArray(t),
                         s = Ae.subtract(i, o),
                         r = Ae.map(o, this.activation_function.dfunc);
                       r.multiply(s), r.multiply(this.learning_rate);
-                      var A = Ae.transpose(n),
+                      const A = Ae.transpose(n),
                         l = Ae.multiply(r, A);
                       this.weights_ho.add(l), this.bias_o.add(r);
-                      var c = Ae.transpose(this.weights_ho),
+                      const c = Ae.transpose(this.weights_ho),
                         m = Ae.multiply(c, s),
                         h = Ae.map(n, this.activation_function.dfunc);
                       h.multiply(m), h.multiply(this.learning_rate);
-                      var d = Ae.transpose(a),
+                      const d = Ae.transpose(a),
                         u = Ae.multiply(h, d);
                       this.weights_ih.add(u), this.bias_h.add(h);
                     },
@@ -1471,8 +1471,8 @@
                   {
                     key: "deserialize",
                     value: function (t) {
-                      "string" == typeof t && (t = JSON.parse(t));
-                      var a = new e(
+                      "string" === typeof t && (t = JSON.parse(t));
+                      const a = new e(
                         t.input_nodes,
                         t.hidden_nodes,
                         t.output_nodes
@@ -1499,7 +1499,7 @@
         ge = 0,
         fe = function (e) {
           function t(e) {
-            var t = e.state[0],
+            const t = e.state[0],
               a = e.state[2],
               n = e.state[4];
             return (
@@ -1513,14 +1513,14 @@
           }
           function a() {
             !(function (e) {
-              for (var t = 0; t < e.length; t++)
+              for (let t = 0; t < e.length; t++)
                 e[t].score = Math.pow(e[t].score, 2);
               for (var a = 0, n = 0; n < e.length; n++) a += e[n].score;
-              for (var o = 0; o < e.length; o++) e[o].fitness = e[o].score / a;
+              for (let o = 0; o < e.length; o++) e[o].fitness = e[o].score / a;
             })(de),
               (he = (function (e, t) {
                 for (var a = [], n = 0; n < e.length; n++) {
-                  var o = oe(e, t);
+                  const o = oe(e, t);
                   a[n] = o;
                 }
                 return a;
@@ -1542,12 +1542,12 @@
                 (re = e.map(se, 200, 600, 15, 50)),
                 e.createCanvas(se, se).parent("sketchHolder"),
                 e.background(51);
-              for (var t = 0; t < 1e3; t++) he.push(new o(null, e));
-              var a,
+              for (let t = 0; t < 1e3; t++) he.push(new o(null, e));
+              let a,
                 n = Object(b.a)(he);
               try {
                 for (n.s(); !(a = n.n()).done; ) {
-                  var i = a.value;
+                  const i = a.value;
                   de.push(i);
                 }
               } catch (s) {
@@ -1564,10 +1564,10 @@
             }),
             (e.draw = function () {
               ge = ie.value();
-              for (var n = 0; n < ge; n++) {
+              for (let n = 0; n < ge; n++) {
                 e.background(51);
-                for (var o = he.length - 1; o >= 0; o--) {
-                  var i = he[o];
+                for (let o = he.length - 1; o >= 0; o--) {
+                  const i = he[o];
                   !1 === t(i) ? i.update(e) : !0 === t(i) && he.splice(o, 1);
                 }
                 0 === he.length && (a(), (pe = 0), ue++), pe++;
@@ -1576,8 +1576,8 @@
                 e.stroke(255),
                   e.strokeWeight(e.map(se, 200, 600, 0.5, 3)),
                   e.line(0, se / 2, e.width, se / 2);
-                for (var t = 0; t < he.length; t += 1) {
-                  var a = he[t];
+                for (let t = 0; t < he.length; t += 1) {
+                  const a = he[t];
                   e.strokeWeight(1), a.display(e);
                 }
                 e.fill(255),
@@ -1626,12 +1626,12 @@
                 {
                   key: "chooseAction",
                   value: function () {
-                    var t,
+                    let t,
                       a = [],
                       n = Object(b.a)(this.state);
                     try {
                       for (n.s(); !(t = n.n()).done; ) {
-                        var o = t.value;
+                        const o = t.value;
                         a.push(o);
                       }
                     } catch (A) {
@@ -1639,14 +1639,14 @@
                     } finally {
                       n.f();
                     }
-                    var i = this.brain.predict(a),
+                    const i = this.brain.predict(a),
                       s = [i[0], i[1]],
                       r = e.map(i[2], 0, 1, 0, 10);
                     return (
                       (2 *
                         (function (e) {
                           for (var t, a = 0, n = 0; n < e.length; n++) {
-                            var o = e[n];
+                            const o = e[n];
                             o > a && ((a = o), (t = n));
                           }
                           return t;
@@ -1659,14 +1659,14 @@
                 {
                   key: "update",
                   value: function () {
-                    var e = this.chooseAction();
+                    const e = this.chooseAction();
                     this.runDoublePhysics(e), this.score++;
                   },
                 },
                 {
                   key: "display",
                   value: function () {
-                    var t = this.state,
+                    const t = this.state,
                       a = se / 2 + 5 * t[0],
                       n = se / 2,
                       o = t[2],
@@ -1691,7 +1691,7 @@
                 {
                   key: "runDoublePhysics",
                   value: function (t) {
-                    var a = 0,
+                    let a = 0,
                       n = 0,
                       o = 0,
                       i = t,
@@ -1754,13 +1754,13 @@
             );
           })();
         };
-      var Ee = a(94),
+      const Ee = a(94),
         we = a.n(Ee),
         ye =
           (a(138),
           (function (e) {
             Object(l.a)(a, e);
-            var t = Object(c.a)(a);
+            const t = Object(c.a)(a);
             function a() {
               return Object(r.a)(this, a), t.apply(this, arguments);
             }
@@ -1998,7 +1998,7 @@
         be = a.n(ve),
         Ce = (function (e) {
           Object(l.a)(a, e);
-          var t = Object(c.a)(a);
+          const t = Object(c.a)(a);
           function a() {
             return Object(r.a)(this, a), t.apply(this, arguments);
           }
@@ -2081,10 +2081,10 @@
       ),
         "serviceWorker" in navigator &&
           navigator.serviceWorker.ready
-            .then(function (e) {
+            .then((e) => {
               e.unregister();
             })
-            .catch(function (e) {
+            .catch((e) => {
               console.error(e.message);
             });
     },

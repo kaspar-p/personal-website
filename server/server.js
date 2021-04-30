@@ -8,13 +8,13 @@ import compression from "compression";
 import socketInitializer from "socket.io";
 
 import routes from "./routes/index.js";
-import UserCount from "./models/UserCount.js";
-import {
-  incrementUser,
-  decrementUser,
-  endInterval,
-  beginInterval,
-} from "./lib.js";
+// import UserCount from "./models/UserCount.js";
+// import {
+//   incrementUser,
+//   decrementUser,
+//   endInterval,
+//   beginInterval,
+// } from "./lib.js";
 
 // Production will inject a port, undefined if in development mode
 const PORT = process.env.PORT || 1111;
@@ -74,9 +74,9 @@ const io = socketInitializer(server, { serveClient: false });
 //     SOCKET.IO EVENTS & ROUTES
 // ----------------------------------
 
-let interval;
+// let interval;
 
-io.on("connection", async (socket) => {
+io.on("connection", async () => {
   // await incrementUser();
   // // const { count } = await UserCount.findOne();
   // // console.log("USER CONNECTED! TOTAL: ", count);

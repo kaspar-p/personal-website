@@ -5,13 +5,13 @@ import Commit from "./models/Commit.js";
 import UserCount from "./models/UserCount.js";
 
 export const incrementUser = async () => {
-  let userCount = await UserCount.findOne();
+  const userCount = await UserCount.findOne();
   userCount.count = userCount.count + 1;
   await userCount.save();
 };
 
 export const decrementUser = async () => {
-  let userCount = await UserCount.findOne();
+  const userCount = await UserCount.findOne();
   userCount.count = userCount.count - 1;
   await userCount.save();
 };
@@ -31,9 +31,10 @@ export const beginInterval = async (interval) => {
  * @returns {void}
  */
 const pollGithubWrapper = async (interval) => {
-  let { status, statusMsg } = await pollGithubAndSave();
+  const { status, statusMsg } = await pollGithubAndSave();
 
   if (status === "SUCCESS") {
+    // eslint-disable-next-line no-param-reassign
     interval = setInterval(() => {
       const userCount = UserCount.find()
         .then((UC) => parseInt(UC))
@@ -101,8 +102,8 @@ export const pollGithubAndSave = async () => {
   }
 
   // Weird file structure
-  for (let commits of commitsPacked) {
-    for (let commit of commits.data) {
+  for (const commits of commitsPacked) {
+    for (const commit of commits.data) {
       const { message, url, author } = commit.commit;
 
       // If this commit has already been saved in the DB: true if exists, false if doesn't

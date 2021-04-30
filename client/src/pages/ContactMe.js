@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
+import exact from "prop-types-exact";
 
 import TitleBar from "../components/TitleBar";
 import ContactMeSquare from "../components/ContactMeSquare";
@@ -14,8 +15,8 @@ const socialData = {
   },
   Github: {
     socialName: "Github",
-    handle: "@kaspar78",
-    socialLink: "https://github.com/kaspar78",
+    handle: "@kaspar-p",
+    socialLink: "https://github.com/kaspar-p",
   },
   Twitter: {
     socialName: "Twitter",
@@ -59,5 +60,7 @@ function ContactMe() {
     </React.Fragment>
   );
 }
+
+ContactMe.propTypes = exact({});
 
 export default ContactMe;

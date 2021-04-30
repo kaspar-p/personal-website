@@ -15,7 +15,7 @@
   function t() {
     for (var e, r = 0; r < u.length; r++) {
       for (var t = u[r], n = !0, a = 1; a < t.length; a++) {
-        var i = t[a];
+        const i = t[a];
         0 !== o[i] && (n = !1);
       }
       n && (u.splice(r--, 1), (e = l((l.s = t[0]))));
@@ -27,7 +27,7 @@
     u = [];
   function l(r) {
     if (n[r]) return n[r].exports;
-    var t = (n[r] = { i: r, l: !1, exports: {} });
+    const t = (n[r] = { i: r, l: !1, exports: {} });
     return e[r].call(t.exports, t, t.exports, l), (t.l = !0), t.exports;
   }
   (l.m = e),
@@ -44,24 +44,24 @@
     (l.t = function (e, r) {
       if ((1 & r && (e = l(e)), 8 & r)) return e;
       if (4 & r && "object" === typeof e && e && e.__esModule) return e;
-      var t = Object.create(null);
+      const t = Object.create(null);
       if (
         (l.r(t),
         Object.defineProperty(t, "default", { enumerable: !0, value: e }),
-        2 & r && "string" != typeof e)
+        2 & r && "string" !== typeof e)
       )
-        for (var n in e)
+        for (const n in e)
           l.d(
             t,
             n,
-            function (r) {
+            ((r) => {
               return e[r];
-            }.bind(null, n)
+            }).bind(null, n)
           );
       return t;
     }),
     (l.n = function (e) {
-      var r =
+      const r =
         e && e.__esModule
           ? function () {
               return e.default;
@@ -75,11 +75,11 @@
       return Object.prototype.hasOwnProperty.call(e, r);
     }),
     (l.p = "/");
-  var a = (this["webpackJsonppersonal-react-website"] =
+  let a = (this["webpackJsonppersonal-react-website"] =
       this["webpackJsonppersonal-react-website"] || []),
     i = a.push.bind(a);
   (a.push = r), (a = a.slice());
-  for (var p = 0; p < a.length; p++) r(a[p]);
+  for (let p = 0; p < a.length; p++) r(a[p]);
   var f = i;
   t();
 })([]);

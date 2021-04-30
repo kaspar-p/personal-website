@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import exact from "prop-types-exact";
 import { Grid } from "@material-ui/core";
 
 import "../assets/css/reed-solomon.css";
@@ -122,11 +123,11 @@ function RSForm(props) {
   );
 }
 
-RSForm.propTypes = PropTypes.isRequired({
+RSForm.propTypes = exact({
   buttonText: PropTypes.string.isRequired,
   messageVal: PropTypes.string.isRequired,
   changeText: PropTypes.func.isRequired,
   callBackend: PropTypes.func.isRequired,
-}).isRequired;
+});
 
 export default RSForm;
