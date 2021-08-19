@@ -1,7 +1,0 @@
-{
-  "root": "client/build",
-  "routes": {
-    "/static/**": "/static/**",
-    "/**": "index.html"
-  }
-}
