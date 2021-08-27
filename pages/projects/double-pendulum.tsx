@@ -30,6 +30,12 @@ const useStyles = makeStyles({
   doublePendulumContainer: {
     paddingTop: "2rem",
   },
+  textContainer: {
+    fontSize: "1rem",
+  },
+  text: {
+    fontSize: "0.9rem",
+  },
 });
 
 function DoublePendulum() {
@@ -45,6 +51,7 @@ function DoublePendulum() {
       <Header title="double pendulum learning simulation" />
 
       <Grid
+        item
         container
         direction="row"
         justifyContent="space-evenly"
@@ -53,6 +60,7 @@ function DoublePendulum() {
         spacing={5}
       >
         <Grid
+          // Must be item, but looks bad with that attribute. Ignore the error.
           container
           direction="column"
           className={styles.sketchContainer}
@@ -65,10 +73,16 @@ function DoublePendulum() {
           </div>
         </Grid>
 
-        <Grid item container direction="column" xs={6}>
+        <Grid
+          item
+          container
+          direction="column"
+          xs={6}
+          className={styles.textContainer}
+        >
           <h3 className="montserrat-light"> How do I use the program?</h3>
 
-          <Typography>
+          <Typography className={styles.text}>
             You just watch! The slider at the bottom controls how fast the
             simulation runs, but beyond that, there is no interaction. Sit back
             and watch learning happen!
@@ -77,7 +91,7 @@ function DoublePendulum() {
           <h3 className="montserrat-light">
             What does this program actually do?
           </h3>
-          <Typography>
+          <Typography className={styles.text}>
             Well, it learns. Each cart (blue rectangle with poles atop) has a
             brain. That brain is what&apos;s called a neural network. The point
             of this program is for the carts to learn how to balance their poles
@@ -89,13 +103,13 @@ function DoublePendulum() {
           <h3 className="montserrat-light">
             How does that work and what do those words mean?
           </h3>
-          <Typography>
+          <Typography className={styles.text}>
             Calculus, to put it simply. Neural networks are computational
             imitations of a human brain, and when each cart is fed input about
             its surroundings, it uses some complex math to make a decision.
           </Typography>
           <br />
-          <Typography>
+          <Typography className={styles.text}>
             Neural networks are only one piece of the puzzle. There also needs
             to be a system for them to change. A decision making machine (the
             neural network) is nothing if it can&apos;t change and learn after
@@ -105,7 +119,7 @@ function DoublePendulum() {
             species to live longer or better. The same effect is simulated here.
           </Typography>
           <br />
-          <Typography>
+          <Typography className={styles.text}>
             The algorithm begins with the first generation of 1000 carts. To
             simulate a lifecycle (similar to what real animals experience),
             there are bounds to how far their poles can go in each direction
@@ -118,11 +132,11 @@ function DoublePendulum() {
             pool until a cart is finally able to balance their poles forever.
           </Typography>
           <br />
-          <Typography>
+          <Typography className={styles.text}>
             There is a little more that goes on behind the scenes, though.
           </Typography>
           <br />
-          <Typography>
+          <Typography className={styles.text}>
             Another term: fitness functions. Essentially for AI to be able to
             rank themselves, we need to quantify success. A fitness function is
             a way to do that. For our purposes, our fitness function was simply
@@ -132,7 +146,7 @@ function DoublePendulum() {
             slowly towards that goal.
           </Typography>
           <br />
-          <Typography>
+          <Typography className={styles.text}>
             The fitness function could be anything, and are tailored to the goal
             of the program. If we had made an AI trying to jump, then the
             fitness function might be the maximum height the AI tried to jump,
@@ -140,7 +154,7 @@ function DoublePendulum() {
             will stick to the cart&apos;s age.
           </Typography>
           <br />
-          <Typography>
+          <Typography className={styles.text}>
             Now to the good stuff: how does the cart balance? Well, that
             requires discussion of its brain. As mentioned before, its brain is
             a neural network with 6 input neurons, 2 hidden layers with 10 nodes
@@ -154,14 +168,14 @@ function DoublePendulum() {
             />
           </div>
 
-          <Typography>
+          <Typography className={styles.text}>
             From left to right, the picture above depicts a neural network with
             6 inputs, 2 hidden layers with 10 nodes each, and 3 output nodes.
             Without diving too far into how neural networks make decisions, we
             can discuss what affects a decision for a neural network.
           </Typography>
           <br />
-          <Typography>
+          <Typography className={styles.text}>
             If that made no sense to you, don&apos;t worry about it. The only
             important part to non AI people is the 3 output neurons.
             Essentially, a neural network takes input numbers, does calculations
@@ -178,7 +192,7 @@ function DoublePendulum() {
             the decision is affected.
           </Typography>
           <br />
-          <Typography>
+          <Typography className={styles.text}>
             The first number represents the amount of force the cart wants to
             put into its next movement on a scale of 0 to 1 (0 being no force, 1
             being lots of force). The second and third numbers are simpler. They
@@ -194,7 +208,7 @@ function DoublePendulum() {
             This cycles for each cart until that cart dies.
           </Typography>
           <br />
-          <Typography>
+          <Typography className={styles.text}>
             In essence, that&apos;s all there is to it. The carts learn. They
             end up learning how to balance at an average (not tested or
             measured, only noticed) at generation 1000. Because it is based on
@@ -204,7 +218,7 @@ function DoublePendulum() {
           </Typography>
 
           <h3 className="montserrat-light">Where is this project going?</h3>
-          <Typography>
+          <Typography className={styles.text}>
             Right now, nowhere. When I finished this version of the program I
             immediately had an idea to make it better. I wanted the pendulum to
             learn to succeed with 1 joint on top, and once it hit some arbitrary
@@ -219,7 +233,7 @@ function DoublePendulum() {
           </Typography>
 
           <h3 className="montserrat-light">That&apos;s it...</h3>
-          <Typography>
+          <Typography className={styles.text}>
             I hope there was something to be learned. Checkout my other
             projects!
           </Typography>

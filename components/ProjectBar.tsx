@@ -6,6 +6,8 @@ import { makeStyles } from "@material-ui/styles";
 import Image from "next/image";
 import { Hidden, Typography } from "@material-ui/core";
 
+import { offBlack } from "../styles/constants";
+
 const propTypes = {
   title: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
@@ -16,7 +18,7 @@ const propTypes = {
 
 type ProjectBarProps = PropTypes.InferProps<typeof propTypes>;
 
-const borderLine = "3px solid black";
+const borderLine = `3px solid ${offBlack}`;
 
 const useStyles = makeStyles({
   textSection: {
@@ -47,18 +49,24 @@ function ProjectBar({ isFirst, title, path, blurb, image }: ProjectBarProps) {
       direction="row"
       justifyContent="center"
       alignItems="center"
-      onClick={() => (window.location = path)}
+      onClick={() => (window.location.href = path)}
       className={styles.projectContainer}
       style={isFirst ? { borderTop: borderLine } : {}}
     >
-      <Image src={image} alt={title} className={styles.image} />
+      <Image
+        src={image}
+        alt={title}
+        className={styles.image}
+        height="400"
+        width="600"
+      />
 
-      <Hidden lgDown>
+      <Hidden mdDown>
         <Grid
           item
           container
           direction="column"
-          justify="flex-start"
+          justifyContent="flex-start"
           alignItems="flex-start"
           className={styles.textSection}
         >
@@ -70,12 +78,12 @@ function ProjectBar({ isFirst, title, path, blurb, image }: ProjectBarProps) {
         </Grid>
       </Hidden>
 
-      <Hidden xlUp>
+      <Hidden lgUp>
         <Grid
           item
           container
           direction="column"
-          justify="center"
+          justifyContent="center"
           alignItems="center"
           className={styles.textSection}
           xs={12}

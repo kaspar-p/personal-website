@@ -2,7 +2,6 @@ import React from "react";
 import type { NextPage } from "next";
 import _ from "lodash";
 import Grid from "@material-ui/core/Grid";
-import "../styles/Home.module.css";
 import Header from "../components/Header";
 import ProjectBar from "../components/ProjectBar";
 
@@ -49,7 +48,7 @@ const Projects: NextPage = () => {
   const styles = useStyles();
 
   return (
-    <Grid direction="column">
+    <Grid container direction="column">
       <Header title="projects" />
 
       <Grid

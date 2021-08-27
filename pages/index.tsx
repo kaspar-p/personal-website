@@ -2,12 +2,11 @@ import React from "react";
 import type { NextPage } from "next";
 // import HomeAnimation from "../components/HomeAnimation";
 import clsx from "clsx";
-import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/styles";
-import "../styles/Home.module.css";
-import { Link } from "@material-ui/core";
+import { Grid, Link } from "@material-ui/core";
 
 import button from "../styles/buttons";
+import { offBlack } from "../styles/constants";
 
 const useStyles = makeStyles({
   homeContainer: {
@@ -17,17 +16,18 @@ const useStyles = makeStyles({
     top: 0,
     padding: "100px",
   },
-  "home-title": {
+  homeTitle: {
     letterSpacing: "1.5rem",
     fontSize: "5rem",
     fontFamily: "montserrat-medium",
     margin: "0.5rem",
     fontWeight: 500,
+    color: offBlack,
   },
-  "title-row": {
+  titleRow: {
     padding: 0,
   },
-  "home-option": {
+  homeOption: {
     width: "50%",
     paddingLeft: "100px",
   },
@@ -41,7 +41,6 @@ const Home: NextPage = () => {
     <Grid container className={styles.homeContainer} justifyContent="flex-end">
       <Grid
         container
-        className={clsx(styles["home-title"], "montserrat-medium")}
         direction="column"
         justifyContent="flex-end"
         alignItems="flex-start"
@@ -50,11 +49,11 @@ const Home: NextPage = () => {
           item
           container
           direction="row"
-          justify="flex-start"
+          justifyContent="flex-start"
           alignItems="center"
-          className={styles["title-row"]}
+          className={styles.titleRow}
         >
-          <h1 className={clsx(styles["home-title"], "montserrat-light")}>
+          <h1 className={clsx(styles.homeTitle, "montserrat-light")}>
             kaspar poland
           </h1>
           {/* <HomeAnimation width={window.innerWidth} /> */}
@@ -63,24 +62,24 @@ const Home: NextPage = () => {
           item
           container
           direction="column"
-          justify="center"
+          justifyContent="center"
           alignItems="flex-start"
           className="home-options-wrapper"
         >
           <Link
-            className={clsx(styles.button, styles["home-option"])}
+            className={clsx(styles.button, styles.homeOption)}
             href="/projects"
           >
             my creations
           </Link>
           <Link
-            className={clsx(styles.button, styles["home-option"])}
+            className={clsx(styles.button, styles.homeOption)}
             href="/updates"
           >
             recent updates
           </Link>
           <Link
-            className={clsx(styles.button, styles["home-option"])}
+            className={clsx(styles.button, styles.homeOption)}
             href="/contact-me"
           >
             contact me
