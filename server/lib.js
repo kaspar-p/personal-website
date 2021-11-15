@@ -4,17 +4,17 @@ import Update from "./models/Update.js";
 import Commit from "./models/Commit.js";
 import UserCount from "./models/UserCount.js";
 
-export const incrementUser = async () => {
-  const userCount = await UserCount.findOne();
-  userCount.count = userCount.count + 1;
-  await userCount.save();
-};
+// export const incrementUser = async () => {
+//   const userCount = await UserCount.findOne();
+//   userCount.count = userCount.count + 1;
+//   await userCount.save();
+// };
 
-export const decrementUser = async () => {
-  const userCount = await UserCount.findOne();
-  userCount.count = userCount.count - 1;
-  await userCount.save();
-};
+// export const decrementUser = async () => {
+//   const userCount = await UserCount.findOne();
+//   userCount.count = userCount.count - 1;
+//   await userCount.save();
+// };
 
 /**
  * Begin retrieving data from Github
@@ -101,6 +101,8 @@ export const pollGithubAndSave = async () => {
     };
   }
 
+  console.log("Gotten all commits!");
+
   // Weird file structure
   for (const commits of commitsPacked) {
     for (const commit of commits.data) {
@@ -108,14 +110,18 @@ export const pollGithubAndSave = async () => {
 
       // If this commit has already been saved in the DB: true if exists, false if doesn't
 
-      if (Commit.exists(url.toString())) {
-        continue;
-      } else {
+      if (!Commit.exists({ url, message, author })) {
         try {
-          console.log("NEW COMMIT FOUND");
-          console.log(commit.commit);
+          console.log("New commit for url: ", url);
           await Commit.create({ message, url, author });
+        } catch (error) {
+          console.log("error saving!: ", error);
+        }
+      }
 
+      if (!Update.exists({ commitURL: url })) {
+        console.log("New update for url: ", url);
+        try {
           // For displaying, the commit property is for the author and URL - further down the line
           // TODO: clickable list to expand each item?
           await Update.create({
@@ -131,6 +137,13 @@ export const pollGithubAndSave = async () => {
       }
     }
   }
+
+  // Transfer all commits to updates
+  const commits = await Commit.find();
+  const updates = await Update.find();
+
+  console.log("Number of commits: ", commits.length);
+  console.log("Number of updates: ", updates.length);
 
   return {
     status: "SUCCESS",

@@ -8,6 +8,8 @@ import "../assets/css/project-bar.css";
 function ProjectBar(props) {
   const width = useContext(WidthContext);
 
+  const stopShowingBlurbWidth = 1375;
+
   let projectBar = (
     <Grid
       item
@@ -16,8 +18,8 @@ function ProjectBar(props) {
       justify="space-evenly"
       alignItems="center"
       className="project-bar"
-      lg={9}
-      xs={12}
+      lg={11}
+      xs={10}
       onClick={() => (window.location = props.path)}
       style={{
         borderTop: props.isFirst ? "black solid 2px" : "none",
@@ -26,8 +28,8 @@ function ProjectBar(props) {
       <img
         item="true"
         className="project-img"
-        height="90%"
-        width={width > 1100 ? "auto" : "100%"}
+        height={width > stopShowingBlurbWidth ? "90%" : "75%"}
+        width={width > stopShowingBlurbWidth ? "auto" : "75%"}
         alt={props.title}
         src={props.image}
       />
@@ -37,13 +39,13 @@ function ProjectBar(props) {
         direction="column"
         justify="flex-start"
         alignItems="flex-start"
-        xs={6}
+        xs={3}
         className="project-text-section"
       >
         <div className="project-title">
           <h2>{props.title}</h2>
         </div>
-        {width > 1100 ? (
+        {width > stopShowingBlurbWidth ? (
           <div className="project-blurb">
             <p>{props.blurb}</p>
           </div>

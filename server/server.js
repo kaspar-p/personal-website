@@ -8,13 +8,12 @@ import compression from "compression";
 import socketInitializer from "socket.io";
 
 import routes from "./routes/index.js";
-// import UserCount from "./models/UserCount.js";
-// import {
-//   incrementUser,
-//   decrementUser,
-//   endInterval,
-//   beginInterval,
-// } from "./lib.js";
+import {
+  // incrementUser,
+  // decrementUser,
+  endInterval,
+  beginInterval,
+} from "./lib.js";
 
 // Production will inject a port, undefined if in development mode
 const PORT = process.env.PORT || 1111;
@@ -74,26 +73,33 @@ const io = socketInitializer(server, { serveClient: false });
 //     SOCKET.IO EVENTS & ROUTES
 // ----------------------------------
 
-// let interval;
+let interval;
+let count = 0;
 
-io.on("connection", async () => {
+io.on("connection", async (socket) => {
   // await incrementUser();
-  // // const { count } = await UserCount.findOne();
-  // // console.log("USER CONNECTED! TOTAL: ", count);
-  // // if (count === 1) {
-  // //   // The first user connected, begin the loop
-  // //   //await beginInterval(interval);
-  // //   interval = setInterval(() => console.log(Date.now()), 1000);
-  // // }
-  // socket.on("disconnect", async () => {
-  //   await decrementUser();
-  //   const { count } = await UserCount.findOne();
-  //   console.log("USER DISCONNECTED! TOTAL: ", count);
-  //   if (count === 0) {
-  //     //endInterval(interval);
-  //     clearInterval(interval);
-  //   }
-  // });
+  count++;
+  console.log("USER CONNECTED! TOTAL: ", count);
+  if (count === 1) {
+    // The first user connected, begin the loop
+    await beginInterval(interval);
+    // interval = setInterval(() => console.log(Date.now()), 1000);
+  }
+
+  socket.on("disconnect", async () => {
+    // await decrementUser();
+    count--;
+    console.log("USER DISCONNECTED! TOTAL: ", count);
+    if (count === 0) {
+      endInterval(interval);
+      clearInterval(interval);
+    }
+  });
+});
+
+io.on("disconnect", async () => {
+  console.log("DISCONNECTING");
+  count--;
 });
 
 io.on("error", (error) => console.log(error));
