@@ -1,12 +1,16 @@
 import React from "react";
+import dynamic from "next/dynamic";
 import type { NextPage } from "next";
-// import HomeAnimation from "../components/HomeAnimation";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
 import { Grid, Link } from "@material-ui/core";
 
 import button from "../styles/buttons";
 import { offBlack } from "../styles/constants";
+
+const HomeAnimation = dynamic(() => import("../components/HomeAnimation"), {
+  ssr: false,
+});
 
 const useStyles = makeStyles({
   homeContainer: {
@@ -56,7 +60,7 @@ const Home: NextPage = () => {
           <h1 className={clsx(styles.homeTitle, "montserrat-light")}>
             kaspar poland
           </h1>
-          {/* <HomeAnimation width={window.innerWidth} /> */}
+          <HomeAnimation />
         </Grid>
         <Grid
           item
