@@ -38,9 +38,9 @@ function Home() {
         <a item="true" className="home-option" href="../projects">
           my creations
         </a>
-        <a item="true" className="home-option" href="../updates">
+        {/* <a item="true" className="home-option" href="../updates">
           recent updates
-        </a>
+        </a> */}
         <a item="true" className="home-option" href="../contact-me">
           contact me
         </a>

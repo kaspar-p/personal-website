@@ -52,7 +52,7 @@ class App extends React.Component {
           <Suspense fallback={renderLoadingPage()}>
             <Switch>
               <Route exact path="/projects" component={Projects} />
-              <Route exact path="/updates" component={Updates} />
+              {/* <Route exact path="/updates" component={Updates} /> */}
               <Route exact path="/contact-me" component={ContactMe} />
               <Route
                 exact
