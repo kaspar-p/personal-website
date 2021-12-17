@@ -6,6 +6,7 @@ import { fileURLToPath } from "url";
 import mongoose from "mongoose";
 import compression from "compression";
 import socketInitializer from "socket.io";
+import enforce from "express-sslify";
 
 import routes from "./routes/index.js";
 import {
@@ -28,6 +29,7 @@ const app = express();
 // ---------------------
 //     CONFIGURATION
 // ---------------------
+app.use(enforce.HTTPS({ trustProtoHeader: true }));
 dotenv.config();
 app.use(compression());
 app.use(bodyParser.json()); // Before routes
