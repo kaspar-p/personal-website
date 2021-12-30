@@ -11,11 +11,12 @@ import "./assets/css/global-font.css";
 const Home = lazy(() => import("./pages/Home"));
 const Updates = lazy(() => import("./pages/Updates"));
 const Projects = lazy(() => import("./pages/Projects"));
-const ContactMe = lazy(() => import(".//pages/ContactMe"));
+const ContactMe = lazy(() => import("./pages/ContactMe"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const ReedSolomon = lazy(() => import("./pages/ReedSolomon"));
 const DoublePendulum = lazy(() => import("./pages/DoublePendulum"));
-const Paper = lazy(() => import("./pages/RSPaper"));
+const RSPaper = lazy(() => import("./pages/RSPaper"));
+const Resume = lazy(() => import("./pages/Resume"));
 
 export const WidthContext = React.createContext(0);
 
@@ -64,11 +65,17 @@ class App extends React.Component {
                 path={projects.reedSolomon.path}
                 component={ReedSolomon}
               />
+
+              {/* Download file routes */}
               <Route
                 path="/projects/OnTheConstructionOfReedSolomonCodes"
-                component={Paper}
+                component={RSPaper}
               />
+              <Route path="/resume" component={Resume} />
+
+              {/* This route has to be second last */}
               <Route exact path="/" component={Home} />
+
               {/* This route has to be last, as last resort to all others */}
               <Route exact path="*" component={NotFound} />
             </Switch>

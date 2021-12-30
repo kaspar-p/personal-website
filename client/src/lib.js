@@ -19,17 +19,17 @@ export const projects = {
   },
 };
 
-export const downloadFile = async () => {
+export const downloadFile = async (apiRoute, filename) => {
   const response = await axios({
     method: "get",
-    url: "/api/rs/paper",
+    url: apiRoute,
     responseType: "blob",
   });
 
   const url = window.URL.createObjectURL(new Blob([response.data]));
   const link = document.createElement("a");
   link.href = url;
-  link.setAttribute("download", "OnTheConstructionOfReedSolomonCodes.pdf");
+  link.setAttribute("download", `${filename}.pdf`);
   document.body.appendChild(link);
   link.click();
   link.remove();
