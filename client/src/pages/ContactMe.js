@@ -6,6 +6,7 @@ import TitleBar from "../components/TitleBar";
 import ContactMeSquare from "../components/ContactMeSquare";
 
 import "../assets/css/contact-me.css";
+import { Link } from "react-router-dom";
 
 const socialData = {
   Instagram: {
@@ -55,6 +56,19 @@ function ContactMe() {
 
           {/* LINKEDIN */}
           <ContactMeSquare {...socialData.LinkedIn} />
+        </Grid>
+
+        <Grid
+          item
+          container
+          justify="center"
+          style={{ paddingTop: "30px", paddingBottom: "30px" }}
+        >
+          <h4 className="col-auto montserrat-medium email">
+            <a item="true" className="home-option" href="../resume">
+              download my resume
+            </a>
+          </h4>
         </Grid>
       </Grid>
     </React.Fragment>
