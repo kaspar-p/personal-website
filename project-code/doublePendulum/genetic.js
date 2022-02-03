@@ -1,17 +1,16 @@
 // Returns an array of newly created controllers
-export function generateNew(list, p) {
-  let newC = [];
+export function generateNew(list) {
+  const newC = [];
   for (let i = 0; i < list.length; i++) {
     // Select a controller based on fitness
-    let bestC = selectFrom(list, p);
-    newC[i] = bestC;
+    newC[i] = selectFrom(list);
   }
   return newC;
 }
 
 // An algorithm for picking one controller from an array
 // based on fitness
-function selectFrom(list, p) {
+function selectFrom(list) {
   // Start at 0
   let index = 0;
 
@@ -36,9 +35,10 @@ function selectFrom(list, p) {
 }
 
 export function normalizeFitness(list) {
+  const newList = list.slice();
   // Make score exponentially better?
   for (let i = 0; i < list.length; i++) {
-    list[i].score = Math.pow(list[i].score, 2);
+    newList[i].score = Math.pow(list[i].score, 2);
   }
 
   // Add up all the scores
@@ -48,6 +48,26 @@ export function normalizeFitness(list) {
   }
   // Divide by the sum
   for (let i = 0; i < list.length; i++) {
-    list[i].fitness = list[i].score / sum;
+    newList[i].fitness = list[i].score / sum;
+  }
+
+  return newList;
+}
+
+export function mutate(x) {
+  // The Box-Muller transform
+  const generateRandomGaussian = () => {
+    let u = 0;
+    let v = 0;
+    while (u === 0) u = Math.random(); // Converting [0,1) to (0,1)
+    while (v === 0) v = Math.random();
+    return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+  };
+
+  if (Math.random() < 0.1) {
+    // This is a normal distribution, scaled down
+    return x + generateRandomGaussian() * 0.5;
+  } else {
+    return x;
   }
 }

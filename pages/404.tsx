@@ -1,60 +1,34 @@
 import React from "react";
 import exact from "prop-types-exact";
-import { Grid, Link } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
-import { offBlack } from "../styles/constants";
-import clsx from "clsx";
+import { Stack, Container, Typography } from "@mui/material";
+import PageLink from "../components/PageLink";
 
 const propTypes = {};
 
-const useStyles = makeStyles({
-  notFound: {
-    height: "100vh",
-    padding: 0,
-    margin: 0,
-    textAlign: "center",
-    color: offBlack,
-    fontSize: "2rem",
-  },
-  returnToSafetyLink: {
-    textDecoration: "none",
-    "&:hover": {
-      textDecoration: "none",
-    },
-  },
-  returnToSafety: {
-    fontSize: "2rem",
-    padding: "0.5rem 3rem",
-    textDecoration: "none",
-    color: offBlack,
-    borderBottom: `3px solid white`,
-    "&:hover": {
-      paddingBottom: "1rem",
-      paddingTop: 0,
-      textDecoration: "none",
-      borderBottom: `3px solid ${offBlack}`,
-    },
-  },
-});
-
 function Custom404() {
-  const styles = useStyles();
-
   return (
-    <Grid
-      container
-      direction="column"
-      justify="center"
-      alignItems="center"
-      className={styles.notFound}
+    <Container
+      maxWidth={false}
+      sx={{
+        backgroundColor: ({ palette }) => palette.background.default,
+      }}
     >
-      It seems that you have stumbled onto a page that does not exist.{"\n"}
-      <Link href="/" className={styles.returnToSafetyLink}>
-        <h3 className={clsx(styles.returnToSafety, "montserrat-medium")}>
-          return to safety
-        </h3>
-      </Link>
-    </Grid>
+      <Container maxWidth="md">
+        <Stack
+          sx={{ minHeight: "100vh", textAlign: "center" }}
+          justifyContent="center"
+          alignItems="center"
+          spacing={4}
+        >
+          <Typography variant="h4" color="primary">
+            it looks like this page doesn&apos;t exist.
+          </Typography>
+          <PageLink to={"/"} variant="h3">
+            return to safety
+          </PageLink>
+        </Stack>
+      </Container>
+    </Container>
   );
 }
 

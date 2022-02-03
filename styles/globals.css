@@ -12,28 +12,12 @@ code {
     monospace;
 }
 
-/* "Montserrat-Light" Font */
-
 @font-face {
   font-family: Montserrat-Light;
-  src: url("../fonts/Montserrat-Light.otf");
+  src: url("/fonts/Montserrat-Light.otf");
 }
-
-.montserrat-light {
-  font-family: Montserrat-Light;
-  color: #202528;
-  color: rgb(33, 255, 33);
-}
-
-/* "Montserrat-Medoum" Font */
 
 @font-face {
   font-family: Montserrat-Medium;
-  src: url("../fonts/Montserrat-Medium.otf");
-}
-
-.montserrat-medium {
-  font-family: Montserrat-Medium;
-  color: #202528;
-  color: rgb(33, 255, 33);
+  src: url("/fonts/Montserrat-Medium.otf");
 }

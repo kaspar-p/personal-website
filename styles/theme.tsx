@@ -1,37 +1,44 @@
-import { createTheme } from "@material-ui/core/styles";
-import red from "@material-ui/core/colors/red";
+import { createTheme } from "@mui/material/styles";
 
-// Create a theme instance.
-const theme = createTheme({
+let theme = createTheme({
   palette: {
     primary: {
-      main: "#556cd6",
+      main: "#545775",
     },
     secondary: {
-      main: "#19857b",
-    },
-    error: {
-      main: red.A400,
+      main: "#718f94",
     },
     background: {
-      default: "#fff",
+      default: "#fafafa",
     },
   },
+});
+
+const injectFontLight = {
+  fontFamily: "Montserrat-Light",
+};
+
+const injectFontMedium = {
+  fontFamily: "Montserrat-Medium",
+};
+
+theme = createTheme(theme, {
   typography: {
-    fontFamily: [
-      "montserrat-light",
-      "montserrat-medium",
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(","),
+    fontFamily: ["Montserrat-Light", "Montserrat-Medium"].join(","),
+    h1: injectFontMedium,
+    h2: injectFontMedium,
+    h3: injectFontMedium,
+    h4: injectFontMedium,
+    h5: injectFontMedium,
+    h6: injectFontMedium,
+    subtitle1: injectFontMedium,
+    subtitle2: injectFontMedium,
+    body1: injectFontMedium,
+    body2: injectFontMedium,
+    caption: injectFontMedium,
+    allVariants: {
+      color: "pink",
+    },
   },
 });
 

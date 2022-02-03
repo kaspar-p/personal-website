@@ -10,8 +10,14 @@
     "lint:fix": "eslint --fix ./"
   },
   "dependencies": {
-    "@material-ui/core": "^4.12.3",
-    "@material-ui/styles": "^4.11.4",
+    "@emotion/cache": "^11.7.1",
+    "@emotion/react": "^11.7.1",
+    "@emotion/server": "^11.4.0",
+    "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.2.5",
+    "@mui/material": "^5.2.7",
+    "@mui/styles": "^5.2.3",
+    "@mui/system": "^5.2.6",
     "@visx/curve": "^2.1.0",
     "@visx/shape": "^2.1.0",
     "clsx": "^1.1.1",
