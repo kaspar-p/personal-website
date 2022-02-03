@@ -14,8 +14,8 @@ const Home: NextPage = () => {
   const GithubIcon = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="48"
-      height="48"
+      width="36"
+      height="36"
       viewBox="0 0 24 24"
       fill="#545775"
     >
@@ -36,16 +36,16 @@ const Home: NextPage = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Stack justifyContent="center" spacing={3} alignItems="center">
-            <Stack justifyContent="center" alignItems="center" spacing={2}>
-              <Typography variant="h2" color="primary">
+          <Stack justifyContent="center" spacing={1} alignItems="center">
+            <Stack justifyContent="center" alignItems="center" spacing={0}>
+              <Typography variant="h4" color="primary">
                 {/* <PentagonIcon fontSize="large" /> */}
                 kaspar poland
               </Typography>
-              <Stack spacing={1}>
+              <Stack>
                 <Typography
                   color="primary"
-                  variant="h5"
+                  variant="h6"
                   sx={{ paddingX: ({ spacing }) => spacing(5) }}
                 >
                   coming soon
