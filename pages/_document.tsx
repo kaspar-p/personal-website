@@ -66,9 +66,7 @@ MyDocument.getInitialProps = async (ctx) => {
     originalRenderPage({
       // eslint-disable-next-line react/display-name
       enhanceApp: (App) => (props) =>
-        sheets.collect(
-          <App emotionCache={cache} {...props} Component={Home} />
-        ),
+        sheets.collect(<App {...props} Component={Home} />),
     });
 
   const initialProps = await Document.getInitialProps(ctx);
