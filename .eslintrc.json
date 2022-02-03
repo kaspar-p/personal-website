@@ -7,14 +7,31 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
+  "settings": {
+    "import/extensions": [".js", ".jsx", ".ts", ".tsx"],
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "directory": "./tsconfig.json"
+      },
+      "node": {
+        "extensions": [".js", ".jsx", ".tx", ".tsx"],
+        "tryExtensions": [".js", ".jsx", ".tx", ".tsx"]
+      }
+    }
+  },
   "env": {
     "node": true,
     "browser": true,
     "es2021": true,
     "jest": true
   },
-  "plugins": ["react", "require-exact-proptypes", "prettier", "node"],
+  "plugins": ["import", "react", "require-exact-proptypes", "prettier", "node"],
   "extends": [
+    "next/core-web-vitals",
     "eslint:recommended",
     "plugin:node/recommended",
     "plugin:react/recommended",
@@ -33,6 +50,7 @@
     "node/no-unsupported-features/es-syntax": "off",
     "node/no-unpublished-require": "off",
     "node/no-unpublished-import": "off",
-    "require-exact-proptypes/require-exact-proptypes": "error"
+    "require-exact-proptypes/require-exact-proptypes": "error",
+    "node/no-missing-import": "off"
   }
 }
