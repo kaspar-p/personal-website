@@ -21,11 +21,9 @@ function PageLink(props: PageLinkPropTypes) {
       onMouseOut={() => setHovered(false)}
       sx={{
         textDecoration: "none",
-        borderBottom: ({ palette }) =>
-          `3px solid ${
-            hover ? palette.primary.main : palette.background.default
-          }`,
-        paddingX: ({ spacing }) => spacing(5),
+        opacity: hover ? "100%" : "85%",
+        // paddingX: ({ spacing }) => spacing(5),
+        padding: 0,
         cursor: "pointer",
         ...props.additionalStyles,
       }}
