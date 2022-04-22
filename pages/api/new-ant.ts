@@ -4,7 +4,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (!req.headers.host) {
+  if (req.headers.host !== "typesofants.org") {
     console.log("Wrong origin!");
     res.status(405).send("Wrong origin!");
     return res.end();
@@ -33,7 +33,7 @@ export default async function handler(
       }),
     }
   );
-  console.log(response.status, response.statusText);
+
   if (response.status === 201) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
