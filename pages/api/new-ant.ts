@@ -38,6 +38,8 @@ export default async function handler(
     }
   );
 
+  console.log(await response.json());
+
   if (response.status === 201) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
