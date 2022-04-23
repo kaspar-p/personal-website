@@ -1,14 +1,39 @@
+import Cors from "cors";
 import { NextApiRequest, NextApiResponse } from "next";
+
+interface corsRes {
+  statusCode?: number | undefined;
+  // eslint-disable-next-line no-unused-vars
+  setHeader(key: string, value: string): any;
+  end(): any;
+}
+
+const cors = Cors({
+  methods: ["POST"],
+});
+
+function runMiddleware(req: Cors.CorsRequest, res: corsRes, fn: typeof cors) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result);
+      }
+
+      return resolve(result);
+    });
+  });
+}
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  // Run cors middleware
+  await runMiddleware(req, res, cors);
+
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
+  res.setHeader("Access-Control-Allow-Methods", "POST");
+  res.setHeader("Access-Control-Allow-Headers", "*");
 
   if (!process.env.NEW_ANT_ORIGIN) {
     res.status(500).send({ msg: "New ant origin not found!" });
