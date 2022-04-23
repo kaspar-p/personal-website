@@ -4,6 +4,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  console.log(req.headers.host);
   if (req.headers.host !== "typesofants.org") {
     console.log("Wrong origin!");
     res.status(405).send("Wrong origin!");
