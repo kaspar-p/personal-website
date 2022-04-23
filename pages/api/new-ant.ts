@@ -4,6 +4,12 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+
   if (!process.env.NEW_ANT_ORIGIN) {
     res.status(500).send({ msg: "New ant origin not found!" });
     res.end();
@@ -46,11 +52,6 @@ export default async function handler(
 
   if (response.status === 201) {
     console.log("Successfully created issue!");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    );
     res.status(200).send({ status: 200, msg: "Received ant suggestion!" });
     return res.end();
   } else {
