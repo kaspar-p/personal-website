@@ -4,8 +4,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log(req.headers.host, req.headers.origin, req.headers);
-  if (req.headers.host !== "typesofants.org") {
+  const allowedOrigins = [
+    "https://www.typesofants.org",
+    "http://www.typesofants.org",
+  ];
+  if (!req.headers.origin || !allowedOrigins.includes(req.headers.origin)) {
     console.log("Wrong origin!");
     res.status(405).send("Wrong origin!");
     return res.end();
