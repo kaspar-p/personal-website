@@ -4,11 +4,15 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const allowedOrigins = [
-    "https://www.typesofants.org",
-    "http://www.typesofants.org",
-  ];
-  if (!req.headers.origin || !allowedOrigins.includes(req.headers.origin)) {
+  if (!process.env.NEW_ANT_ORIGIN) {
+    res.status(500).send({ msg: "New ant origin not found!" });
+    res.end();
+  }
+
+  if (
+    !req.headers.origin ||
+    process.env.NEW_ANT_ORIGIN !== req.headers.origin
+  ) {
     console.log("Wrong origin!");
     res.status(405).send("Wrong origin!");
     return res.end();
@@ -41,6 +45,7 @@ export default async function handler(
   console.log(await response.json());
 
   if (response.status === 201) {
+    console.log("Successfully created issue!");
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
       "Access-Control-Allow-Headers",
@@ -49,6 +54,7 @@ export default async function handler(
     res.status(200).send({ status: 200, msg: "Received ant suggestion!" });
     return res.end();
   } else {
+    console.log("Error: did not create issue!");
     res
       .status(500)
       .send({ status: 500, msg: "Error while recording ant suggestion!" });
