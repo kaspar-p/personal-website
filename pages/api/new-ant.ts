@@ -1,40 +1,30 @@
-import Cors from "cors";
 import { NextApiRequest, NextApiResponse } from "next";
 
-interface corsRes {
-  statusCode?: number | undefined;
-  // eslint-disable-next-line no-unused-vars
-  setHeader(key: string, value: string): any;
-  end(): any;
-}
+// eslint-disable-next-line no-unused-vars
+type Handler = (req: NextApiRequest, res: NextApiResponse) => Promise<void>;
 
-const cors = Cors({
-  methods: ["POST"],
-});
+const allowCors =
+  (fn: Handler) => async (req: NextApiRequest, res: NextApiResponse) => {
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+    );
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+    );
 
-function runMiddleware(req: Cors.CorsRequest, res: corsRes, fn: typeof cors) {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result) => {
-      if (result instanceof Error) {
-        return reject(result);
-      }
+    if (req.method === "OPTIONS") {
+      res.status(200).end();
+      return;
+    }
+    return await fn(req, res);
+  };
 
-      return resolve(result);
-    });
-  });
-}
-
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log(1);
-  // Run cors middleware
-  await runMiddleware(req, res, cors);
-
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST");
-  res.setHeader("Access-Control-Allow-Headers", "*");
 
   console.log(2);
 
@@ -103,6 +93,7 @@ export default async function handler(
   }
 }
 
+export default allowCors(handler);
 // -------------------------
 //    REED-SOLOMON ROUTES
 // -------------------------
