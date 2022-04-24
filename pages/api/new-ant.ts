@@ -35,7 +35,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   if (!process.env.NEW_ANT_ORIGIN) {
     res.status(500).send({ msg: "New ant origin not found!" });
-    res.end();
+    return res.end();
   }
 
   console.log(3);
@@ -55,7 +55,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const repo = "types-of-ants";
   if (process.env.GITHUB_TOKEN === undefined) {
     res.status(500).send({ msg: "Github token invalid!" });
-    res.end();
+    return res.end();
   }
 
   console.log(5);
