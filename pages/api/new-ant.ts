@@ -28,6 +28,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  console.log(1);
   // Run cors middleware
   await runMiddleware(req, res, cors);
 
@@ -35,10 +36,19 @@ export default async function handler(
   res.setHeader("Access-Control-Allow-Methods", "POST");
   res.setHeader("Access-Control-Allow-Headers", "*");
 
+  console.log(2);
+
+  console.log(
+    "Response has Access-Control-Allow-Origin header: ",
+    res.hasHeader("Access-Control-Allow-Origin")
+  );
+
   if (!process.env.NEW_ANT_ORIGIN) {
     res.status(500).send({ msg: "New ant origin not found!" });
     res.end();
   }
+
+  console.log(3);
 
   if (
     !req.headers.origin ||
@@ -49,6 +59,7 @@ export default async function handler(
     return res.end();
   }
   console.log("Got new ant suggestion: ", req.body);
+  console.log(4);
 
   const owner = "kaspar-p";
   const repo = "types-of-ants";
@@ -56,6 +67,8 @@ export default async function handler(
     res.status(500).send({ msg: "Github token invalid!" });
     res.end();
   }
+
+  console.log(5);
 
   const response = await fetch(
     `https://api.github.com/repos/${owner}/${repo}/issues`,
@@ -72,6 +85,8 @@ export default async function handler(
       }),
     }
   );
+
+  console.log(6);
 
   console.log(await response.json());
 
