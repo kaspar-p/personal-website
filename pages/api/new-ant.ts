@@ -54,7 +54,7 @@ export default async function handler(
     !req.headers.origin ||
     process.env.NEW_ANT_ORIGIN !== req.headers.origin
   ) {
-    console.log("Wrong origin!");
+    console.log("Wrong origin: ", req.headers.origin);
     res.status(405).send("Wrong origin!");
     return res.end();
   }
@@ -63,7 +63,7 @@ export default async function handler(
 
   const owner = "kaspar-p";
   const repo = "types-of-ants";
-  if (!process.env.GITHUB_TOKEN) {
+  if (process.env.GITHUB_TOKEN === undefined) {
     res.status(500).send({ msg: "Github token invalid!" });
     res.end();
   }
