@@ -24,21 +24,10 @@ const allowCors =
   };
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  console.log(1);
-
-  console.log(2);
-
-  console.log(
-    "Response has Access-Control-Allow-Origin header: ",
-    res.hasHeader("Access-Control-Allow-Origin")
-  );
-
   if (!process.env.NEW_ANT_ORIGIN) {
     res.status(500).send({ msg: "New ant origin not found!" });
     return res.end();
   }
-
-  console.log(3);
 
   if (
     !req.headers.origin ||
@@ -48,8 +37,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     res.status(405).send("Wrong origin!");
     return res.end();
   }
-  console.log("Got new ant suggestion: ", req.body);
-  console.log(4);
 
   const owner = "kaspar-p";
   const repo = "types-of-ants";
@@ -57,8 +44,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     res.status(500).send({ msg: "Github token invalid!" });
     return res.end();
   }
-
-  console.log(5);
 
   const response = await fetch(
     `https://api.github.com/repos/${owner}/${repo}/issues`,
@@ -75,10 +60,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       }),
     }
   );
-
-  console.log(6);
-
-  console.log(await response.json());
 
   if (response.status === 201) {
     console.log("Successfully created issue!");
