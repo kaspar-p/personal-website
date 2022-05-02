@@ -31,7 +31,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   if (
     !req.headers.origin ||
-    process.env.NEW_ANT_ORIGIN !== req.headers.origin
+    req.headers.origin in
+      ["https://www.typesofants.org", "http://www.typesofants.org"]
   ) {
     console.log("Wrong origin: ", req.headers.origin);
     res.status(405).send("Wrong origin!");
