@@ -24,11 +24,6 @@ const allowCors =
   };
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (!process.env.NEW_ANT_ORIGIN) {
-    res.status(500).send({ msg: "New ant origin not found!" });
-    return res.end();
-  }
-
   if (
     !req.headers.origin ||
     req.headers.origin in
