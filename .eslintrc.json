@@ -51,6 +51,7 @@
     "node/no-unpublished-require": "off",
     "node/no-unpublished-import": "off",
     "require-exact-proptypes/require-exact-proptypes": "error",
-    "node/no-missing-import": "off"
+    "node/no-missing-import": "off",
+    "react/no-unescaped-entities": "off",
   }
 }
