@@ -1,5 +1,5 @@
 export const welcomeEmailHtml = `<!DOCTYPE html>
-<body style="padding-left: 31%; padding-right: 31%; text-align: center">
+<body style="min-width: 300px;">
 <html lang="en">
     <h1>welcome to the typesofants.org monthly newsletter</h1>
     <p>
@@ -9,7 +9,7 @@ export const welcomeEmailHtml = `<!DOCTYPE html>
         the newsletter comes out on the first of every month, and will contain highlights and memories from our last 30 days together!
     </p>
     <p>
-        in the meantime, feel free to suggest more ants on the <a href="https://github.com/kaspar-p/types-of-ants">GitHub page</a>. 
+        in the meantime, feel free to suggest more ants on <a href="https://typesofants.org">the website</a>. 
         they are always welcome.
     </p>
     <p>
@@ -23,5 +23,5 @@ export const welcomeEmailText =
   "welcome to the typesofants.org monthly newsletter.\n\nwe are antsy to begin our" +
   " working relationship.\n\nthe newsletter comes out on the first of every month," +
   " and will contain highlights and memories from our last 30 days together!\n\nin" +
-  " the meantime, feel free to suggest more ants on the GitHub page. " +
+  " the meantime, feel free to suggest more ants on the website. " +
   "they are always welcome.\n\nsincerely, kaspar @ typesofants.org";
