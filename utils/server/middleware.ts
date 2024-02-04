@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 // eslint-disable-next-line no-unused-vars
-type Handler = (req: NextApiRequest, res: NextApiResponse) => Promise<void>;
+type Handler = (req: NextApiRequest, res: NextApiResponse) => Promise<unknown>;
 
 export const allowCors =
   (fn: Handler) => async (req: NextApiRequest, res: NextApiResponse) => {
