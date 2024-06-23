@@ -15,11 +15,11 @@ const Home: NextPage = () => {
       <h4>
         my twitter:{" "}
         <Link
-          href="https://twitter.com/kasparFpoland"
+          href="https://twitter.com/kasparfp"
           passHref
           style={{ color: "blue" }}
         >
-          https://twitter.com/kasparFpoland
+          https://twitter.com/kasparfp
         </Link>
       </h4>
       <h4>
